@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Song Arcade — Song Map & Beat Grid Viewer</title>
+    <style>
+      :root {
+        --bg: #090a10;
+        --panel: #11131f;
+        --border: #1e2436;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --accent: #f59e0b;
+        --primary: #38bdf8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        background: var(--panel);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 24px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .brand h1 {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #f8fafc;
+      }
+      .controls-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+      }
+      label {
+        font-size: 12px;
+        color: var(--muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      select,
+      button {
+        background: #171b2b;
+        color: var(--text);
+        border: 1px solid #2e364f;
+        border-radius: 6px;
+        padding: 7px 12px;
+        font-family: inherit;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      button:hover,
+      select:hover {
+        border-color: var(--primary);
+      }
+      button.primary {
+        background: var(--accent);
+        color: #090a10;
+        border-color: var(--accent);
+        font-weight: 700;
+      }
+      button.active {
+        background: #0284c7;
+        border-color: #38bdf8;
+        color: #fff;
+      }
+      input[type='range'] {
+        accent-color: var(--accent);
+        cursor: pointer;
+      }
+      main {
+        flex: 1;
+        padding: 20px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .meta-strip {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+        gap: 12px;
+      }
+      .stat-card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 14px;
+      }
+      .stat-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--muted);
+      }
+      .stat-value {
+        margin-top: 4px;
+        font-size: 15px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+      .canvas-card {
+        background: #0b0d16;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        color: var(--muted);
+        gap: 12px;
+      }
+      .legend-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: center;
+      }
+      .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 4px;
+      }
+      #timeline-canvas {
+        width: 100%;
+        height: 440px;
+        display: block;
+        border-radius: 6px;
+        cursor: crosshair;
+        background: #07080d;
+      }
+      .sections-table {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 12px;
+      }
+      .sections-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .sec-chip {
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 11px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        cursor: pointer;
+        font-variant-numeric: tabular-nums;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 36 36" aria-hidden="true">
+          <rect x="2" y="2" width="32" height="32" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="2.5" />
+          <path d="M11 25V12L25 9V22" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+          <circle cx="9" cy="25" r="3" fill="#f59e0b" />
+          <circle cx="23" cy="22" r="3" fill="#a855f7" />
+        </svg>
+        <h1>Song Arcade · Song Map Viewer</h1>
+      </div>
+
+      <div class="controls-bar">
+        <label for="song-select">
+          Song
+          <select id="song-select" aria-label="Select Song"></select>
+        </label>
+
+        <label for="cut-select">
+          Cut
+          <select id="cut-select" aria-label="Select Audio Cut">
+            <option value="full">Full Track</option>
+            <option value="demo">Demo Cut (95-110s)</option>
+          </select>
+        </label>
+
+        <button id="play-btn" type="button" class="primary" aria-label="Play or Pause">
+          Play [Space]
+        </button>
+
+        <button id="metro-btn" type="button" class="active" aria-label="Toggle Metronome">
+          Metronome: ON
+        </button>
+
+        <label for="latency-slider">
+          Latency Offset:
+          <span id="latency-val" style="min-width: 48px; display: inline-block; color: #f8fafc;">0 ms</span>
+          <input
+            id="latency-slider"
+            type="range"
+            min="-150"
+            max="150"
+            step="5"
+            value="0"
+            aria-label="Audio Latency Offset in Milliseconds"
+          />
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <section class="meta-strip" aria-label="Song Metadata">
+        <div class="stat-card">
+          <div class="stat-label">Track Title</div>
+          <div class="stat-value" id="stat-title">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Playhead / Duration</div>
+          <div class="stat-value" id="stat-time">0.00s / 0.00s</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">BPM &amp; Grid</div>
+          <div class="stat-value" id="stat-bpm">— BPM</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Current Section</div>
+          <div class="stat-value" id="stat-section">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Onsets (L / M / H)</div>
+          <div class="stat-value" id="stat-onsets">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Drops &amp; Demo Window</div>
+          <div class="stat-value" id="stat-drops">—</div>
+        </div>
+      </section>
+
+      <section class="canvas-card" aria-label="Waveform and Beat Grid Timeline">
+        <div class="legend">
+          <div class="legend-items">
+            <span><span class="dot" style="background: #f8fafc"></span>Downbeat (bold) / Beat (thin)</span>
+            <span><span class="dot" style="background: #f43f5e"></span>Drop Marker</span>
+            <span><span class="dot" style="background: #f59e0b"></span>Low Onsets (&lt;150Hz)</span>
+            <span><span class="dot" style="background: #38bdf8"></span>Mid Onsets (150-2kHz)</span>
+            <span><span class="dot" style="background: #c084fc"></span>High Onsets (&gt;2kHz)</span>
+          </div>
+          <div>Click anywhere on timeline to seek &amp; play · Press <strong>Space</strong> to toggle</div>
+        </div>
+        <canvas id="timeline-canvas" width="1600" height="440" data-testid="timeline-canvas"></canvas>
+      </section>
+
+      <section class="sections-table" aria-label="Section Structure">
+        <div style="color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">
+          Sections &amp; Rail Districts (Click a section to jump)
+        </div>
+        <div class="sections-chips" id="sections-chips"></div>
+      </section>
+    </main>
+
+    <script type="module">
+      const songSelect = document.getElementById('song-select');
+      const cutSelect = document.getElementById('cut-select');
+      const playBtn = document.getElementById('play-btn');
+      const metroBtn = document.getElementById('metro-btn');
+      const latencySlider = document.getElementById('latency-slider');
+      const latencyVal = document.getElementById('latency-val');
+      const canvas = document.getElementById('timeline-canvas');
+      const ctx = canvas.getContext('2d');
+
+      const statTitle = document.getElementById('stat-title');
+      const statTime = document.getElementById('stat-time');
+      const statBpm = document.getElementById('stat-bpm');
+      const statSection = document.getElementById('stat-section');
+      const statOnsets = document.getElementById('stat-onsets');
+      const statDrops = document.getElementById('stat-drops');
+      const sectionsChips = document.getElementById('sections-chips');
+
+      let songsIndex = [];
+      let currentMap = null;
+      let audioCtx = null;
+      let audioBuffer = null;
+      let sourceNode = null;
+      let isPlaying = false;
+      let startContextTime = 0;
+      let pauseOffsetSec = 0;
+      let metronomeEnabled = true;
+      let latencyOffsetMs = 0;
+      let lastScheduledBeatIdx = -1;
+      let downbeatSet = new Set();
+
+      function getSongTime() {
+        if (!currentMap) return 0;
+        if (!isPlaying || !audioCtx) return pauseOffsetSec;
+        const raw = audioCtx.currentTime - startContextTime - latencyOffsetMs / 1000;
+        return Math.max(0, Math.min(currentMap.duration, raw));
+      }
+
+      function scheduleMetronomeClicks() {
+        if (!isPlaying || !metronomeEnabled || !audioCtx || !currentMap) return;
+        const nowCtx = audioCtx.currentTime;
+        const songNow = nowCtx - startContextTime - latencyOffsetMs / 1000;
+        const lookahead = 0.12; // schedule clicks 120ms ahead on AudioContext clock
+
+        const beats = currentMap.beats || [];
+        for (let i = Math.max(0, lastScheduledBeatIdx + 1); i < beats.length; i++) {
+          const beatT = beats[i];
+          if (beatT < songNow - 0.02) {
+            lastScheduledBeatIdx = i;
+            continue;
+          }
+          if (beatT <= songNow + lookahead) {
+            const clickCtxTime = Math.max(
+              nowCtx,
+              startContextTime + beatT + latencyOffsetMs / 1000,
+            );
+            const isDownbeat = downbeatSet.has(beatT.toFixed(2));
+            triggerClickSound(clickCtxTime, isDownbeat);
+            lastScheduledBeatIdx = i;
+          } else {
+            break;
+          }
+        }
+      }
+
+      function triggerClickSound(when, isDownbeat) {
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(isDownbeat ? 1200 : 800, when);
+        gain.gain.setValueAtTime(isDownbeat ? 0.28 : 0.14, when);
+        gain.gain.exponentialRampToValueAtTime(0.001, when + 0.035);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(when);
+        osc.stop(when + 0.04);
+      }
+
+      async function ensureAudioBuffer() {
+        if (!currentMap) return null;
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          await audioCtx.resume();
+        }
+        if (!audioBuffer) {
+          const res = await fetch(currentMap.file);
+          const arr = await res.arrayBuffer();
+          audioBuffer = await audioCtx.decodeAudioData(arr);
+        }
+        return audioBuffer;
+      }
+
+      function stopPlayback() {
+        if (sourceNode) {
+          try {
+            sourceNode.onended = null;
+            sourceNode.stop();
+          } catch {}
+          sourceNode.disconnect();
+          sourceNode = null;
+        }
+        isPlaying = false;
+        playBtn.textContent = 'Play [Space]';
+      }
+
+      async function startPlaybackFrom(offsetSec) {
+        if (!currentMap) return;
+        stopPlayback();
+        pauseOffsetSec = Math.max(0, Math.min(currentMap.duration - 0.05, offsetSec));
+        const buf = await ensureAudioBuffer();
+        if (!buf || !audioCtx) return;
+
+        sourceNode = audioCtx.createBufferSource();
+        sourceNode.buffer = buf;
+        sourceNode.connect(audioCtx.destination);
+
+        startContextTime = audioCtx.currentTime - pauseOffsetSec;
+        lastScheduledBeatIdx = -1;
+        const beats = currentMap.beats || [];
+        for (let i = 0; i < beats.length; i++) {
+          if (beats[i] < pauseOffsetSec - 0.01) {
+            lastScheduledBeatIdx = i;
+          } else {
+            break;
+          }
+        }
+
+        sourceNode.onended = () => {
+          if (isPlaying) {
+            isPlaying = false;
+            pauseOffsetSec = 0;
+            playBtn.textContent = 'Play [Space]';
+          }
+        };
+
+        sourceNode.start(0, pauseOffsetSec);
+        isPlaying = true;
+        playBtn.textContent = 'Pause [Space]';
+      }
+
+      async function togglePlay() {
+        if (!currentMap) return;
+        if (isPlaying) {
+          pauseOffsetSec = getSongTime();
+          stopPlayback();
+        } else {
+          await startPlaybackFrom(pauseOffsetSec);
+        }
+      }
+
+      async function loadSelectedSong() {
+        stopPlayback();
+        pauseOffsetSec = 0;
+        audioBuffer = null;
+
+        const id = songSelect.value;
+        const cut = cutSelect.value;
+        if (!id) return;
+
+        const res = await fetch(`/songs/${id}/${cut}.json`);
+        currentMap = await res.json();
+
+        downbeatSet = new Set((currentMap.downbeats || []).map((d) => Number(d).toFixed(2)));
+        updateMetadataUI();
+        drawTimeline();
+      }
+
+      function updateMetadataUI() {
+        if (!currentMap) return;
+        statTitle.textContent = `${currentMap.title} (${currentMap.id})`;
+        statBpm.textContent = `${currentMap.bpm} BPM · ${currentMap.beats.length} beats · ${currentMap.downbeats.length} bars`;
+        statOnsets.textContent = `${currentMap.onsets.low.length} / ${currentMap.onsets.mid.length} / ${currentMap.onsets.high.length}`;
+        const dropsStr = (currentMap.drops || []).map((d) => `${d.toFixed(1)}s`).join(', ') || 'none';
+        const win = currentMap.demoWindow
+          ? `${currentMap.demoWindow.start.toFixed(1)}–${currentMap.demoWindow.end.toFixed(1)}s`
+          : '—';
+        statDrops.textContent = `Drops: ${dropsStr} | Demo: ${win}`;
+
+        sectionsChips.innerHTML = '';
+        const districts = (currentMap.rail && currentMap.rail.districts) || [];
+        (currentMap.sections || []).forEach((sec, idx) => {
+          const pal =
+            (currentMap.palette && currentMap.palette.perSection && currentMap.palette.perSection[idx]) ||
+            currentMap.palette;
+          const distObj = districts.find((d) => d.section === idx);
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'sec-chip';
+          chip.style.background = pal.bg || '#111827';
+          chip.style.borderColor = pal.primary || '#38bdf8';
+          chip.style.color = pal.highlight || '#f8fafc';
+          chip.textContent = `[${idx}] ${sec.label.toUpperCase()} · ${sec.mood} (${sec.start.toFixed(1)}–${sec.end.toFixed(1)}s | E:${sec.energy.toFixed(2)} | ${distObj ? distObj.district : 'approach'})`;
+          chip.addEventListener('click', () => {
+            startPlaybackFrom(sec.start);
+          });
+          sectionsChips.appendChild(chip);
+        });
+      }
+
+      function drawTimeline() {
+        if (!currentMap || !ctx) return;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const rect = canvas.getBoundingClientRect();
+        const W = Math.max(600, Math.floor(rect.width * dpr));
+        const H = Math.max(320, Math.floor(rect.height * dpr));
+        if (canvas.width !== W || canvas.height !== H) {
+          canvas.width = W;
+          canvas.height = H;
+        }
+
+        const dur = Math.max(0.01, currentMap.duration);
+        const xOf = (t) => (t / dur) * W;
+
+        ctx.clearRect(0, 0, W, H);
+
+        const headerH = Math.round(H * 0.11);
+        const waveTop = headerH;
+        const waveH = Math.round(H * 0.42);
+        const waveMid = waveTop + waveH * 0.5;
+        const beatsTop = waveTop + waveH;
+        const beatsH = Math.round(H * 0.11);
+        const onsetsTop = beatsTop + beatsH;
+        const onsetsH = H - onsetsTop;
+
+        // 1. Section colored bands & top labels
+        const sections = currentMap.sections || [];
+        sections.forEach((sec, idx) => {
+          const pal =
+            (currentMap.palette && currentMap.palette.perSection && currentMap.palette.perSection[idx]) ||
+            currentMap.palette;
+          const x0 = xOf(sec.start);
+          const x1 = xOf(sec.end);
+          const sw = Math.max(1, x1 - x0);
+
+          ctx.fillStyle = pal.bg || '#0d111c';
+          ctx.fillRect(x0, 0, sw, H);
+
+          ctx.fillStyle = (pal.primary || '#38bdf8') + '26';
+          ctx.fillRect(x0, 0, sw, headerH);
+
+          ctx.strokeStyle = (pal.primary || '#38bdf8') + '88';
+          ctx.lineWidth = Math.max(1, dpr);
+          ctx.beginPath();
+          ctx.moveTo(x0, 0);
+          ctx.lineTo(x0, H);
+          ctx.stroke();
+
+          if (sw > 36 * dpr) {
+            ctx.fillStyle = pal.highlight || '#f8fafc';
+            ctx.font = `bold ${Math.round(11 * dpr)}px monospace`;
+            ctx.fillText(`${sec.label.toUpperCase()} (${sec.mood})`, x0 + 6 * dpr, headerH * 0.66);
+          }
+        });
+
+        // 2. Demo window highlight on full cut
+        if (cutSelect.value === 'full' && currentMap.demoWindow) {
+          const dx0 = xOf(currentMap.demoWindow.start);
+          const dx1 = xOf(currentMap.demoWindow.end);
+          ctx.strokeStyle = '#facc15aa';
+          ctx.lineWidth = 2 * dpr;
+          ctx.strokeRect(dx0, 2 * dpr, Math.max(2, dx1 - dx0), H - 4 * dpr);
+        }
+
+        // 3. Waveform across the width
+        const peaks = (currentMap.waveform && currentMap.waveform.peaks) || [];
+        if (peaks.length > 0) {
+          const primaryHex = (currentMap.palette && currentMap.palette.primary) || '#38bdf8';
+          ctx.fillStyle = primaryHex + '99';
+          const step = Math.max(1, Math.floor(peaks.length / W));
+          for (let px = 0; px < W; px++) {
+            const idx0 = Math.floor((px / W) * peaks.length);
+            const idx1 = Math.min(peaks.length, idx0 + step);
+            let maxP = 0;
+            for (let j = idx0; j < idx1; j++) {
+              if (peaks[j] > maxP) maxP = peaks[j];
+            }
+            const amp = maxP * (waveH * 0.46);
+            ctx.fillRect(px, waveMid - amp, 1, Math.max(1, amp * 2));
+          }
+        }
+
+        // 4. Beats as thin ticks, Downbeats bolder
+        ctx.fillStyle = '#090b14cc';
+        ctx.fillRect(0, beatsTop, W, beatsH);
+
+        const beats = currentMap.beats || [];
+        ctx.strokeStyle = 'rgba(226, 232, 240, 0.28)';
+        ctx.lineWidth = Math.max(1, 0.8 * dpr);
+        ctx.beginPath();
+        for (let i = 0; i < beats.length; i++) {
+          const bx = xOf(beats[i]);
+          ctx.moveTo(bx, beatsTop + beatsH * 0.25);
+          ctx.lineTo(bx, beatsTop + beatsH * 0.9);
+        }
+        ctx.stroke();
+
+        const downbeats = currentMap.downbeats || [];
+        ctx.strokeStyle = 'rgba(248, 250, 252, 0.88)';
+        ctx.lineWidth = Math.max(1.5, 1.8 * dpr);
+        ctx.beginPath();
+        for (let i = 0; i < downbeats.length; i++) {
+          const dbx = xOf(downbeats[i]);
+          ctx.moveTo(dbx, beatsTop + 2 * dpr);
+          ctx.lineTo(dbx, beatsTop + beatsH - 2 * dpr);
+        }
+        ctx.stroke();
+
+        // 5. Onsets in three rows (LOW, MID, HIGH)
+        const rows = [
+          { key: 'low', label: 'LOW', color: '#f59e0b', list: currentMap.onsets?.low || [] },
+          { key: 'mid', label: 'MID', color: '#38bdf8', list: currentMap.onsets?.mid || [] },
+          { key: 'high', label: 'HIGH', color: '#c084fc', list: currentMap.onsets?.high || [] },
+        ];
+        const rowH = onsetsH / 3;
+        rows.forEach((row, rIdx) => {
+          const ry = onsetsTop + rowH * (rIdx + 0.5);
+          ctx.strokeStyle = 'rgba(148, 163, 184, 0.14)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(0, ry);
+          ctx.lineTo(W, ry);
+          ctx.stroke();
+
+          ctx.fillStyle = row.color;
+          for (let i = 0; i < row.list.length; i++) {
+            const pt = row.list[i];
+            const ox = xOf(pt.t);
+            const radius = Math.max(1.4 * dpr, (1.2 + pt.s * 2.8) * dpr);
+            ctx.globalAlpha = 0.35 + pt.s * 0.65;
+            ctx.beginPath();
+            ctx.arc(ox, ry, radius, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.globalAlpha = 1.0;
+
+          ctx.fillStyle = row.color;
+          ctx.font = `bold ${Math.round(10 * dpr)}px monospace`;
+          ctx.fillText(row.label, 6 * dpr, ry - 6 * dpr);
+        });
+
+        // 6. Drop markers
+        const drops = currentMap.drops || [];
+        drops.forEach((dTime) => {
+          const dx = xOf(dTime);
+          ctx.strokeStyle = '#f43f5e';
+          ctx.lineWidth = Math.max(2, 2.5 * dpr);
+          ctx.beginPath();
+          ctx.moveTo(dx, 0);
+          ctx.lineTo(dx, H);
+          ctx.stroke();
+
+          ctx.fillStyle = '#f43f5e';
+          ctx.fillRect(dx - 2 * dpr, headerH + 4 * dpr, 46 * dpr, 16 * dpr);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = `bold ${Math.round(10 * dpr)}px monospace`;
+          ctx.fillText('DROP', dx + 3 * dpr, headerH + 15 * dpr);
+        });
+
+        // 7. Playhead
+        const nowT = getSongTime();
+        const px = xOf(nowT);
+        ctx.strokeStyle = '#facc15';
+        ctx.lineWidth = Math.max(2, 2.2 * dpr);
+        ctx.beginPath();
+        ctx.moveTo(px, 0);
+        ctx.lineTo(px, H);
+        ctx.stroke();
+      }
+
+      function tick() {
+        if (currentMap) {
+          scheduleMetronomeClicks();
+          const t = getSongTime();
+          statTime.textContent = `${t.toFixed(2)}s / ${currentMap.duration.toFixed(2)}s`;
+          const activeSec = (currentMap.sections || []).find((s) => t >= s.start && t <= s.end);
+          if (activeSec) {
+            statSection.textContent = `${activeSec.label.toUpperCase()} (${activeSec.mood})`;
+          }
+          drawTimeline();
+        }
+        requestAnimationFrame(tick);
+      }
+
+      canvas.addEventListener('click', (e) => {
+        if (!currentMap) return;
+        const rect = canvas.getBoundingClientRect();
+        const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const targetSec = ratio * currentMap.duration;
+        startPlaybackFrom(targetSec);
+      });
+
+      playBtn.addEventListener('click', () => {
+        togglePlay();
+      });
+
+      metroBtn.addEventListener('click', () => {
+        metronomeEnabled = !metronomeEnabled;
+        metroBtn.textContent = `Metronome: ${metronomeEnabled ? 'ON' : 'OFF'}`;
+        metroBtn.classList.toggle('active', metronomeEnabled);
+      });
+
+      latencySlider.addEventListener('input', () => {
+        latencyOffsetMs = Number(latencySlider.value) || 0;
+        latencyVal.textContent = `${latencyOffsetMs > 0 ? '+' : ''}${latencyOffsetMs} ms`;
+      });
+
+      songSelect.addEventListener('change', loadSelectedSong);
+      cutSelect.addEventListener('change', loadSelectedSong);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && document.activeElement?.tagName !== 'SELECT') {
+          e.preventDefault();
+          togglePlay();
+        }
+      });
+
+      window.addEventListener('resize', drawTimeline);
+
+      async function init() {
+        try {
+          const res = await fetch('/songs/index.json');
+          songsIndex = await res.json();
+          songSelect.innerHTML = '';
+          for (const item of songsIndex) {
+            const opt = document.createElement('option');
+            opt.value = item.id;
+            opt.textContent = `${item.title} (${item.id} · ${item.bpm} BPM)`;
+            songSelect.appendChild(opt);
+          }
+          const params = new URLSearchParams(window.location.search);
+          if (params.get('song') && songsIndex.some((s) => s.id === params.get('song'))) {
+            songSelect.value = params.get('song');
+          }
+          if (params.get('cut') === 'demo' || params.get('cut') === 'full') {
+            cutSelect.value = params.get('cut');
+          }
+          if (songsIndex.length > 0) {
+            await loadSelectedSong();
+          }
+        } catch (err) {
+          console.error('Failed to load /songs/index.json:', err);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      init();
+    </script>
+  </body>
+</html>
