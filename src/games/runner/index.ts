@@ -257,7 +257,7 @@ export function createRunnerGame(): GameModule {
     renderer = new THREE.WebGLRenderer({
       antialias: !isSoftwareGl,
       powerPreference: 'high-performance',
-      preserveDrawingBuffer: true,
+      preserveDrawingBuffer: false,
     });
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -1117,7 +1117,10 @@ export function createRunnerGame(): GameModule {
 
       const W = window.innerWidth;
       const H = Math.max(1, window.innerHeight);
-      if (renderer.domElement.width !== W || renderer.domElement.height !== H) {
+      const pr = renderer.getPixelRatio();
+      const targetW = Math.floor(W * pr);
+      const targetH = Math.floor(H * pr);
+      if (renderer.domElement.width !== targetW || renderer.domElement.height !== targetH) {
         const aspect = W / H;
         const orthoHalfH = 4.2;
         orthoCam.left = -orthoHalfH * aspect;

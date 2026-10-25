@@ -117,6 +117,15 @@ export function createRunwayCard(parent: HTMLElement): RunwayCard {
 
     card.appendChild(rowsWrap);
 
+    if (gameTitle === 'HIDE AND SEEK') {
+      const tipEl = document.createElement('div');
+      tipEl.dataset.testid = 'runway-extra-line';
+      tipEl.className =
+        'mt-2.5 rounded border border-amber-400/30 bg-amber-950/35 px-3 py-1.5 text-center text-xs font-semibold text-amber-300';
+      tipEl.textContent = 'Loud music covers your footsteps.';
+      card.appendChild(tipEl);
+    }
+
     const barTrack = document.createElement('div');
     barTrack.className = 'mt-3 h-1.5 w-full overflow-hidden rounded bg-slate-800';
     const barFill = document.createElement('div');

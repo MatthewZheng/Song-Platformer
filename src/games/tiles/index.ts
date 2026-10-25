@@ -90,7 +90,6 @@ export function createTilesGame(): GameModule {
         renderer = new THREE.WebGLRenderer({
           antialias: !isSoftwareGl,
           powerPreference: 'high-performance',
-          preserveDrawingBuffer: true,
         });
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -214,7 +213,11 @@ export function createTilesGame(): GameModule {
 
     render(): void {
       if (!renderer || !scene || !camera) return;
-      if (renderer.domElement.width !== window.innerWidth || renderer.domElement.height !== window.innerHeight) {
+      const pr = renderer.getPixelRatio();
+      if (
+        renderer.domElement.width !== Math.floor(window.innerWidth * pr) ||
+        renderer.domElement.height !== Math.floor(window.innerHeight * pr)
+      ) {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);

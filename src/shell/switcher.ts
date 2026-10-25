@@ -188,7 +188,12 @@ export function createShellApp(root: HTMLElement): void {
   const hyperspace = createHyperspaceOverlay(root);
   const results = createResultsScreen(root);
 
-  // Persistent Exit Game button visible across all screens (exits straight to splash screen)
+  // Persistent top control bar: Exit Game + Dev Skip to Next Game
+  const topBarWrap = document.createElement('div');
+  topBarWrap.className =
+    'pointer-events-none absolute top-5 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2.5';
+  root.appendChild(topBarWrap);
+
   const exitGameBtn = document.createElement('button');
   exitGameBtn.id = 'exit-game-btn';
   exitGameBtn.dataset.testid = 'exit-game-btn';
@@ -196,7 +201,7 @@ export function createShellApp(root: HTMLElement): void {
   exitGameBtn.tabIndex = -1;
   exitGameBtn.setAttribute('aria-label', 'Exit Game');
   exitGameBtn.className =
-    'pointer-events-auto absolute top-5 left-1/2 -translate-x-1/2 z-40 flex cursor-pointer items-center gap-2 rounded-lg border border-slate-700/90 bg-slate-950/88 px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider text-slate-200 shadow-lg transition hover:border-rose-400 hover:bg-rose-950/80 hover:text-rose-200';
+    'pointer-events-auto flex cursor-pointer items-center gap-2 rounded-lg border border-slate-700/90 bg-slate-950/90 px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider text-slate-200 shadow-lg transition hover:border-rose-400 hover:bg-rose-950/80 hover:text-rose-200';
   exitGameBtn.innerHTML = `
     <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 fill-none stroke-current" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -205,7 +210,22 @@ export function createShellApp(root: HTMLElement): void {
     </svg>
     <span>Exit Game</span>
   `;
-  root.appendChild(exitGameBtn);
+  topBarWrap.appendChild(exitGameBtn);
+
+  const skipGameBtn = document.createElement('button');
+  skipGameBtn.id = 'skip-game-btn';
+  skipGameBtn.dataset.testid = 'skip-game-btn';
+  skipGameBtn.type = 'button';
+  skipGameBtn.tabIndex = -1;
+  skipGameBtn.setAttribute('aria-label', 'Skip to Next Game');
+  skipGameBtn.title = 'Dev: Skip to Next Game (Shortcut: N)';
+  skipGameBtn.className =
+    'pointer-events-auto flex cursor-pointer items-center gap-1.5 rounded-lg border border-amber-500/70 bg-slate-950/90 px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider text-amber-300 shadow-lg transition hover:border-amber-300 hover:bg-amber-950/80 hover:text-amber-200';
+  skipGameBtn.innerHTML = `
+    <span class="rounded bg-amber-400/20 px-1 py-0.5 text-[10px] text-amber-300">DEV</span>
+    <span>Next Game →</span>
+  `;
+  topBarWrap.appendChild(skipGameBtn);
 
   // State variables
   let screen: ScreenState = 'title';
@@ -300,6 +320,26 @@ export function createShellApp(root: HTMLElement): void {
 
   exitGameBtn.addEventListener('click', () => {
     exitToSplashScreen();
+  });
+
+  function skipToNextGame(): void {
+    skipGameBtn.blur();
+    document.exitPointerLock?.();
+    if (screen === 'play' && currentMap) {
+      const nextIdx = (ORDER.indexOf(activeGameId) + 1) % ORDER.length;
+      const nextGameId = ORDER[nextIdx];
+      hyperspace.hide();
+      playPhase = { kind: 'active' };
+      enterGame(nextGameId, audio.clock.now());
+    } else if (screen === 'title' || screen === 'select' || screen === 'results') {
+      const nextIdx = (ORDER.indexOf(activeGameId) + 1) % ORDER.length;
+      const nextGameId = ORDER[nextIdx];
+      void startSongRun(selectedSongId, useDemoCut ? 'demo' : 'full', nextGameId, 0);
+    }
+  }
+
+  skipGameBtn.addEventListener('click', () => {
+    skipToNextGame();
   });
 
   function setScreen(next: ScreenState): void {
@@ -807,9 +847,13 @@ export function createShellApp(root: HTMLElement): void {
     setCalibrationOffsetMs: (ms: number) => audio.setCalibrationOffsetSec(ms / 1000),
     jumpToGame: (gid: GameId) => {
       if (screen !== 'play' || !currentMap) return;
+      document.exitPointerLock?.();
       hyperspace.hide();
       playPhase = { kind: 'active' };
       enterGame(gid, audio.clock.now());
+    },
+    skipToNextGame: () => {
+      skipToNextGame();
     },
     seekToTime: (sec: number) => {
       if (screen !== 'play' || !currentMap) return;
@@ -847,6 +891,12 @@ export function createShellApp(root: HTMLElement): void {
     if (e.code === 'Backquote' || e.key === '`') {
       e.preventDefault();
       devPanel.toggle();
+      return;
+    }
+
+    if (e.code === 'KeyN' && screen === 'play') {
+      e.preventDefault();
+      skipToNextGame();
       return;
     }
 
@@ -915,87 +965,91 @@ export function createShellApp(root: HTMLElement): void {
   let running = true;
   async function frameLoop(): Promise<void> {
     while (running) {
-      const nowWall = performance.now();
-      const rawDt = Math.max(0.001, (nowWall - lastFrameWallMs) / 1000);
-      lastFrameWallMs = nowWall;
-      const dt = Math.min(0.1, rawDt);
-      fps = fps * 0.9 + (1 / rawDt) * 0.1;
+      try {
+        const nowWall = performance.now();
+        const rawDt = Math.max(0.001, (nowWall - lastFrameWallMs) / 1000);
+        lastFrameWallMs = nowWall;
+        const dt = Math.min(0.1, rawDt);
+        fps = fps * 0.9 + (1 / rawDt) * 0.1;
 
-      if (screen === 'title') {
-        renderTitleCanvas(dt);
-      } else if (screen === 'play' && currentMap) {
-        const songTime = audio.clock.now();
-        audio.updateBands(songTime);
-        const pal = createPaletteSource(currentMap).at(songTime);
+        if (screen === 'title') {
+          renderTitleCanvas(dt);
+        } else if (screen === 'play' && currentMap) {
+          const songTime = audio.clock.now();
+          audio.updateBands(songTime);
+          const pal = createPaletteSource(currentMap).at(songTime);
 
-        // Update playtest state every frame
-        playtest.songTime = songTime;
-        const activeMetrics = gameModules[activeGameId].getMetrics();
-        Object.entries(activeMetrics).forEach(([k, v]) => {
-          playtest.metrics[k] = v;
-          playtest.metrics[`${activeGameId}.${k}`] = v;
-        });
-        playtest.metrics.totalScore = Math.round(totalScore);
-        playtest.metrics.deaths = totalDeaths;
+          // Update playtest state every frame
+          playtest.songTime = songTime;
+          const activeMetrics = gameModules[activeGameId].getMetrics();
+          Object.entries(activeMetrics).forEach(([k, v]) => {
+            playtest.metrics[k] = v;
+            playtest.metrics[`${activeGameId}.${k}`] = v;
+          });
+          playtest.metrics.totalScore = Math.round(totalScore);
+          playtest.metrics.deaths = totalDeaths;
 
-        if (playPhase.kind === 'active') {
-          // Survival points: 10 points per second
-          const survPts = SCORING.SURVIVAL_PTS_PER_SEC * dt;
-          totalScore += survPts;
-          perGameStats[activeGameId].score += survPts;
-          perGameStats[activeGameId].timeSpent += dt;
+          if (playPhase.kind === 'active') {
+            // Survival points: 10 points per second
+            const survPts = SCORING.SURVIVAL_PTS_PER_SEC * dt;
+            totalScore += survPts;
+            perGameStats[activeGameId].score += survPts;
+            perGameStats[activeGameId].timeSpent += dt;
 
-          const rwState = runway.update(songTime, pal);
-          gameContexts[activeGameId].safeUntil = rwState.safeUntil;
+            const rwState = runway.update(songTime, pal);
+            gameContexts[activeGameId].safeUntil = rwState.safeUntil;
 
-          gameModules[activeGameId].update(dt, songTime);
-          gameModules[activeGameId].render();
+            gameModules[activeGameId].update(dt, songTime);
+            gameModules[activeGameId].render();
 
-          hud.update(
-            songTime,
-            currentMap.duration,
-            totalScore,
-            perGameStats[activeGameId].score,
-            pal,
-          );
+            hud.update(
+              songTime,
+              currentMap.duration,
+              totalScore,
+              perGameStats[activeGameId].score,
+              pal,
+            );
 
-          // Check if song reached the end
-          if (audio.isEnded(songTime)) {
-            audio.fx.gain(0, SONG_END_FADE_SEC);
-            playPhase = { kind: 'fadingOut', elapsed: 0 };
-          }
-        } else if (playPhase.kind === 'hyperspace') {
-          playPhase.elapsed += dt;
-          hyperspace.updateAndRender(dt, playPhase.elapsed, pal, audio.bands);
-          hud.update(
-            songTime,
-            currentMap.duration,
-            totalScore,
-            perGameStats[activeGameId].score,
-            pal,
-          );
-
-          if (playPhase.elapsed >= READJUST) {
-            const targetGame = playPhase.nextGameId;
-            hyperspace.hide();
+            // Check if song reached the end
             if (audio.isEnded(songTime)) {
               audio.fx.gain(0, SONG_END_FADE_SEC);
               playPhase = { kind: 'fadingOut', elapsed: 0 };
-            } else {
-              playPhase = { kind: 'active' };
-              enterGame(targetGame, songTime);
+            }
+          } else if (playPhase.kind === 'hyperspace') {
+            playPhase.elapsed += dt;
+            hyperspace.updateAndRender(dt, playPhase.elapsed, pal, audio.bands);
+            hud.update(
+              songTime,
+              currentMap.duration,
+              totalScore,
+              perGameStats[activeGameId].score,
+              pal,
+            );
+
+            if (playPhase.elapsed >= READJUST) {
+              const targetGame = playPhase.nextGameId;
+              hyperspace.hide();
+              if (audio.isEnded(songTime)) {
+                audio.fx.gain(0, SONG_END_FADE_SEC);
+                playPhase = { kind: 'fadingOut', elapsed: 0 };
+              } else {
+                playPhase = { kind: 'active' };
+                enterGame(targetGame, songTime);
+              }
+            }
+          } else if (playPhase.kind === 'fadingOut') {
+            playPhase.elapsed += dt;
+            gameModules[activeGameId].render();
+            if (playPhase.elapsed >= SONG_END_FADE_SEC) {
+              finishRunAndShowResults();
             }
           }
-        } else if (playPhase.kind === 'fadingOut') {
-          playPhase.elapsed += dt;
-          gameModules[activeGameId].render();
-          if (playPhase.elapsed >= SONG_END_FADE_SEC) {
-            finishRunAndShowResults();
-          }
         }
-      }
 
-      devPanel.update();
+        devPanel.update();
+      } catch (err) {
+        console.error('[frameLoop] Unhandled frame error:', err);
+      }
       await afterDraw();
     }
   }

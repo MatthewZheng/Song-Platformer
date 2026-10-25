@@ -1,0 +1,59 @@
+{
+  "worldHeight": 2.6,
+  "frames": {
+    "idle": {
+      "file": "idle.png",
+      "width": 1024,
+      "height": 1536,
+      "anchor": {
+        "x": 0.5,
+        "y": 1
+      }
+    },
+    "back": {
+      "file": "back.png",
+      "width": 1024,
+      "height": 1536,
+      "anchor": {
+        "x": 0.5,
+        "y": 1
+      }
+    },
+    "walk1": {
+      "file": "walk1.png",
+      "width": 1024,
+      "height": 1536,
+      "anchor": {
+        "x": 0.5,
+        "y": 1
+      }
+    },
+    "walk2": {
+      "file": "walk2.png",
+      "width": 1024,
+      "height": 1536,
+      "anchor": {
+        "x": 0.5,
+        "y": 1
+      }
+    },
+    "search": {
+      "file": "search.png",
+      "width": 1024,
+      "height": 1536,
+      "anchor": {
+        "x": 0.5,
+        "y": 1
+      }
+    },
+    "jumpscare": {
+      "file": "jumpscare.jpg",
+      "width": 1920,
+      "height": 1080,
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  }
+}

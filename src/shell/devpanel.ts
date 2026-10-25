@@ -11,6 +11,7 @@ export interface DevPanelCallbacks {
   getCalibrationOffsetMs(): number;
   setCalibrationOffsetMs(ms: number): void;
   jumpToGame(gameId: GameId): void;
+  skipToNextGame(): void;
   seekToTime(sec: number): void;
   killCurrentGame(): void;
   runSwitchStressTest(times: number): void;
@@ -54,23 +55,33 @@ export function createDevPanel(parent: HTMLElement, cb: DevPanelCallbacks): DevP
       <div class="grid grid-cols-4 gap-1.5" id="dev-time-btns"></div>
     </div>
 
-    <div class="mt-3 border-t border-slate-800 pt-2.5 flex gap-2">
+    <div class="mt-3 border-t border-slate-800 pt-2.5 flex flex-col gap-2">
       <button
-        id="dev-kill-btn"
+        id="dev-next-game-btn"
         type="button"
-        data-testid="dev-kill-btn"
-        class="flex-1 cursor-pointer rounded border border-rose-500/60 bg-rose-950/70 px-2.5 py-1.5 text-[11px] font-bold uppercase text-rose-200 hover:bg-rose-900"
+        data-testid="dev-next-game-btn"
+        class="w-full cursor-pointer rounded border border-emerald-500/60 bg-emerald-950/75 px-2.5 py-1.5 text-[11px] font-bold uppercase text-emerald-200 hover:bg-emerald-900"
       >
-        Kill Current Game
+        Skip to Next Game → [N]
       </button>
-      <button
-        id="dev-stress-btn"
-        type="button"
-        data-testid="dev-stress-btn"
-        class="cursor-pointer rounded border border-sky-500/60 bg-sky-950/70 px-2.5 py-1.5 text-[11px] font-bold uppercase text-sky-200 hover:bg-sky-900"
-      >
-        20x Switch
-      </button>
+      <div class="flex gap-2">
+        <button
+          id="dev-kill-btn"
+          type="button"
+          data-testid="dev-kill-btn"
+          class="flex-1 cursor-pointer rounded border border-rose-500/60 bg-rose-950/70 px-2.5 py-1.5 text-[11px] font-bold uppercase text-rose-200 hover:bg-rose-900"
+        >
+          Kill Current Game
+        </button>
+        <button
+          id="dev-stress-btn"
+          type="button"
+          data-testid="dev-stress-btn"
+          class="cursor-pointer rounded border border-sky-500/60 bg-sky-950/70 px-2.5 py-1.5 text-[11px] font-bold uppercase text-sky-200 hover:bg-sky-900"
+        >
+          20x Switch
+        </button>
+      </div>
     </div>
 
     <div class="mt-3 border-t border-slate-800 pt-2.5">
@@ -99,6 +110,7 @@ export function createDevPanel(parent: HTMLElement, cb: DevPanelCallbacks): DevP
   const heapEl = panel.querySelector<HTMLElement>('#dev-heap')!;
   const gameBtnsWrap = panel.querySelector<HTMLElement>('#dev-game-btns')!;
   const timeBtnsWrap = panel.querySelector<HTMLElement>('#dev-time-btns')!;
+  const nextGameBtn = panel.querySelector<HTMLButtonElement>('#dev-next-game-btn')!;
   const killBtn = panel.querySelector<HTMLButtonElement>('#dev-kill-btn')!;
   const stressBtn = panel.querySelector<HTMLButtonElement>('#dev-stress-btn')!;
   const latencySlider = panel.querySelector<HTMLInputElement>('#dev-latency-slider')!;
@@ -125,6 +137,7 @@ export function createDevPanel(parent: HTMLElement, cb: DevPanelCallbacks): DevP
     timeBtnsWrap.appendChild(btn);
   });
 
+  nextGameBtn.addEventListener('click', () => cb.skipToNextGame());
   killBtn.addEventListener('click', () => cb.killCurrentGame());
   stressBtn.addEventListener('click', () => cb.runSwitchStressTest(20));
 

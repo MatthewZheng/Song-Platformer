@@ -60,6 +60,9 @@ export function createAudioEngine(): AudioEngine {
     energy: 0,
   };
 
+  let lastTargetHz = 20000;
+  let lastTargetGain = 1.0;
+
   function ensureContext(): AudioContext {
     if (!ctx) {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
@@ -75,7 +78,7 @@ export function createAudioEngine(): AudioEngine {
       gainNode.gain.value = 1.0;
 
       analyserNode = ctx.createAnalyser();
-      analyserNode.fftSize = 2048;
+      analyserNode.fftSize = 256;
       analyserNode.smoothingTimeConstant = 0.75;
       freqData = new Uint8Array(analyserNode.frequencyBinCount);
 
@@ -141,17 +144,23 @@ export function createAudioEngine(): AudioEngine {
     lowpass(hz: number, rampSec: number): void {
       if (!ctx || !filterNode) return;
       const clampedHz = Math.max(60, Math.min(20000, hz));
+      if (Math.abs(clampedHz - lastTargetHz) < 15) return;
+      lastTargetHz = clampedHz;
       const tau = Math.max(0.01, rampSec / 3);
       filterNode.frequency.setTargetAtTime(clampedHz, ctx.currentTime, tau);
     },
     gain(g: number, rampSec: number): void {
       if (!ctx || !gainNode) return;
       const clampedGain = Math.max(0, Math.min(2.0, g));
+      if (Math.abs(clampedGain - lastTargetGain) < 0.01) return;
+      lastTargetGain = clampedGain;
       const tau = Math.max(0.01, rampSec / 3);
       gainNode.gain.setTargetAtTime(clampedGain, ctx.currentTime, tau);
     },
     reset(): void {
       if (!ctx || !filterNode || !gainNode) return;
+      lastTargetHz = 20000;
+      lastTargetGain = 1.0;
       const now = ctx.currentTime;
       filterNode.frequency.setTargetAtTime(20000, now, 0.04);
       gainNode.gain.setTargetAtTime(1.0, now, 0.04);

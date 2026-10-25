@@ -71,7 +71,7 @@ test('Chromium offline.js Trex jump physics achieves >3.8x cactus height clearan
 
   const dt = 1 / 120;
   let maxHeroY = 0;
-  let minTrexYPos = TREX_JUMP_CONFIG.GROUND_Y_POS;
+  let minTrexYPos: number = TREX_JUMP_CONFIG.GROUND_Y_POS;
   let clearanceSec = 0;
   let totalJumpSec = 0;
 
