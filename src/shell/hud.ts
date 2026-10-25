@@ -55,6 +55,11 @@ export function createPlayHud(parent: HTMLElement): PlayHud {
 
   const popups: ScorePopup[] = [];
   let currentMaxLives = 3;
+  let lastTotalInt = -1;
+  let lastGameInt = -1;
+  let lastAccentCol = '';
+  let lastPrimaryCol = '';
+  let lastPctStr = '';
 
   function renderLives(livesLeft: number, maxLives = currentMaxLives): void {
     currentMaxLives = maxLives;
@@ -67,7 +72,7 @@ export function createPlayHud(parent: HTMLElement): PlayHud {
     for (let i = 0; i < maxLives; i++) {
       const pip = document.createElement('span');
       const full = i < livesLeft;
-      pip.className = 'inline-block h-3 w-3 rounded-sm border transition-colors';
+      pip.className = 'inline-block h-3 w-3 rounded-sm border';
       if (full) {
         pip.style.backgroundColor = '#ef4444';
         pip.style.borderColor = '#fca5a5';
@@ -93,6 +98,8 @@ export function createPlayHud(parent: HTMLElement): PlayHud {
     setGameInfo(title: string, listensTo: string, livesLeft: number, maxLives = 3): void {
       titleEl.textContent = title.toUpperCase();
       listensEl.textContent = `Listening to: ${listensTo}`;
+      lastTotalInt = -1;
+      lastGameInt = -1;
       renderLives(livesLeft, maxLives);
     },
 
@@ -117,24 +124,49 @@ export function createPlayHud(parent: HTMLElement): PlayHud {
     },
 
     update(songTime: number, duration: number, totalScore: number, gameScore: number, palette: Palette): void {
-      totalScoreEl.textContent = String(Math.round(totalScore));
-      totalScoreEl.style.color = palette.accent || '#f59e0b';
-      gameScoreEl.textContent = `GAME: ${Math.round(gameScore)}`;
-      titleEl.style.color = palette.primary || '#38bdf8';
+      const totInt = Math.round(totalScore);
+      if (totInt !== lastTotalInt) {
+        lastTotalInt = totInt;
+        totalScoreEl.textContent = String(totInt);
+      }
+
+      const gInt = Math.round(gameScore);
+      if (gInt !== lastGameInt) {
+        lastGameInt = gInt;
+        gameScoreEl.textContent = `GAME: ${gInt}`;
+      }
+
+      const accent = palette.accent || '#f59e0b';
+      if (accent !== lastAccentCol) {
+        lastAccentCol = accent;
+        totalScoreEl.style.color = accent;
+        progressBarEl.style.backgroundColor = accent;
+      }
+
+      const primary = palette.primary || '#38bdf8';
+      if (primary !== lastPrimaryCol) {
+        lastPrimaryCol = primary;
+        titleEl.style.color = primary;
+      }
 
       const pct = duration > 0 ? Math.max(0, Math.min(100, (songTime / duration) * 100)) : 0;
-      progressBarEl.style.width = `${pct.toFixed(2)}%`;
-      progressBarEl.style.backgroundColor = palette.accent || '#f59e0b';
+      const pctStr = `${pct.toFixed(1)}%`;
+      if (pctStr !== lastPctStr) {
+        lastPctStr = pctStr;
+        progressBarEl.style.width = pctStr;
+      }
 
-      const now = performance.now();
-      for (let i = popups.length - 1; i >= 0; i--) {
-        const age = (now - popups[i].bornAt) / 650;
-        if (age >= 1) {
-          popups[i].el.remove();
-          popups.splice(i, 1);
-        } else {
-          popups[i].el.style.opacity = (1 - age).toFixed(2);
-          popups[i].el.style.transform = `translateY(${(-age * 18).toFixed(1)}px)`;
+      if (popups.length > 0) {
+        const now = performance.now();
+        for (let i = popups.length - 1; i >= 0; i--) {
+          const age = (now - popups[i].bornAt) / 650;
+          if (age >= 1) {
+            popups[i].el.remove();
+            popups.splice(i, 1);
+          } else {
+            popups[i].el.style.opacity = (1 - age).toFixed(2);
+            popups[i].el.style.transform = `translateY(${(-age * 18).toFixed(1)}px)`;
+          }
         }
       }
     },

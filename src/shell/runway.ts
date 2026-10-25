@@ -117,12 +117,13 @@ export function createRunwayCard(parent: HTMLElement): RunwayCard {
 
     card.appendChild(rowsWrap);
 
-    if (gameTitle === 'HIDE AND SEEK') {
+    if (gameTitle === 'HIDE AND SEEK' || gameTitle === 'TILES') {
       const tipEl = document.createElement('div');
       tipEl.dataset.testid = 'runway-extra-line';
       tipEl.className =
         'mt-2.5 rounded border border-amber-400/30 bg-amber-950/35 px-3 py-1.5 text-center text-xs font-semibold text-amber-300';
-      tipEl.textContent = 'Loud music covers your footsteps.';
+      tipEl.textContent =
+        gameTitle === 'TILES' ? '5 misses ends the game.' : 'Loud music covers your footsteps.';
       card.appendChild(tipEl);
     }
 

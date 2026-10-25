@@ -8,7 +8,7 @@ screen shows the score and Argon's playtest report for that song.
 
 Each game reads a different layer of the song:
 
-runner: the beat (obstacles and traffic land on onsets)
+runner: the beat (obstacles and comets land on onsets)
 horror: the structure (hunts start on section changes; the music IS the monster)
 tiles: the melody (lanes follow melody direction; peaks and valleys drive the background)
 rail: the energy (enemy density, bullet patterns and city districts follow intensity and sections)
@@ -160,8 +160,3 @@ buttons to jump to any game or time, audio latency offset slider.
 Commit after each working step.
 Lessons
 When you hit a non-obvious setup or build quirk, add one line here: the quirk and the fix.
-- `python3 -m venv .venv` fails without `python3-venv` (`ensurepip`), and symlinking `/usr/local/bin/python` to `.venv/bin/python` breaks `pyvenv.cfg` lookup: create the venv with `python3 -m venv --without-pip .venv`, bootstrap pip via `get-pip.py`, and use a shell wrapper (`exec /app/applet/.venv/bin/python "$@"`) at `/usr/local/bin/python`.
-- Container `/ms-playwright` ships `chromium_headless_shell-1247` while `playwright@1.64.1` expects `v1248`: run `npx playwright install chromium --only-shell` so Playwright scripts resolve the matching headless shell and ffmpeg binaries.
-- Environment variables are injected into the shell process rather than a pre-existing `.env` file, and `.git` is not pre-initialized: write `GEMINI_API_KEY` from env to `.env` for `dotenv`-based scripts and initialize git (`git init` + local user config) before committing.
-- Large MP3s (e.g. `ctd.mp3` at 11 MB) inflate inline base64 payloads for `ai.interactions.create`, and `ffmpeg` `loudnorm` changes gain envelope if applied after fades: transcode >3.2 MB tracks in memory to 16 kHz 48 kbps mono MP3 (`ffmpeg -ac 1 -ar 16000 -b:a 48k -f mp3 pipe:1`) for semantic API calls, and chain `loudnorm=I=-14:TP=-1.5:LRA=11` before `afade` when cutting `demo.mp3`.
-

@@ -141,7 +141,7 @@ export function createShellApp(root: HTMLElement): void {
     <canvas id="title-canvas" class="absolute inset-0 h-full w-full"></canvas>
     <div class="relative z-10 mt-52 flex flex-col items-center gap-4 text-center">
       <p class="max-w-md text-xs uppercase tracking-widest text-slate-400">
-        One Song · Four Games · Continuous Audio
+        One Song · Three Games · Continuous Audio
       </p>
       <button
         id="title-enter-btn"
@@ -176,7 +176,7 @@ export function createShellApp(root: HTMLElement): void {
     <div class="rounded-lg border border-slate-800 bg-slate-900/90 px-8 py-6 text-center shadow-2xl">
       <div class="text-xs uppercase tracking-widest text-amber-400">Initializing Run</div>
       <div id="loading-title" class="mt-2 text-lg font-extrabold text-slate-100">Loading Song & Games...</div>
-      <div class="mt-3 text-[11px] text-slate-400">Decoding continuous Web Audio buffer & preloading 4 stages</div>
+      <div class="mt-3 text-[11px] text-slate-400">Decoding continuous Web Audio buffer & preloading 3 stages</div>
     </div>
   `;
   root.appendChild(loadingScreen);
@@ -236,6 +236,7 @@ export function createShellApp(root: HTMLElement): void {
   let uploadingSong = false;
 
   let currentMap: SongMap | null = null;
+  let currentPaletteSource: ReturnType<typeof createPaletteSource> | null = null;
   let activeGameId: GameId = 'runner';
   let playPhase: PlayPhase = { kind: 'active' };
   let totalScore = 0;
@@ -659,11 +660,11 @@ export function createShellApp(root: HTMLElement): void {
         }
       }
       if (currentMap) {
-        const pal = createPaletteSource(currentMap).at(now);
+        const pal = (currentPaletteSource ?? createPaletteSource(currentMap)).at(now);
         hud.spawnScorePopup(e.points, e.label, pal);
       }
     } else if (e.type === 'lifeLost') {
-      const maxLives = gameId === 'runner' ? 2 : 3;
+      const maxLives = gameId === 'runner' ? 2 : gameId === 'tiles' ? 5 : 3;
       hud.setLives(e.livesLeft, maxLives);
     } else if (e.type === 'metric') {
       playtest.metrics[`${gameId}.${e.key}`] = e.value;
@@ -719,7 +720,7 @@ export function createShellApp(root: HTMLElement): void {
     const ctx = gameContexts[gameId];
     ctx.safeUntil = songTime + RUNWAY;
 
-    const maxLives = gameId === 'runner' ? 2 : 3;
+    const maxLives = gameId === 'runner' ? 2 : gameId === 'tiles' ? 5 : 3;
     hud.show();
     hud.setGameInfo(mod.title, mod.listensTo, maxLives, maxLives);
     runway.enter(mod.title, mod.listensTo, mod.controls, songTime);
@@ -746,6 +747,7 @@ export function createShellApp(root: HTMLElement): void {
     perGameStats = createInitialPerGameStats();
 
     const paletteSource = createPaletteSource(map);
+    currentPaletteSource = paletteSource;
     const slots = validateSlotRegistry();
     const baseSeed = paramSeed !== null && Number.isFinite(paramSeed) ? paramSeed : hashString(map.id);
 
@@ -977,7 +979,7 @@ export function createShellApp(root: HTMLElement): void {
         } else if (screen === 'play' && currentMap) {
           const songTime = audio.clock.now();
           audio.updateBands(songTime);
-          const pal = createPaletteSource(currentMap).at(songTime);
+          const pal = (currentPaletteSource ?? createPaletteSource(currentMap)).at(songTime);
 
           // Update playtest state every frame
           playtest.songTime = songTime;

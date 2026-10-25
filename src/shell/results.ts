@@ -229,7 +229,6 @@ export function createResultsScreen(parent: HTMLElement): ResultsScreen {
                 <span><i class="inline-block w-2 h-2 rounded-full mr-1" style="background:#f59e0b"></i>Runner</span>
                 <span><i class="inline-block w-2 h-2 rounded-full mr-1" style="background:#ef4444"></i>Horror</span>
                 <span><i class="inline-block w-2 h-2 rounded-full mr-1" style="background:#38bdf8"></i>Tiles</span>
-                <span><i class="inline-block w-2 h-2 rounded-full mr-1" style="background:#a855f7"></i>Rail</span>
               </div>
             </div>
           </div>
@@ -318,7 +317,7 @@ export function createResultsScreen(parent: HTMLElement): ResultsScreen {
                   Argon played this song before you did: ${report.iterations ?? 0} iterations, ${report.fixes ?? 0} fixes.
                 </div>
               </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 ${gamesCards}
               </div>
             `;

@@ -47,7 +47,7 @@ export function createDevPanel(parent: HTMLElement, cb: DevPanelCallbacks): DevP
 
     <div class="mt-3 border-t border-slate-800 pt-2.5">
       <div class="text-[10px] uppercase tracking-wider text-slate-400 mb-1.5">Jump to Game</div>
-      <div class="grid grid-cols-4 gap-1.5" id="dev-game-btns"></div>
+      <div class="grid grid-cols-3 gap-1.5" id="dev-game-btns"></div>
     </div>
 
     <div class="mt-3 border-t border-slate-800 pt-2.5">

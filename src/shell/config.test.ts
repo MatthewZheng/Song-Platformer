@@ -10,8 +10,8 @@ import {
   SCORING,
 } from './config';
 
-test('game rotation order matches AGENTS.md contract', () => {
-  assert.deepEqual(ORDER, ['runner', 'horror', 'tiles', 'rail']);
+test('game rotation order matches AGENTS.md contract (3 core games)', () => {
+  assert.deepEqual(ORDER, ['runner', 'horror', 'tiles']);
 });
 
 test('flow and timing constants match AGENTS.md specification', () => {

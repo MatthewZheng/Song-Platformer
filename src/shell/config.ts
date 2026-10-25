@@ -1,6 +1,6 @@
 import type { GameId } from './api';
 
-export const ORDER: GameId[] = ['runner', 'horror', 'tiles', 'rail'];
+export const ORDER: GameId[] = ['runner', 'horror', 'tiles'];
 
 export const DEATH_MAX_SEC = 1.0;
 export const READJUST = 1.0;

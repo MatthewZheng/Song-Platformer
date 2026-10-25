@@ -107,6 +107,7 @@ export class HorrorSimEngine {
   private hasFreshLead = false;
   private directPinpointLead = false;
   private sawPlayerHideInCurrentSpot = false;
+  private checkedCurrentTargetSpotRoll = false;
   private menaceTimeNearPlayer = 0;
   private menaceRetreatTimer = 0;
   private lastSeenPos: { x: number; z: number } | null = null;
@@ -271,14 +272,14 @@ export class HorrorSimEngine {
 
     let jitterMag: number;
     if (hiddenSpot && !this.flashlightOn) {
-      // Hidden silently in the dark (flashlight OFF): never bullseye the player's spot!
-      // Give a wide patrol zone (7.5m .. 13.5m away) so hiding in the dark is genuinely safe.
-      jitterMag = 7.5 + this.rng() * 6.0;
+      // Hidden silently in the dark (flashlight OFF): halfway between old (4.5-7.0m + 40% bullseye)
+      // and previous (7.5-13.5m + 0% bullseye) -> 20% close lead (2.5-4.5m), 80% medium lead (5.8-10.0m)
+      jitterMag = roll < 0.2 ? 2.5 + this.rng() * 2.0 : 5.8 + this.rng() * 4.2;
       this.directPinpointLead = false;
     } else if (hiddenSpot && this.flashlightOn) {
-      // Hidden with flashlight left ON: light spill narrows the hint radius (2.5m .. 5.5m)
-      jitterMag = roll < 0.25 ? this.rng() * 1.2 : 2.5 + this.rng() * 3.0;
-      this.directPinpointLead = roll < 0.25;
+      // Hidden with flashlight left ON: heavily penalized (55% pinpoint bullseye, else 1.5-3.7m)
+      jitterMag = roll < 0.55 ? this.rng() * 0.9 : 1.5 + this.rng() * 2.2;
+      this.directPinpointLead = roll < 0.55;
     } else {
       // Unhidden player in the open
       jitterMag =
@@ -376,25 +377,26 @@ export class HorrorSimEngine {
     this.freshLeadPos = null;
     this.hasFreshLead = false;
 
-    // Rank hiding spots by distance to lead, deprioritizing desks ('desk') during patrols
-    // unless the player left their flashlight ON under that desk or was seen entering it
+    // Rank hiding spots by distance to lead:
+    // Halfway between old (0m penalty) and previous (+4.2m general, +9.5m dark desk):
+    // +2.1m general desk penalty, +4.8m dark desk penalty, and -2.5m attraction bonus if flashlight is ON under desk
     const ranked = enabledSpots
       .map((spot) => {
         const dLead = Math.hypot(spot.worldX - lead.x, spot.worldZ - lead.z);
         const uncheckedBonus = this.checkedSpotIds.has(spot.id) ? 4.0 : -3.5;
-        const playerInThisDeskWithLightOff =
-          spot.kind === 'desk' &&
-          this.hiddenSpotId === spot.id &&
-          !this.flashlightOn &&
-          !this.sawPlayerHideInCurrentSpot;
-        // Deprioritize checking desks in general (+4.2m score penalty), and strongly avoid checking
-        // a dark desk where the player has their flashlight off (+9.5m) so desks aren't checked obsessively
-        const deskPenalty =
-          spot.kind === 'desk'
-            ? playerInThisDeskWithLightOff
-              ? 9.5
-              : 4.2
-            : 0.0;
+        const playerInThisSpot = this.hiddenSpotId === spot.id;
+        let deskPenalty = 0.0;
+        if (spot.kind === 'desk') {
+          if (playerInThisSpot && this.flashlightOn) {
+            deskPenalty = -2.5;
+          } else if (playerInThisSpot && !this.flashlightOn && !this.sawPlayerHideInCurrentSpot) {
+            deskPenalty = 4.8;
+          } else {
+            deskPenalty = 2.1;
+          }
+        } else if (playerInThisSpot && this.flashlightOn) {
+          deskPenalty = -2.0;
+        }
         return {
           spot,
           dLead,
@@ -405,6 +407,7 @@ export class HorrorSimEngine {
 
     const best = ranked[0];
     this.targetSpot = best.spot;
+    this.checkedCurrentTargetSpotRoll = false;
 
     // Suspected spot rule: top-ranked spot within 4 m of a fresh lead (or guaranteed once per hunt on fresh lead)
     const isSuspected =
@@ -500,9 +503,9 @@ export class HorrorSimEngine {
           return;
         }
       }
-    } else if (this.hiddenSpotId !== null && this.flashlightOn && dist <= 7.5) {
-      // Hidden player left their flashlight ON: if monster is within 7.5 m with line of sight and facing toward the spot,
-      // the spilled flashlight beam reveals the hiding spot!
+    } else if (this.hiddenSpotId !== null && this.flashlightOn && dist <= 10.5) {
+      // Hidden player left their flashlight ON: within 10.5 m with line of sight and a 110-deg cone,
+      // the spilled flashlight beam reveals the hiding spot and redirects patrolling monster
       const los = hasLineOfSight(
         this.office,
         this.monsterX,
@@ -516,10 +519,14 @@ export class HorrorSimEngine {
         const toPlayerX = dx / Math.max(0.01, dist);
         const toPlayerZ = dz / Math.max(0.01, dist);
         const dotMonster = mForwardX * toPlayerX + mForwardZ * toPlayerZ;
-        if (dotMonster >= Math.cos((40 * Math.PI) / 180)) {
+        if (dotMonster >= Math.cos((55 * Math.PI) / 180)) {
+          const hadPinpoint = this.directPinpointLead;
           this.freshLeadPos = { x: this.playerX, z: this.playerZ };
           this.hasFreshLead = true;
           this.directPinpointLead = true;
+          if (!hadPinpoint && this.monsterState === 'patrol_to_spot') {
+            this.selectNextSearchAction(songTime);
+          }
         }
       }
     }
@@ -874,6 +881,7 @@ export class HorrorSimEngine {
           this.monsterFrame = 'search';
           this.stateTimer = 0;
           this.stateDuration = 1.5;
+          this.checkedCurrentTargetSpotRoll = false;
           this.pushSoundCue('spot_search', songTime, distToPlayer, 0, 0.75);
         }
         break;
@@ -882,13 +890,21 @@ export class HorrorSimEngine {
       case 'checking_spot': {
         this.monsterFrame = 'search';
         this.stateTimer += dt;
-        if (this.targetSpot && this.hiddenSpotId === this.targetSpot.id && this.stateTimer >= 0.35) {
-          // Under a desk with flashlight OFF (and not seen crawling under): player stays hidden in the dark shadow under the desk!
+        if (
+          this.targetSpot &&
+          this.hiddenSpotId === this.targetSpot.id &&
+          this.stateTimer >= 0.35 &&
+          !this.checkedCurrentTargetSpotRoll
+        ) {
+          this.checkedCurrentTargetSpotRoll = true;
+          // Under a desk: 100% caught if flashlight is ON, seen hiding, or pinpoint lead;
+          // 50% caught / 50% safe if hidden in the dark with flashlight OFF (halfway between 100% old and 0% previous)
           const safeUnderDarkDesk =
             this.targetSpot.kind === 'desk' &&
             !this.flashlightOn &&
             !this.sawPlayerHideInCurrentSpot &&
-            !this.directPinpointLead;
+            !this.directPinpointLead &&
+            this.rng() >= 0.5;
           if (!safeUnderDarkDesk) {
             this.triggerPlayerCaught(songTime, false);
             return;
@@ -954,6 +970,7 @@ export class HorrorSimEngine {
           this.monsterFrame = 'search';
           this.stateTimer = 0;
           this.stateDuration = 0.6;
+          this.checkedCurrentTargetSpotRoll = false;
           this.pushSoundCue(' spot_tear', songTime, distToPlayer, 0, 1.0);
         }
         break;
@@ -962,12 +979,19 @@ export class HorrorSimEngine {
       case 'fakeout_tear_open': {
         this.monsterFrame = 'search';
         this.stateTimer += dt;
-        if (this.targetSpot && this.hiddenSpotId === this.targetSpot.id && this.stateTimer >= 0.2) {
+        if (
+          this.targetSpot &&
+          this.hiddenSpotId === this.targetSpot.id &&
+          this.stateTimer >= 0.2 &&
+          !this.checkedCurrentTargetSpotRoll
+        ) {
+          this.checkedCurrentTargetSpotRoll = true;
           const safeUnderDarkDesk =
             this.targetSpot.kind === 'desk' &&
             !this.flashlightOn &&
             !this.sawPlayerHideInCurrentSpot &&
-            !this.directPinpointLead;
+            !this.directPinpointLead &&
+            this.rng() >= 0.5;
           if (!safeUnderDarkDesk) {
             this.triggerPlayerCaught(songTime, false);
             return;

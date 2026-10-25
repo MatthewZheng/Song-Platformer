@@ -171,6 +171,15 @@ export function sectionIndexAt(map: SongMap, t: number): number {
 }
 
 /**
+ * Returns the normalized progress (0..1) within the active section at time `t`.
+ */
+export function sectionProgressAt(map: SongMap, t: number): number {
+  const sec = sectionAt(map, t);
+  const span = Math.max(0.001, sec.end - sec.start);
+  return Math.max(0, Math.min(1, (t - sec.start) / span));
+}
+
+/**
  * Returns the first phrase start timestamp inside [a, b], else null.
  */
 export function nextPhraseIn(map: SongMap, a: number, b: number): number | null {
@@ -195,19 +204,43 @@ export function nearestDownbeat(map: SongMap, t: number): number {
   return findNearest(t, map.downbeats).value;
 }
 
+function interpolateEnvelope(arr: number[] | undefined, hop: number, t: number, fallback = 0.3): number {
+  if (!arr || arr.length === 0) return fallback;
+  const step = Math.max(0.001, hop || 0.05);
+  const exactIdx = t / step;
+  if (exactIdx <= 0) return arr[0];
+  if (exactIdx >= arr.length - 1) return arr[arr.length - 1];
+  const i0 = Math.floor(exactIdx);
+  const frac = exactIdx - i0;
+  return arr[i0] * (1 - frac) + arr[i0 + 1] * frac;
+}
+
 /**
  * Returns the interpolated envelope energy (0..1) at song time `t`.
  */
 export function energyAt(map: SongMap, t: number): number {
-  const env = map.envelope;
-  if (!env || !env.energy || env.energy.length === 0) return 0.5;
-  const hop = Math.max(0.001, env.hop || 0.05);
-  const exactIdx = t / hop;
-  if (exactIdx <= 0) return env.energy[0];
-  if (exactIdx >= env.energy.length - 1) return env.energy[env.energy.length - 1];
-  const i0 = Math.floor(exactIdx);
-  const frac = exactIdx - i0;
-  return env.energy[i0] * (1 - frac) + env.energy[i0 + 1] * frac;
+  return interpolateEnvelope(map.envelope?.energy, map.envelope?.hop ?? 0.05, t, 0.5);
+}
+
+/**
+ * Returns the interpolated low-band envelope (0..1) at song time `t`.
+ */
+export function lowAt(map: SongMap, t: number): number {
+  return interpolateEnvelope(map.envelope?.low, map.envelope?.hop ?? 0.05, t, 0.3);
+}
+
+/**
+ * Returns the interpolated mid-band envelope (0..1) at song time `t`.
+ */
+export function midAt(map: SongMap, t: number): number {
+  return interpolateEnvelope(map.envelope?.mid, map.envelope?.hop ?? 0.05, t, 0.3);
+}
+
+/**
+ * Returns the interpolated high-band envelope (0..1) at song time `t`.
+ */
+export function highAt(map: SongMap, t: number): number {
+  return interpolateEnvelope(map.envelope?.high, map.envelope?.hop ?? 0.05, t, 0.3);
 }
 
 /**

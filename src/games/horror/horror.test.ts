@@ -210,8 +210,8 @@ test('hiding spots auto-face outward on entry, allow silent 360-degree mouse loo
   });
   assert.equal(sim.monsterState, 'chase', 'sprinting within 12m during hunt should immediately alert monster to chase');
 
-  // 4. Hiding under a desk with flashlight OFF survives even when monster inspects that desk,
-  // whereas hiding under a desk with flashlight ON gets caught when inspected.
+  // 4. Hiding under a desk with flashlight OFF has a 50% survival roll when inspected,
+  // whereas hiding under a desk with flashlight ON gets caught 100% of the time when inspected.
   const deskSpot = office.hidingSpots.find((s) => s.kind === 'desk')!;
   assert.ok(deskSpot, 'should find a desk hiding spot');
   sim.roundNumber = 2;
@@ -223,6 +223,8 @@ test('hiding spots auto-face outward on entry, allow silent 360-degree mouse loo
   sim['sawPlayerHideInCurrentSpot'] = false;
   sim['directPinpointLead'] = false;
   sim['targetSpot'] = deskSpot;
+  sim['checkedCurrentTargetSpotRoll'] = false;
+  sim['rng'] = () => 0.75; // >= 0.5 survives dark desk check
   sim.monsterState = 'checking_spot';
   sim['stateDuration'] = 1.5;
   sim['stateTimer'] = 0.4;
@@ -238,12 +240,13 @@ test('hiding spots auto-face outward on entry, allow silent 360-degree mouse loo
   assert.notEqual(
     sim.phase,
     'dying',
-    'player hidden under a dark desk (flashlight OFF, unseen entry) must survive a routine desk check',
+    'player hidden under a dark desk (flashlight OFF) survives when 50% shadow roll >= 0.5',
   );
 
-  // Now turn flashlight ON under the same desk -> monster spots the light and catches the player
+  // Now turn flashlight ON under the same desk (even with rng >= 0.5) -> monster spots the light and catches the player
   sim.flashlightOn = true;
   sim['targetSpot'] = deskSpot;
+  sim['checkedCurrentTargetSpotRoll'] = false;
   sim.monsterState = 'checking_spot';
   sim['stateDuration'] = 1.5;
   sim['stateTimer'] = 0.4;
@@ -258,7 +261,7 @@ test('hiding spots auto-face outward on entry, allow silent 360-degree mouse loo
   assert.equal(
     sim.phase,
     'dying',
-    'player hidden under a desk with flashlight ON should be caught when that desk is checked',
+    'player hidden under a desk with flashlight ON is caught 100% of the time when that desk is checked',
   );
 });
 
