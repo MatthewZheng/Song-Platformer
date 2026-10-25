@@ -1,0 +1,6 @@
+{
+  "name": "Song Arcade",
+  "description": "Turns any song into four continuous rhythm-reactive games (Runner, Horror, Tiles, Rail) designed and playtested in a loop by Gemini 4 Argon.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
