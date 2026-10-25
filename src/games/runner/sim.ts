@@ -12,6 +12,7 @@ import {
   CENTER_COL,
   cometHeadColAt,
   defaultParams,
+  ensureCometsAheadOfDino,
   evaluateCometAtColumn,
   generateLevel,
   GRID_COLS,
@@ -36,8 +37,42 @@ export interface RunnerMetrics {
   avgFps?: number;
 }
 
+/**
+ * Exact jump physics configuration from Chromium's offline.js (`Trex.config` & `Runner.config`):
+ * - `FPS = 60` (`msPerFrame = 1000 / 60 = 16.6667ms`)
+ * - `GRAVITY = 0.6` (px / frame^2)
+ * - `INIITAL_JUMP_VELOCITY = -10` (px / frame, adjusted by `-speed / 10` in `startJump(speed)`)
+ * - `DROP_VELOCITY = -5` (px / frame upward cap when `endJump()` triggers at `MAX_JUMP_HEIGHT` or key release)
+ * - `MAX_JUMP_HEIGHT = 30` (top-down yPos threshold; with `groundYPos = 93`, triggers `endJump()` at 63px above ground,
+ *    creating the signature Chrome T-Rex float/hang at the top of the jump up to ~84px above ground)
+ * - `MIN_JUMP_HEIGHT = 30` (minimum height above ground before `endJump()` can clamp velocity)
+ * - `SPEED_DROP_COEFFICIENT = 3` (fast drop multiplier when Down/S is pressed mid-air)
+ * - `GROUND_Y_POS = 93` (`Runner.defaultDimensions.HEIGHT (150) - Trex.config.HEIGHT (47) - BOTTOM_PAD (10)`)
+ */
+export const TREX_JUMP_CONFIG = {
+  FPS: 60,
+  MS_PER_FRAME: 1000 / 60,
+  GRAVITY: 0.6,
+  INITIAL_JUMP_VELOCITY: -10,
+  DROP_VELOCITY: -5,
+  MAX_JUMP_HEIGHT: 30,
+  MIN_JUMP_HEIGHT: 30,
+  SPEED_DROP_COEFFICIENT: 3,
+  GROUND_Y_POS: 93,
+  HEIGHT_PX: 47,
+  DEFAULT_SPEED: 6.5,
+  /**
+   * World-unit conversion per offline.js canvas pixel:
+   * At apex (~84px above ground in offline.js), `heroY = 84 * 0.026 = 2.184` world units,
+   * which is >2.1x the 1.02-unit T-Rex height and ~3.9x the 0.56-unit cactus height.
+   */
+  WORLD_UNITS_PER_PX: 0.026,
+  BASE_AIRTIME_SEC: 0.5425,
+} as const;
+
 export interface RunnerSimInput {
   jump?: boolean;
+  jumpReleased?: boolean;
   duck?: boolean;
   hopDir?: Exclude<Phase2HopDir, 'wait'> | null;
 }
@@ -58,10 +93,14 @@ export interface RunnerSimState {
   deathEmitted: boolean;
   score: number;
 
-  // Phase 1 state
+  // Phase 1 state (mirrors Chromium offline.js Trex jump state machine)
   isJumping: boolean;
   jumpElapsed: number;
   jumpBufferTimer: number;
+  trexYPos: number;
+  jumpVelocity: number;
+  reachedMinHeight: boolean;
+  speedDrop: boolean;
   isDucking: boolean;
   heroY: number;
 
@@ -96,6 +135,7 @@ export function computeStaticScheduleMetrics(
   session: RunnerSessionSchedule,
   params: RunnerParams,
   until: number,
+  maxVisitedRow = 0,
 ): {
   gapViolations: number;
   runwayHazards: number;
@@ -123,7 +163,10 @@ export function computeStaticScheduleMetrics(
   let unsafeRows = 0;
   const maxActiveRow = Math.min(
     session.rows.length - 1,
-    Math.ceil(Math.max(0, until - session.transitionEndTime) * session.rowsPerSec) + 8,
+    Math.max(
+      maxVisitedRow + 12,
+      Math.ceil(Math.max(0, until - session.transitionEndTime) * session.rowsPerSec) + 8,
+    ),
   );
 
   for (let r = 0; r <= maxActiveRow; r++) {
@@ -208,6 +251,10 @@ export function createRunnerSimState(
     isJumping: false,
     jumpElapsed: 0,
     jumpBufferTimer: 0,
+    trexYPos: TREX_JUMP_CONFIG.GROUND_Y_POS,
+    jumpVelocity: 0,
+    reachedMinHeight: false,
+    speedDrop: false,
     isDucking: false,
     heroY: 0,
 
@@ -231,6 +278,92 @@ export function createRunnerSimState(
     runwayHazards: staticStats.runwayHazards,
     unsafeRows: staticStats.unsafeRows,
   };
+}
+
+/**
+ * Mirrors `Trex.prototype.startJump(speed)` from Chromium's `offline.js`.
+ */
+export function startTrexJump(
+  state: RunnerSimState,
+  speed: number = TREX_JUMP_CONFIG.DEFAULT_SPEED,
+): void {
+  if (!state.isJumping) {
+    state.isJumping = true;
+    state.jumpElapsed = 0;
+    state.trexYPos = TREX_JUMP_CONFIG.GROUND_Y_POS;
+    state.jumpVelocity = TREX_JUMP_CONFIG.INITIAL_JUMP_VELOCITY - speed / 10;
+    state.reachedMinHeight = false;
+    state.speedDrop = false;
+    state.isDucking = false;
+  }
+}
+
+/**
+ * Mirrors `Trex.prototype.endJump()` from Chromium's `offline.js`.
+ * Clamps upward velocity to `DROP_VELOCITY (-5)` once `reachedMinHeight` or `MAX_JUMP_HEIGHT` is reached.
+ */
+export function endTrexJump(state: RunnerSimState): void {
+  if (state.reachedMinHeight && state.jumpVelocity < TREX_JUMP_CONFIG.DROP_VELOCITY) {
+    state.jumpVelocity = TREX_JUMP_CONFIG.DROP_VELOCITY;
+  }
+}
+
+/**
+ * Mirrors `Trex.prototype.setSpeedDrop()` from Chromium's `offline.js`.
+ */
+export function setTrexSpeedDrop(state: RunnerSimState): void {
+  state.speedDrop = true;
+  state.jumpVelocity = 1;
+}
+
+/**
+ * Mirrors `Trex.prototype.updateJump(deltaTime, speed)` from Chromium's `offline.js`.
+ */
+export function updateTrexJump(state: RunnerSimState, dt: number): void {
+  const airtimeScale =
+    TREX_JUMP_CONFIG.BASE_AIRTIME_SEC / Math.max(0.25, state.params.airtime || 0.55);
+  const framesElapsed = ((dt * 1000) / TREX_JUMP_CONFIG.MS_PER_FRAME) * airtimeScale;
+  const minJumpYPos = TREX_JUMP_CONFIG.GROUND_Y_POS - TREX_JUMP_CONFIG.MIN_JUMP_HEIGHT;
+
+  state.jumpElapsed += dt;
+
+  // Drop makes Trex fall faster (offline.js: yPos += jumpVelocity * SPEED_DROP_COEFFICIENT * framesElapsed)
+  if (state.speedDrop) {
+    state.trexYPos +=
+      state.jumpVelocity * TREX_JUMP_CONFIG.SPEED_DROP_COEFFICIENT * framesElapsed;
+  } else {
+    state.trexYPos += state.jumpVelocity * framesElapsed;
+  }
+
+  state.jumpVelocity += TREX_JUMP_CONFIG.GRAVITY * framesElapsed;
+
+  // Minimum height has been reached (offline.js: this.yPos < this.minJumpHeight || this.speedDrop)
+  if (state.trexYPos < minJumpYPos || state.speedDrop) {
+    state.reachedMinHeight = true;
+  }
+
+  // Reached max height threshold (offline.js: this.yPos < this.config.MAX_JUMP_HEIGHT || this.speedDrop)
+  if (state.trexYPos < TREX_JUMP_CONFIG.MAX_JUMP_HEIGHT || state.speedDrop) {
+    endTrexJump(state);
+  }
+
+  // Back down at ground level. Jump completed (offline.js: this.yPos > this.groundYPos)
+  if (state.trexYPos >= TREX_JUMP_CONFIG.GROUND_Y_POS) {
+    const landedFromSpeedDrop = state.speedDrop;
+    state.trexYPos = TREX_JUMP_CONFIG.GROUND_Y_POS;
+    state.jumpVelocity = 0;
+    state.isJumping = false;
+    state.jumpElapsed = 0;
+    state.reachedMinHeight = false;
+    state.speedDrop = false;
+    state.heroY = 0;
+    if (landedFromSpeedDrop) {
+      state.isDucking = true;
+    }
+  } else {
+    const heightPx = Math.max(0, TREX_JUMP_CONFIG.GROUND_Y_POS - state.trexYPos);
+    state.heroY = heightPx * TREX_JUMP_CONFIG.WORLD_UNITS_PER_PX;
+  }
 }
 
 function tryStartHop(
@@ -321,7 +454,7 @@ export function stepRunnerSim(
 
   const { session, params } = state;
 
-  // Phase 1: 2D Runner
+  // Phase 1: 2D Runner (exact Chromium offline.js Trex jump timing & physics)
   if (songTime < session.transitionTime) {
     state.phase = 'phase1';
 
@@ -332,34 +465,29 @@ export function stepRunnerSim(
     }
 
     if (state.jumpBufferTimer > 0 && !state.isJumping) {
-      state.isJumping = true;
-      state.jumpElapsed = 0;
       state.jumpBufferTimer = 0;
-      state.isDucking = false;
+      startTrexJump(state, TREX_JUMP_CONFIG.DEFAULT_SPEED);
     }
 
     if (state.isJumping) {
-      // Pressing duck while airborne triggers a snappy fast-drop
-      const dropMult = input.duck ? 2.35 : 1.0;
-      state.jumpElapsed += dt * dropMult;
-      const u = state.jumpElapsed / Math.max(0.1, params.airtime);
-      if (u >= 1.0) {
-        state.isJumping = false;
-        state.jumpElapsed = 0;
-        state.heroY = 0;
-        state.isDucking = Boolean(input.duck);
-      } else {
-        // Smooth, responsive gravity curve with quick takeoff and floaty apex
-        const sineArc = Math.sin(u * Math.PI);
-        const paraArc = 4 * u * (1 - u);
-        state.heroY = (0.62 * sineArc + 0.38 * paraArc) * 1.48;
+      if (input.duck && !state.speedDrop) {
+        setTrexSpeedDrop(state);
+      }
+      if (input.jumpReleased) {
+        endTrexJump(state);
+      }
+      updateTrexJump(state, dt);
+      if (!state.isJumping && input.duck) {
+        state.isDucking = true;
       }
     } else {
       state.heroY = 0;
+      state.trexYPos = TREX_JUMP_CONFIG.GROUND_Y_POS;
+      state.jumpVelocity = 0;
       state.isDucking = Boolean(input.duck);
     }
 
-    // Check Phase 1 obstacles (compact vegetation & bird heights)
+    // Check Phase 1 obstacles (adjusted collision boxes matching offline.js clearance)
     for (let i = 0; i < session.phase1Obstacles.length; i++) {
       const obs = session.phase1Obstacles[i];
       if (obs.removed) continue;
@@ -369,13 +497,14 @@ export function stepRunnerSim(
         obs.passed = true;
       }
 
-      // Collision window around heroX = 0
-      if (Math.abs(x) <= 0.34 && songTime >= session.safeUntil && songTime > state.invulnUntil) {
+      // Collision window around heroX = 0 (offline.js adjusted inner hitbox width)
+      if (Math.abs(x) <= 0.28 && songTime >= session.safeUntil && songTime > state.invulnUntil) {
         let hit = false;
         if (obs.kind === 'bird_high') {
-          hit = !state.isDucking && state.heroY < 0.88;
+          hit = !state.isDucking && state.heroY < 1.35;
         } else {
-          hit = state.heroY < 0.48;
+          // Cacti are 0.56 units tall (tapered top); T-Rex jump reaches 2.18 units at apex
+          hit = state.heroY < 0.44;
         }
 
         if (hit) {
@@ -393,6 +522,10 @@ export function stepRunnerSim(
     state.phase = 'transition';
     state.isJumping = false;
     state.jumpBufferTimer = 0;
+    state.trexYPos = TREX_JUMP_CONFIG.GROUND_Y_POS;
+    state.jumpVelocity = 0;
+    state.reachedMinHeight = false;
+    state.speedDrop = false;
     state.isDucking = false;
     state.heroY = 0;
     state.gridRow = 0;
@@ -407,9 +540,14 @@ export function stepRunnerSim(
   // Phase 2: 3D Voxel Lane Crossing
   state.phase = 'phase2';
 
+  // Ensure rows and non-sequential comets are generated ahead of the dinosaur's current row
+  ensureCometsAheadOfDino(state.map, session, params, state.gridRow, songTime, 4.0, false);
+
   if (input.hopDir) {
     if (!state.hopping) {
-      tryStartHop(state, input.hopDir, songTime, emit);
+      if (tryStartHop(state, input.hopDir, songTime, emit)) {
+        ensureCometsAheadOfDino(state.map, session, params, state.gridRow, songTime, 4.0, false);
+      }
     } else if (!state.queuedHopDir) {
       state.queuedHopDir = input.hopDir;
     }
@@ -434,7 +572,9 @@ export function stepRunnerSim(
       if (state.queuedHopDir) {
         const queued = state.queuedHopDir;
         state.queuedHopDir = null;
-        tryStartHop(state, queued, songTime, emit);
+        if (tryStartHop(state, queued, songTime, emit)) {
+          ensureCometsAheadOfDino(state.map, session, params, state.gridRow, songTime, 4.0, false);
+        }
       }
     }
   } else {
@@ -443,11 +583,11 @@ export function stepRunnerSim(
     state.hopArcY = 0;
   }
 
-  // Camera auto-scrolls forward at scrollRowsPerBeat, and catches up if hero gets far ahead
+  // Camera auto-scrolls forward continuously at session.rowsPerSec (scrollRowsPerBeat) and catches up when hero hops ahead
   const elapsedP2 = Math.max(0, songTime - session.transitionEndTime);
   const autoScrollRow = elapsedP2 * session.rowsPerSec;
-  const targetCamRow = Math.max(autoScrollRow, state.visualRow - 3.2);
-  state.cameraRow = Math.max(state.cameraRow, targetCamRow);
+  const continuousCamRow = state.cameraRow + dt * session.rowsPerSec;
+  state.cameraRow = Math.max(continuousCamRow, autoScrollRow, state.visualRow - 2.8);
 
   const bottomEdgeRow = state.cameraRow - 2.3;
   if (state.visualRow < bottomEdgeRow && songTime >= session.safeUntil) {
@@ -457,6 +597,9 @@ export function stepRunnerSim(
     if (!state.dying) {
       // Respawn on the nearest safe grass row in view with 1.5 s of invulnerability
       let respawnRow = Math.max(0, Math.ceil(state.cameraRow + 1));
+      if (respawnRow + 24 >= session.rows.length) {
+        ensureCometsAheadOfDino(state.map, session, params, respawnRow, songTime, 4.0, false);
+      }
       while (
         respawnRow < session.rows.length - 1 &&
         session.rows[respawnRow].type !== 'grass'
@@ -482,6 +625,7 @@ export function stepRunnerSim(
       state.hopping = false;
       state.queuedHopDir = null;
       state.invulnUntil = songTime + 1.5;
+      ensureCometsAheadOfDino(state.map, session, params, state.gridRow, songTime, 4.0, false);
     }
     return;
   }
@@ -601,13 +745,15 @@ export function simulate({
       const act = decidePhase1BotAction(session, mergedParams, t, state.isJumping);
       if (act === 'jump') input.jump = true;
       else if (act === 'duck') input.duck = true;
-    } else if (t >= session.transitionEndTime && !state.hopping && stepIdx % 3 === 0) {
+    } else if (t >= session.transitionEndTime && !state.hopping && stepIdx % 2 === 0) {
+      ensureCometsAheadOfDino(map, session, mergedParams, state.gridRow, t, 4.0, false);
       const hopDir = decidePhase2BotHop(
         map,
         session,
         state.gridRow,
         state.gridCol,
         t,
+        state.cameraRow,
       );
       if (hopDir !== 'wait') {
         input.hopDir = hopDir;

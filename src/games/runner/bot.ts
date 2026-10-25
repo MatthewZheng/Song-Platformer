@@ -41,9 +41,9 @@ export function decidePhase1BotAction(
       }
       break;
     } else {
-      // Jump lead time = half of airtime so apex aligns with obs.t
-      const leadTime = params.airtime * 0.52;
-      const minLead = 0.06;
+      // Jump lead time = ~0.48 of airtime (~0.264s) so Chrome T-Rex apex aligns with obs.t
+      const leadTime = params.airtime * 0.48;
+      const minLead = 0.04;
       if (!isJumping && dtToImpact <= leadTime && dtToImpact >= minLead) {
         return 'jump';
       }
@@ -63,14 +63,21 @@ export function isCellSafeAt(
   col: number,
   t: number,
   safetyMarginTiles = 0.62,
+  baseCameraRow?: number,
+  baseTime?: number,
 ): boolean {
   if (col < 0 || col >= GRID_COLS || row < 0 || row >= session.rows.length) {
     return false;
   }
 
-  // Camera scroll bottom edge check
+  // Camera scroll bottom edge check (accounts for both auto-scroll and ratcheted cameraRow)
   const elapsedP2 = Math.max(0, t - session.transitionEndTime);
-  const cameraBottomRow = elapsedP2 * session.rowsPerSec - 2.2;
+  const autoCamRow = elapsedP2 * session.rowsPerSec;
+  const projectedCamRow =
+    baseCameraRow !== undefined && baseTime !== undefined
+      ? Math.max(autoCamRow, baseCameraRow + Math.max(0, t - baseTime) * session.rowsPerSec)
+      : autoCamRow;
+  const cameraBottomRow = projectedCamRow - 2.2;
   if (row < cameraBottomRow + 0.65) {
     return false;
   }
@@ -108,6 +115,8 @@ function isTransitionSafe(
   r1: number,
   c1: number,
   t0: number,
+  baseCameraRow?: number,
+  baseTime?: number,
 ): boolean {
   if (c1 < 0 || c1 >= GRID_COLS || r1 < 0 || r1 >= session.rows.length) {
     return false;
@@ -120,13 +129,15 @@ function isTransitionSafe(
     }
   }
 
-  // First half of hop (0..0.07s) is on r0, second half (0.07..0.14s) is on r1
-  if (!isCellSafeAt(session, r0, c0, t0, 0.55)) return false;
-  if (!isCellSafeAt(session, r0, c0, t0 + 0.04, 0.55)) return false;
-  if (!isCellSafeAt(session, r1, c1, t0 + BFS_STEP_SEC, 0.62)) return false;
-  if (!isCellSafeAt(session, r1, c1, t0 + 0.105, 0.62)) return false;
-  if (!isCellSafeAt(session, r1, c1, t0 + HOP_DURATION_SEC, 0.62)) return false;
-  if (!isCellSafeAt(session, r1, c1, t0 + HOP_DURATION_SEC + BFS_STEP_SEC, 0.58)) return false;
+  // First half of hop (0..0.07s) is on r0, second half (0.07..0.14s) + next hop takeoff (0.14..0.21s) is on r1
+  if (!isCellSafeAt(session, r0, c0, t0, 0.7, baseCameraRow, baseTime)) return false;
+  if (!isCellSafeAt(session, r0, c0, t0 + 0.035, 0.7, baseCameraRow, baseTime)) return false;
+  if (!isCellSafeAt(session, r0, c0, t0 + BFS_STEP_SEC, 0.7, baseCameraRow, baseTime)) return false;
+  if (!isCellSafeAt(session, r1, c1, t0 + BFS_STEP_SEC, 0.72, baseCameraRow, baseTime)) return false;
+  if (!isCellSafeAt(session, r1, c1, t0 + 0.105, 0.72, baseCameraRow, baseTime)) return false;
+  if (!isCellSafeAt(session, r1, c1, t0 + HOP_DURATION_SEC, 0.72, baseCameraRow, baseTime)) return false;
+  if (!isCellSafeAt(session, r1, c1, t0 + HOP_DURATION_SEC + 0.035, 0.72, baseCameraRow, baseTime)) return false;
+  if (!isCellSafeAt(session, r1, c1, t0 + HOP_DURATION_SEC + BFS_STEP_SEC, 0.7, baseCameraRow, baseTime)) return false;
 
   return true;
 }
@@ -141,6 +152,8 @@ function evaluateLookaheadBFS(
   startCol: number,
   startTime: number,
   horizonTime: number,
+  baseCameraRow?: number,
+  baseTime?: number,
 ): { survives: boolean; maxRow: number } {
   let frontier = new Map<number, { row: number; col: number }>();
   frontier.set(startRow * GRID_COLS + startCol, { row: startRow, col: startCol });
@@ -168,7 +181,7 @@ function evaluateLookaheadBFS(
         const key = nr * GRID_COLS + nc;
         if (nextFrontier.has(key)) continue;
 
-        if (isTransitionSafe(session, state.row, state.col, nr, nc, curT)) {
+        if (isTransitionSafe(session, state.row, state.col, nr, nc, curT, baseCameraRow, baseTime)) {
           nextFrontier.set(key, { row: nr, col: nc });
           if (nr > bestRow) bestRow = nr;
         }
@@ -209,6 +222,7 @@ export function decidePhase2BotHop(
   curRow: number,
   curCol: number,
   songTime: number,
+  currentCameraRow?: number,
 ): Phase2HopDir {
   if (songTime < session.transitionEndTime) {
     return 'wait';
@@ -216,8 +230,9 @@ export function decidePhase2BotHop(
 
   const horizonTime = Math.min(map.duration + 1.0, songTime + BFS_LOOKAHEAD_SEC);
   const elapsedP2 = Math.max(0, songTime - session.transitionEndTime);
-  const cameraBottomRow = elapsedP2 * session.rowsPerSec - 2.2;
-  const cameraTargetRow = elapsedP2 * session.rowsPerSec + 2.5;
+  const estCamRow = Math.max(currentCameraRow ?? 0, elapsedP2 * session.rowsPerSec);
+  const cameraBottomRow = estCamRow - 2.2;
+  const cameraTargetRow = estCamRow + 3.2;
 
   const candidates: Array<{ dir: Phase2HopDir; dr: number; dc: number }> = [
     { dir: 'forward', dr: 1, dc: 0 },
@@ -238,7 +253,7 @@ export function decidePhase2BotHop(
   for (const cand of candidates) {
     const nr = curRow + cand.dr;
     const nc = curCol + cand.dc;
-    if (!isTransitionSafe(session, curRow, curCol, nr, nc, songTime)) {
+    if (!isTransitionSafe(session, curRow, curCol, nr, nc, songTime, estCamRow, songTime)) {
       continue;
     }
     const bfs = evaluateLookaheadBFS(
@@ -247,6 +262,8 @@ export function decidePhase2BotHop(
       nc,
       songTime + HOP_DURATION_SEC,
       horizonTime,
+      estCamRow,
+      songTime,
     );
     evaluated.push({
       dir: cand.dir,
@@ -268,11 +285,16 @@ export function decidePhase2BotHop(
   const waitOption = pool.find((m) => m.dir === 'wait');
   const forwardOption = pool.find((m) => m.dir === 'forward');
 
-  const tooFarAhead = curRow > cameraTargetRow + 2.2;
-  const urgencyLowRow = curRow < cameraBottomRow + 2.6;
+  const tooFarAhead = curRow > cameraTargetRow + 2.5;
+  const urgencyLowRow = curRow < cameraBottomRow + 3.6;
 
   if (forwardOption && !tooFarAhead) {
-    if (isPerfectNow || (isOnBeatNow && curRow <= cameraTargetRow + 1.5) || !waitOption || urgencyLowRow) {
+    if (
+      isPerfectNow ||
+      (isOnBeatNow && curRow <= cameraTargetRow + 1.8) ||
+      !waitOption ||
+      urgencyLowRow
+    ) {
       return 'forward';
     }
     if (waitOption) {

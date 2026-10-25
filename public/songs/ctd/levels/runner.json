@@ -1,0 +1,8252 @@
+{
+  "songId": "ctd",
+  "seed": 139725698,
+  "params": {
+    "airtime": 0.55,
+    "scrollSpeed2D": 9,
+    "scrollRowsPerBeat": 1.15,
+    "cometSpeedMin": 2.5,
+    "cometSpeedMax": 6,
+    "minObstacleGapBuffer": 0.18,
+    "lavaStreamEnabled": 0
+  },
+  "p95LowStrength": 1,
+  "defaultSession": {
+    "entry": 0,
+    "safeUntil": 5,
+    "transitionTime": 10.681,
+    "transitionEndTime": 12.281,
+    "transitionAfterEntry": 10.681,
+    "transitionOnPhrase": 1,
+    "phase1Obstacles": [
+      {
+        "id": 1,
+        "t": 7.221,
+        "onsetTime": 7.221,
+        "kind": "cactus_small",
+        "strength": 0.306
+      },
+      {
+        "id": 2,
+        "t": 8.359,
+        "onsetTime": 8.359,
+        "kind": "cactus_small",
+        "strength": 0.494
+      }
+    ],
+    "rows": [
+      {
+        "index": 0,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 1,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 2,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 3,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 4,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 5,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 6,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 7,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 2,
+            "row": 7,
+            "onsetTime": 15.743,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              14.675,
+              15.186
+            ]
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 9,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 10,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 1,
+            "row": 10,
+            "onsetTime": 15.743,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              14.675,
+              15.186
+            ]
+          }
+        ]
+      },
+      {
+        "index": 11,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 4,
+            "row": 11,
+            "onsetTime": 16.881,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              15.743,
+              16.3
+            ]
+          }
+        ]
+      },
+      {
+        "index": 12,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 13,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 3,
+            "row": 13,
+            "onsetTime": 16.3,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              15.186,
+              15.743
+            ]
+          },
+          {
+            "id": 6,
+            "row": 13,
+            "onsetTime": 18.019,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              16.881,
+              17.438
+            ]
+          }
+        ]
+      },
+      {
+        "index": 14,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 15,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 7,
+            "row": 15,
+            "onsetTime": 18.019,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              16.881,
+              17.438
+            ]
+          }
+        ]
+      },
+      {
+        "index": 16,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 17,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 18,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 9,
+            "row": 18,
+            "onsetTime": 19.342,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              18.019,
+              18.669
+            ]
+          }
+        ]
+      },
+      {
+        "index": 19,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 5,
+            "row": 19,
+            "onsetTime": 17.438,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              16.3,
+              16.881
+            ]
+          },
+          {
+            "id": 11,
+            "row": 19,
+            "onsetTime": 20.457,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              19.342,
+              19.9
+            ]
+          }
+        ]
+      },
+      {
+        "index": 20,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 21,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 10,
+            "row": 21,
+            "onsetTime": 19.9,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              18.669,
+              19.342
+            ]
+          },
+          {
+            "id": 16,
+            "row": 21,
+            "onsetTime": 22.686,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              21.571,
+              22.129
+            ]
+          }
+        ]
+      },
+      {
+        "index": 22,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 8,
+            "row": 22,
+            "onsetTime": 18.669,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              17.438,
+              18.019
+            ]
+          },
+          {
+            "id": 14,
+            "row": 22,
+            "onsetTime": 21.571,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              20.457,
+              21.014
+            ]
+          }
+        ]
+      },
+      {
+        "index": 23,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 24,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 12,
+            "row": 24,
+            "onsetTime": 20.457,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              19.342,
+              19.9
+            ]
+          },
+          {
+            "id": 17,
+            "row": 24,
+            "onsetTime": 22.686,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              21.571,
+              22.129
+            ]
+          }
+        ]
+      },
+      {
+        "index": 25,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 26,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 13,
+            "row": 26,
+            "onsetTime": 21.014,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              19.9,
+              20.457
+            ]
+          },
+          {
+            "id": 18,
+            "row": 26,
+            "onsetTime": 23.336,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              22.129,
+              22.686
+            ]
+          },
+          {
+            "id": 22,
+            "row": 26,
+            "onsetTime": 25.333,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              24.009,
+              24.66
+            ]
+          }
+        ]
+      },
+      {
+        "index": 27,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 15,
+            "row": 27,
+            "onsetTime": 22.129,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              21.014,
+              21.571
+            ]
+          }
+        ]
+      },
+      {
+        "index": 28,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 29,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 20,
+            "row": 29,
+            "onsetTime": 24.66,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              23.336,
+              24.009
+            ]
+          }
+        ]
+      },
+      {
+        "index": 30,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 31,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 19,
+            "row": 31,
+            "onsetTime": 24.009,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              22.686,
+              23.336
+            ]
+          },
+          {
+            "id": 25,
+            "row": 31,
+            "onsetTime": 27.353,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              26.006,
+              26.657
+            ]
+          }
+        ]
+      },
+      {
+        "index": 32,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 33,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 34,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 23,
+            "row": 34,
+            "onsetTime": 26.006,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              24.66,
+              25.333
+            ]
+          }
+        ]
+      },
+      {
+        "index": 35,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 21,
+            "row": 35,
+            "onsetTime": 25.333,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              24.009,
+              24.66
+            ]
+          },
+          {
+            "id": 26,
+            "row": 35,
+            "onsetTime": 28.003,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              26.657,
+              27.353
+            ]
+          },
+          {
+            "id": 31,
+            "row": 35,
+            "onsetTime": 30.557,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              29.35,
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "index": 36,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 37,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 30,
+            "row": 37,
+            "onsetTime": 30,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              28.677,
+              29.35
+            ]
+          }
+        ]
+      },
+      {
+        "index": 38,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 27,
+            "row": 38,
+            "onsetTime": 28.003,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              26.657,
+              27.353
+            ]
+          },
+          {
+            "id": 33,
+            "row": 38,
+            "onsetTime": 31.115,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              30,
+              30.557
+            ]
+          }
+        ]
+      },
+      {
+        "index": 39,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 40,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 24,
+            "row": 40,
+            "onsetTime": 26.657,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              25.333,
+              26.006
+            ]
+          },
+          {
+            "id": 29,
+            "row": 40,
+            "onsetTime": 29.35,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              28.003,
+              28.677
+            ]
+          }
+        ]
+      },
+      {
+        "index": 41,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 28,
+            "row": 41,
+            "onsetTime": 28.677,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              27.353,
+              28.003
+            ]
+          },
+          {
+            "id": 32,
+            "row": 41,
+            "onsetTime": 30.557,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              29.35,
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "index": 42,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 43,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 35,
+            "row": 43,
+            "onsetTime": 32.229,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              31.115,
+              31.672
+            ]
+          }
+        ]
+      },
+      {
+        "index": 44,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 45,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 39,
+            "row": 45,
+            "onsetTime": 34.017,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              32.787,
+              33.367
+            ]
+          }
+        ]
+      },
+      {
+        "index": 46,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 47,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 37,
+            "row": 47,
+            "onsetTime": 32.787,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              31.672,
+              32.229
+            ]
+          },
+          {
+            "id": 42,
+            "row": 47,
+            "onsetTime": 35.341,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              34.017,
+              34.691
+            ]
+          }
+        ]
+      },
+      {
+        "index": 48,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 34,
+            "row": 48,
+            "onsetTime": 31.672,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              30.557,
+              31.115
+            ]
+          },
+          {
+            "id": 38,
+            "row": 48,
+            "onsetTime": 33.344,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              31.672,
+              32.229
+            ]
+          }
+        ]
+      },
+      {
+        "index": 49,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 50,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 36,
+            "row": 50,
+            "onsetTime": 32.787,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              31.672,
+              32.229
+            ]
+          },
+          {
+            "id": 40,
+            "row": 50,
+            "onsetTime": 34.667,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              32.787,
+              33.367
+            ]
+          },
+          {
+            "id": 45,
+            "row": 50,
+            "onsetTime": 37.338,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              35.341,
+              36.014
+            ]
+          }
+        ]
+      },
+      {
+        "index": 51,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 43,
+            "row": 51,
+            "onsetTime": 36.014,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              34.691,
+              35.341
+            ]
+          }
+        ]
+      },
+      {
+        "index": 52,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 53,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 54,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 41,
+            "row": 54,
+            "onsetTime": 35.341,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              34.017,
+              34.691
+            ]
+          }
+        ]
+      },
+      {
+        "index": 55,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 56,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 44,
+            "row": 56,
+            "onsetTime": 36.688,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              35.341,
+              36.014
+            ]
+          },
+          {
+            "id": 49,
+            "row": 56,
+            "onsetTime": 39.219,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              38.011,
+              38.661
+            ]
+          }
+        ]
+      },
+      {
+        "index": 57,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 58,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 47,
+            "row": 58,
+            "onsetTime": 38.011,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              36.688,
+              37.361
+            ]
+          },
+          {
+            "id": 51,
+            "row": 58,
+            "onsetTime": 40.333,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              39.219,
+              39.776
+            ]
+          }
+        ]
+      },
+      {
+        "index": 59,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 48,
+            "row": 59,
+            "onsetTime": 38.661,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              37.361,
+              38.011
+            ]
+          },
+          {
+            "id": 54,
+            "row": 59,
+            "onsetTime": 41.494,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              40.333,
+              40.914
+            ]
+          }
+        ]
+      },
+      {
+        "index": 60,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 61,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 46,
+            "row": 61,
+            "onsetTime": 38.011,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              36.688,
+              37.361
+            ]
+          },
+          {
+            "id": 50,
+            "row": 61,
+            "onsetTime": 39.776,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              38.661,
+              39.219
+            ]
+          },
+          {
+            "id": 56,
+            "row": 61,
+            "onsetTime": 42.678,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              41.494,
+              42.075
+            ]
+          }
+        ]
+      },
+      {
+        "index": 62,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 63,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 53,
+            "row": 63,
+            "onsetTime": 40.89,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              39.219,
+              39.776
+            ]
+          },
+          {
+            "id": 57,
+            "row": 63,
+            "onsetTime": 42.678,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              41.494,
+              42.075
+            ]
+          }
+        ]
+      },
+      {
+        "index": 64,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 52,
+            "row": 64,
+            "onsetTime": 40.333,
+            "dir": 1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              39.219,
+              39.776
+            ]
+          },
+          {
+            "id": 58,
+            "row": 64,
+            "onsetTime": 43.259,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              42.075,
+              42.678
+            ]
+          }
+        ]
+      },
+      {
+        "index": 65,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 66,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 61,
+            "row": 66,
+            "onsetTime": 44.466,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              43.259,
+              43.862
+            ]
+          }
+        ]
+      },
+      {
+        "index": 67,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 55,
+            "row": 67,
+            "onsetTime": 42.098,
+            "dir": -1,
+            "speed": 4.33,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              40.914,
+              41.494
+            ]
+          }
+        ]
+      },
+      {
+        "index": 68,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 69,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 63,
+            "row": 69,
+            "onsetTime": 45.047,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              43.862,
+              44.466
+            ]
+          }
+        ]
+      },
+      {
+        "index": 70,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 59,
+            "row": 70,
+            "onsetTime": 43.862,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              42.678,
+              43.259
+            ]
+          },
+          {
+            "id": 66,
+            "row": 70,
+            "onsetTime": 46.208,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              45.047,
+              45.604
+            ]
+          }
+        ]
+      },
+      {
+        "index": 71,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 72,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 64,
+            "row": 72,
+            "onsetTime": 45.604,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              44.466,
+              45.047
+            ]
+          }
+        ]
+      },
+      {
+        "index": 73,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 62,
+            "row": 73,
+            "onsetTime": 45.047,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              43.862,
+              44.466
+            ]
+          },
+          {
+            "id": 67,
+            "row": 73,
+            "onsetTime": 46.811,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              45.604,
+              46.208
+            ]
+          },
+          {
+            "id": 72,
+            "row": 73,
+            "onsetTime": 48.553,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              47.392,
+              47.972
+            ]
+          }
+        ]
+      },
+      {
+        "index": 74,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 75,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 60,
+            "row": 75,
+            "onsetTime": 43.862,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              42.678,
+              43.259
+            ]
+          },
+          {
+            "id": 65,
+            "row": 75,
+            "onsetTime": 46.208,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              45.047,
+              45.604
+            ]
+          },
+          {
+            "id": 71,
+            "row": 75,
+            "onsetTime": 48.553,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              47.392,
+              47.972
+            ]
+          }
+        ]
+      },
+      {
+        "index": 76,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 77,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 68,
+            "row": 77,
+            "onsetTime": 47.392,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              46.208,
+              46.811
+            ]
+          },
+          {
+            "id": 74,
+            "row": 77,
+            "onsetTime": 49.737,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              48.553,
+              49.157
+            ]
+          }
+        ]
+      },
+      {
+        "index": 78,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 79,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 69,
+            "row": 79,
+            "onsetTime": 47.392,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              46.208,
+              46.811
+            ]
+          },
+          {
+            "id": 73,
+            "row": 79,
+            "onsetTime": 49.157,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              47.972,
+              48.553
+            ]
+          },
+          {
+            "id": 78,
+            "row": 79,
+            "onsetTime": 50.921,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              49.737,
+              50.318
+            ]
+          }
+        ]
+      },
+      {
+        "index": 80,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 70,
+            "row": 80,
+            "onsetTime": 47.972,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              46.811,
+              47.392
+            ]
+          }
+        ]
+      },
+      {
+        "index": 81,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 82,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 75,
+            "row": 82,
+            "onsetTime": 49.737,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              48.553,
+              49.157
+            ]
+          },
+          {
+            "id": 80,
+            "row": 82,
+            "onsetTime": 52.106,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              50.921,
+              51.502
+            ]
+          }
+        ]
+      },
+      {
+        "index": 83,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 84,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 76,
+            "row": 84,
+            "onsetTime": 50.318,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              49.157,
+              49.737
+            ]
+          },
+          {
+            "id": 81,
+            "row": 84,
+            "onsetTime": 52.106,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              50.921,
+              51.502
+            ]
+          },
+          {
+            "id": 86,
+            "row": 84,
+            "onsetTime": 53.87,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              52.663,
+              53.267
+            ]
+          }
+        ]
+      },
+      {
+        "index": 85,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 86,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 79,
+            "row": 86,
+            "onsetTime": 51.502,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              50.318,
+              50.921
+            ]
+          },
+          {
+            "id": 84,
+            "row": 86,
+            "onsetTime": 53.267,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              52.106,
+              52.663
+            ]
+          },
+          {
+            "id": 90,
+            "row": 86,
+            "onsetTime": 55.612,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              54.451,
+              55.031
+            ]
+          }
+        ]
+      },
+      {
+        "index": 87,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 88,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 85,
+            "row": 88,
+            "onsetTime": 53.87,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              52.663,
+              53.267
+            ]
+          },
+          {
+            "id": 91,
+            "row": 88,
+            "onsetTime": 55.612,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              54.451,
+              55.031
+            ]
+          }
+        ]
+      },
+      {
+        "index": 89,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 77,
+            "row": 89,
+            "onsetTime": 50.921,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              49.737,
+              50.318
+            ]
+          },
+          {
+            "id": 82,
+            "row": 89,
+            "onsetTime": 52.686,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              51.502,
+              52.106
+            ]
+          },
+          {
+            "id": 87,
+            "row": 89,
+            "onsetTime": 54.451,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              53.267,
+              53.87
+            ]
+          },
+          {
+            "id": 92,
+            "row": 89,
+            "onsetTime": 56.216,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              55.031,
+              55.612
+            ]
+          }
+        ]
+      },
+      {
+        "index": 90,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 91,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 88,
+            "row": 91,
+            "onsetTime": 54.451,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              53.267,
+              53.87
+            ]
+          }
+        ]
+      },
+      {
+        "index": 92,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 95,
+            "row": 92,
+            "onsetTime": 57.377,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              56.216,
+              56.796
+            ]
+          }
+        ]
+      },
+      {
+        "index": 93,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 94,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 83,
+            "row": 94,
+            "onsetTime": 53.267,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              52.106,
+              52.663
+            ]
+          },
+          {
+            "id": 89,
+            "row": 94,
+            "onsetTime": 55.031,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              53.87,
+              54.451
+            ]
+          },
+          {
+            "id": 93,
+            "row": 94,
+            "onsetTime": 56.796,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              55.612,
+              56.216
+            ]
+          },
+          {
+            "id": 98,
+            "row": 94,
+            "onsetTime": 58.561,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              57.377,
+              57.98
+            ]
+          },
+          {
+            "id": 102,
+            "row": 94,
+            "onsetTime": 60.325,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              59.141,
+              59.722
+            ]
+          }
+        ]
+      },
+      {
+        "index": 95,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 96,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 94,
+            "row": 96,
+            "onsetTime": 56.796,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              55.612,
+              56.216
+            ]
+          },
+          {
+            "id": 103,
+            "row": 96,
+            "onsetTime": 60.325,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              59.141,
+              59.722
+            ]
+          }
+        ]
+      },
+      {
+        "index": 97,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 98,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 97,
+            "row": 98,
+            "onsetTime": 57.98,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              56.796,
+              57.377
+            ]
+          }
+        ]
+      },
+      {
+        "index": 99,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 106,
+            "row": 99,
+            "onsetTime": 61.51,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              60.325,
+              60.906
+            ]
+          }
+        ]
+      },
+      {
+        "index": 100,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 101,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 100,
+            "row": 101,
+            "onsetTime": 59.164,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              57.98,
+              58.561
+            ]
+          },
+          {
+            "id": 109,
+            "row": 101,
+            "onsetTime": 62.671,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              60.906,
+              61.51
+            ]
+          }
+        ]
+      },
+      {
+        "index": 102,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 103,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 96,
+            "row": 103,
+            "onsetTime": 57.98,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              56.796,
+              57.377
+            ]
+          },
+          {
+            "id": 101,
+            "row": 103,
+            "onsetTime": 59.722,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              58.561,
+              59.141
+            ]
+          },
+          {
+            "id": 107,
+            "row": 103,
+            "onsetTime": 62.09,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              60.906,
+              61.51
+            ]
+          }
+        ]
+      },
+      {
+        "index": 104,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 99,
+            "row": 104,
+            "onsetTime": 59.164,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              57.98,
+              58.561
+            ]
+          },
+          {
+            "id": 104,
+            "row": 104,
+            "onsetTime": 60.929,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              59.722,
+              60.325
+            ]
+          },
+          {
+            "id": 111,
+            "row": 104,
+            "onsetTime": 63.855,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              62.694,
+              63.274
+            ]
+          }
+        ]
+      },
+      {
+        "index": 105,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 106,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 115,
+            "row": 106,
+            "onsetTime": 65.039,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              63.855,
+              64.435
+            ]
+          }
+        ]
+      },
+      {
+        "index": 107,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 105,
+            "row": 107,
+            "onsetTime": 61.51,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              60.325,
+              60.906
+            ]
+          },
+          {
+            "id": 110,
+            "row": 107,
+            "onsetTime": 63.274,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              62.09,
+              62.694
+            ]
+          }
+        ]
+      },
+      {
+        "index": 108,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 109,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 108,
+            "row": 109,
+            "onsetTime": 62.671,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              60.906,
+              61.51
+            ]
+          },
+          {
+            "id": 113,
+            "row": 109,
+            "onsetTime": 64.435,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              63.274,
+              63.855
+            ]
+          },
+          {
+            "id": 117,
+            "row": 109,
+            "onsetTime": 66.223,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              65.039,
+              65.62
+            ]
+          }
+        ]
+      },
+      {
+        "index": 110,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 112,
+            "row": 110,
+            "onsetTime": 63.855,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              62.694,
+              63.274
+            ]
+          }
+        ]
+      },
+      {
+        "index": 111,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 112,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 114,
+            "row": 112,
+            "onsetTime": 65.039,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              63.855,
+              64.435
+            ]
+          },
+          {
+            "id": 119,
+            "row": 112,
+            "onsetTime": 66.781,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              65.62,
+              66.223
+            ]
+          },
+          {
+            "id": 123,
+            "row": 112,
+            "onsetTime": 68.569,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              67.384,
+              67.988
+            ]
+          }
+        ]
+      },
+      {
+        "index": 113,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 122,
+            "row": 113,
+            "onsetTime": 67.988,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              66.781,
+              67.384
+            ]
+          }
+        ]
+      },
+      {
+        "index": 114,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 115,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 118,
+            "row": 115,
+            "onsetTime": 66.223,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              65.039,
+              65.62
+            ]
+          },
+          {
+            "id": 127,
+            "row": 115,
+            "onsetTime": 69.73,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              68.569,
+              69.149
+            ]
+          }
+        ]
+      },
+      {
+        "index": 116,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 121,
+            "row": 116,
+            "onsetTime": 67.384,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              66.223,
+              66.781
+            ]
+          }
+        ]
+      },
+      {
+        "index": 117,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 118,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 124,
+            "row": 118,
+            "onsetTime": 68.569,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              67.384,
+              67.988
+            ]
+          }
+        ]
+      },
+      {
+        "index": 119,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 116,
+            "row": 119,
+            "onsetTime": 65.643,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              64.435,
+              65.039
+            ]
+          },
+          {
+            "id": 120,
+            "row": 119,
+            "onsetTime": 67.384,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              66.223,
+              66.781
+            ]
+          },
+          {
+            "id": 125,
+            "row": 119,
+            "onsetTime": 69.149,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              67.988,
+              68.569
+            ]
+          },
+          {
+            "id": 129,
+            "row": 119,
+            "onsetTime": 70.937,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              69.73,
+              70.333
+            ]
+          },
+          {
+            "id": 134,
+            "row": 119,
+            "onsetTime": 72.702,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              71.494,
+              72.098
+            ]
+          }
+        ]
+      },
+      {
+        "index": 120,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 6,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 121,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 133,
+            "row": 121,
+            "onsetTime": 72.098,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              70.937,
+              71.494
+            ]
+          }
+        ]
+      },
+      {
+        "index": 122,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 130,
+            "row": 122,
+            "onsetTime": 70.937,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              69.73,
+              70.333
+            ]
+          }
+        ]
+      },
+      {
+        "index": 123,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 124,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 138,
+            "row": 124,
+            "onsetTime": 74.443,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              73.282,
+              73.839
+            ]
+          }
+        ]
+      },
+      {
+        "index": 125,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 126,
+            "row": 125,
+            "onsetTime": 69.73,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              68.569,
+              69.149
+            ]
+          },
+          {
+            "id": 131,
+            "row": 125,
+            "onsetTime": 71.494,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              70.333,
+              70.937
+            ]
+          },
+          {
+            "id": 136,
+            "row": 125,
+            "onsetTime": 73.282,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              72.098,
+              72.702
+            ]
+          },
+          {
+            "id": 141,
+            "row": 125,
+            "onsetTime": 75.627,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              74.443,
+              75.047
+            ]
+          }
+        ]
+      },
+      {
+        "index": 126,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 127,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 135,
+            "row": 127,
+            "onsetTime": 73.282,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              72.098,
+              72.702
+            ]
+          },
+          {
+            "id": 140,
+            "row": 127,
+            "onsetTime": 75.047,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              73.839,
+              74.443
+            ]
+          }
+        ]
+      },
+      {
+        "index": 128,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 128,
+            "row": 128,
+            "onsetTime": 70.333,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              69.149,
+              69.73
+            ]
+          },
+          {
+            "id": 132,
+            "row": 128,
+            "onsetTime": 72.098,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              70.937,
+              71.494
+            ]
+          },
+          {
+            "id": 137,
+            "row": 128,
+            "onsetTime": 73.839,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              72.702,
+              73.282
+            ]
+          },
+          {
+            "id": 143,
+            "row": 128,
+            "onsetTime": 76.208,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              75.047,
+              75.627
+            ]
+          }
+        ]
+      },
+      {
+        "index": 129,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 130,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 146,
+            "row": 130,
+            "onsetTime": 77.392,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              76.208,
+              76.788
+            ]
+          }
+        ]
+      },
+      {
+        "index": 131,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 132,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 142,
+            "row": 132,
+            "onsetTime": 75.627,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              74.443,
+              75.047
+            ]
+          },
+          {
+            "id": 149,
+            "row": 132,
+            "onsetTime": 78.553,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              77.392,
+              77.973
+            ]
+          }
+        ]
+      },
+      {
+        "index": 133,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 134,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 135,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 139,
+            "row": 135,
+            "onsetTime": 74.443,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              73.282,
+              73.839
+            ]
+          },
+          {
+            "id": 144,
+            "row": 135,
+            "onsetTime": 76.812,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              75.627,
+              76.208
+            ]
+          },
+          {
+            "id": 151,
+            "row": 135,
+            "onsetTime": 79.157,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              77.973,
+              78.553
+            ]
+          }
+        ]
+      },
+      {
+        "index": 136,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 137,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 145,
+            "row": 137,
+            "onsetTime": 76.812,
+            "dir": -1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              75.627,
+              76.208
+            ]
+          }
+        ]
+      },
+      {
+        "index": 138,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 148,
+            "row": 138,
+            "onsetTime": 77.973,
+            "dir": 1,
+            "speed": 5.06,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              76.788,
+              77.392
+            ]
+          },
+          {
+            "id": 157,
+            "row": 138,
+            "onsetTime": 81.502,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              80.341,
+              80.922
+            ]
+          }
+        ]
+      },
+      {
+        "index": 139,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 140,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 141,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 154,
+            "row": 141,
+            "onsetTime": 80.341,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              79.157,
+              79.761
+            ]
+          },
+          {
+            "id": 160,
+            "row": 141,
+            "onsetTime": 82.686,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              81.502,
+              82.106
+            ]
+          }
+        ]
+      },
+      {
+        "index": 142,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 143,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 147,
+            "row": 143,
+            "onsetTime": 77.973,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              76.788,
+              77.392
+            ]
+          },
+          {
+            "id": 152,
+            "row": 143,
+            "onsetTime": 79.737,
+            "dir": -1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              77.973,
+              78.553
+            ]
+          },
+          {
+            "id": 156,
+            "row": 143,
+            "onsetTime": 81.502,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              80.341,
+              80.922
+            ]
+          },
+          {
+            "id": 163,
+            "row": 143,
+            "onsetTime": 83.847,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              82.686,
+              83.267
+            ]
+          }
+        ]
+      },
+      {
+        "index": 144,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 145,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 146,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 150,
+            "row": 146,
+            "onsetTime": 79.157,
+            "dir": 1,
+            "speed": 6.68,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              77.973,
+              78.553
+            ]
+          },
+          {
+            "id": 155,
+            "row": 146,
+            "onsetTime": 80.922,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              79.761,
+              80.341
+            ]
+          },
+          {
+            "id": 159,
+            "row": 146,
+            "onsetTime": 82.686,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              81.502,
+              82.106
+            ]
+          },
+          {
+            "id": 164,
+            "row": 146,
+            "onsetTime": 84.451,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              83.267,
+              83.847
+            ]
+          }
+        ]
+      },
+      {
+        "index": 147,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 148,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 153,
+            "row": 148,
+            "onsetTime": 80.341,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              79.157,
+              79.761
+            ]
+          },
+          {
+            "id": 161,
+            "row": 148,
+            "onsetTime": 83.267,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              82.106,
+              82.686
+            ]
+          },
+          {
+            "id": 168,
+            "row": 148,
+            "onsetTime": 86.216,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              85.031,
+              85.612
+            ]
+          }
+        ]
+      },
+      {
+        "index": 149,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 172,
+            "row": 149,
+            "onsetTime": 87.377,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              86.216,
+              86.796
+            ]
+          }
+        ]
+      },
+      {
+        "index": 150,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 151,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 158,
+            "row": 151,
+            "onsetTime": 82.106,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              80.922,
+              81.502
+            ]
+          },
+          {
+            "id": 162,
+            "row": 151,
+            "onsetTime": 83.847,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              82.686,
+              83.267
+            ]
+          },
+          {
+            "id": 167,
+            "row": 151,
+            "onsetTime": 85.612,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              84.451,
+              85.031
+            ]
+          },
+          {
+            "id": 171,
+            "row": 151,
+            "onsetTime": 87.377,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              86.216,
+              86.796
+            ]
+          }
+        ]
+      },
+      {
+        "index": 152,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 166,
+            "row": 152,
+            "onsetTime": 85.031,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              83.847,
+              84.451
+            ]
+          }
+        ]
+      },
+      {
+        "index": 153,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 154,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 169,
+            "row": 154,
+            "onsetTime": 86.216,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              85.031,
+              85.612
+            ]
+          },
+          {
+            "id": 173,
+            "row": 154,
+            "onsetTime": 87.957,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              86.796,
+              87.377
+            ]
+          },
+          {
+            "id": 177,
+            "row": 154,
+            "onsetTime": 89.745,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              88.561,
+              89.165
+            ]
+          }
+        ]
+      },
+      {
+        "index": 155,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 165,
+            "row": 155,
+            "onsetTime": 85.031,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              83.847,
+              84.451
+            ]
+          },
+          {
+            "id": 170,
+            "row": 155,
+            "onsetTime": 86.796,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              85.612,
+              86.216
+            ]
+          },
+          {
+            "id": 176,
+            "row": 155,
+            "onsetTime": 89.165,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              87.957,
+              88.561
+            ]
+          },
+          {
+            "id": 180,
+            "row": 155,
+            "onsetTime": 90.906,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              89.745,
+              90.326
+            ]
+          }
+        ]
+      },
+      {
+        "index": 156,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 157,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 181,
+            "row": 157,
+            "onsetTime": 90.906,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              89.745,
+              90.326
+            ]
+          }
+        ]
+      },
+      {
+        "index": 158,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 175,
+            "row": 158,
+            "onsetTime": 88.561,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              87.377,
+              87.957
+            ]
+          }
+        ]
+      },
+      {
+        "index": 159,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 160,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 178,
+            "row": 160,
+            "onsetTime": 89.745,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              88.561,
+              89.165
+            ]
+          }
+        ]
+      },
+      {
+        "index": 161,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 162,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 163,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 182,
+            "row": 163,
+            "onsetTime": 91.51,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              90.326,
+              90.906
+            ]
+          },
+          {
+            "id": 186,
+            "row": 163,
+            "onsetTime": 93.275,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              92.09,
+              92.671
+            ]
+          }
+        ]
+      },
+      {
+        "index": 164,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 174,
+            "row": 164,
+            "onsetTime": 88.561,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              87.377,
+              87.957
+            ]
+          },
+          {
+            "id": 179,
+            "row": 164,
+            "onsetTime": 90.326,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              89.165,
+              89.745
+            ]
+          },
+          {
+            "id": 183,
+            "row": 164,
+            "onsetTime": 92.09,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              90.906,
+              91.51
+            ]
+          },
+          {
+            "id": 190,
+            "row": 164,
+            "onsetTime": 94.459,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              93.275,
+              93.855
+            ]
+          }
+        ]
+      },
+      {
+        "index": 165,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 166,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 187,
+            "row": 166,
+            "onsetTime": 93.275,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              92.09,
+              92.671
+            ]
+          }
+        ]
+      },
+      {
+        "index": 167,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 184,
+            "row": 167,
+            "onsetTime": 92.09,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              90.906,
+              91.51
+            ]
+          },
+          {
+            "id": 193,
+            "row": 167,
+            "onsetTime": 95.62,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              94.436,
+              95.016
+            ]
+          }
+        ]
+      },
+      {
+        "index": 168,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 169,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 170,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 196,
+            "row": 170,
+            "onsetTime": 96.804,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              95.62,
+              96.2
+            ]
+          }
+        ]
+      },
+      {
+        "index": 171,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 172,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 185,
+            "row": 172,
+            "onsetTime": 92.671,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              91.51,
+              92.09
+            ]
+          },
+          {
+            "id": 189,
+            "row": 172,
+            "onsetTime": 94.459,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              93.275,
+              93.855
+            ]
+          },
+          {
+            "id": 194,
+            "row": 172,
+            "onsetTime": 96.2,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              95.016,
+              95.62
+            ]
+          },
+          {
+            "id": 198,
+            "row": 172,
+            "onsetTime": 97.965,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              96.804,
+              97.361
+            ]
+          }
+        ]
+      },
+      {
+        "index": 173,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 202,
+            "row": 173,
+            "onsetTime": 99.172,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              97.965,
+              98.569
+            ]
+          }
+        ]
+      },
+      {
+        "index": 174,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 175,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 188,
+            "row": 175,
+            "onsetTime": 93.855,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              92.671,
+              93.275
+            ]
+          },
+          {
+            "id": 192,
+            "row": 175,
+            "onsetTime": 95.62,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              94.436,
+              95.016
+            ]
+          },
+          {
+            "id": 197,
+            "row": 175,
+            "onsetTime": 97.361,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              96.2,
+              96.804
+            ]
+          },
+          {
+            "id": 203,
+            "row": 175,
+            "onsetTime": 99.73,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              98.569,
+              99.149
+            ]
+          }
+        ]
+      },
+      {
+        "index": 176,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 191,
+            "row": 176,
+            "onsetTime": 95.016,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              93.855,
+              94.436
+            ]
+          },
+          {
+            "id": 195,
+            "row": 176,
+            "onsetTime": 96.804,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              95.62,
+              96.2
+            ]
+          },
+          {
+            "id": 200,
+            "row": 176,
+            "onsetTime": 98.569,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              97.361,
+              97.965
+            ]
+          },
+          {
+            "id": 204,
+            "row": 176,
+            "onsetTime": 100.333,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              99.149,
+              99.73
+            ]
+          }
+        ]
+      },
+      {
+        "index": 177,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 178,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 199,
+            "row": 178,
+            "onsetTime": 97.965,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              96.804,
+              97.361
+            ]
+          },
+          {
+            "id": 208,
+            "row": 178,
+            "onsetTime": 101.518,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              100.333,
+              100.914
+            ]
+          }
+        ]
+      },
+      {
+        "index": 179,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 180,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 181,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 201,
+            "row": 181,
+            "onsetTime": 99.172,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              97.965,
+              98.569
+            ]
+          },
+          {
+            "id": 206,
+            "row": 181,
+            "onsetTime": 100.914,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              99.73,
+              100.333
+            ]
+          },
+          {
+            "id": 210,
+            "row": 181,
+            "onsetTime": 102.679,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              101.494,
+              102.075
+            ]
+          }
+        ]
+      },
+      {
+        "index": 182,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 205,
+            "row": 182,
+            "onsetTime": 100.333,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              99.149,
+              99.73
+            ]
+          },
+          {
+            "id": 214,
+            "row": 182,
+            "onsetTime": 103.863,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              102.679,
+              103.259
+            ]
+          }
+        ]
+      },
+      {
+        "index": 183,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 184,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 217,
+            "row": 184,
+            "onsetTime": 105.024,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              103.84,
+              104.42
+            ]
+          }
+        ]
+      },
+      {
+        "index": 185,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 209,
+            "row": 185,
+            "onsetTime": 102.075,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              100.914,
+              101.494
+            ]
+          }
+        ]
+      },
+      {
+        "index": 186,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 187,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 220,
+            "row": 187,
+            "onsetTime": 106.161,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 188,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 207,
+            "row": 188,
+            "onsetTime": 101.518,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              100.333,
+              100.914
+            ]
+          },
+          {
+            "id": 212,
+            "row": 188,
+            "onsetTime": 103.259,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              102.075,
+              102.679
+            ]
+          },
+          {
+            "id": 216,
+            "row": 188,
+            "onsetTime": 105.024,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              103.84,
+              104.42
+            ]
+          }
+        ]
+      },
+      {
+        "index": 189,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 190,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 211,
+            "row": 190,
+            "onsetTime": 102.679,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              101.494,
+              102.075
+            ]
+          },
+          {
+            "id": 223,
+            "row": 190,
+            "onsetTime": 107.322,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 191,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 215,
+            "row": 191,
+            "onsetTime": 104.443,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              103.259,
+              103.84
+            ]
+          },
+          {
+            "id": 219,
+            "row": 191,
+            "onsetTime": 106.161,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 192,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 193,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 213,
+            "row": 193,
+            "onsetTime": 103.863,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              102.679,
+              103.259
+            ]
+          },
+          {
+            "id": 218,
+            "row": 193,
+            "onsetTime": 105.604,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 222,
+            "row": 193,
+            "onsetTime": 107.322,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 227,
+            "row": 193,
+            "onsetTime": 109.063,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 194,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 195,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 196,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 229,
+            "row": 196,
+            "onsetTime": 109.643,
+            "dir": 1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 197,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 221,
+            "row": 197,
+            "onsetTime": 106.742,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 225,
+            "row": 197,
+            "onsetTime": 108.482,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 231,
+            "row": 197,
+            "onsetTime": 110.803,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 198,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 199,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 226,
+            "row": 199,
+            "onsetTime": 108.482,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 232,
+            "row": 199,
+            "onsetTime": 110.803,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 200,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 228,
+            "row": 200,
+            "onsetTime": 109.643,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 233,
+            "row": 200,
+            "onsetTime": 111.384,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 201,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 202,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 238,
+            "row": 202,
+            "onsetTime": 113.125,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 203,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 224,
+            "row": 203,
+            "onsetTime": 107.902,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 230,
+            "row": 203,
+            "onsetTime": 110.223,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 234,
+            "row": 203,
+            "onsetTime": 111.964,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 239,
+            "row": 203,
+            "onsetTime": 113.705,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 204,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 205,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 235,
+            "row": 205,
+            "onsetTime": 111.964,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 244,
+            "row": 205,
+            "onsetTime": 115.446,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 206,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 236,
+            "row": 206,
+            "onsetTime": 112.544,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 240,
+            "row": 206,
+            "onsetTime": 114.285,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 207,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 208,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 245,
+            "row": 208,
+            "onsetTime": 116.026,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 209,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 237,
+            "row": 209,
+            "onsetTime": 113.125,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 242,
+            "row": 209,
+            "onsetTime": 114.865,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 210,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 211,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 241,
+            "row": 211,
+            "onsetTime": 114.285,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          },
+          {
+            "id": 246,
+            "row": 211,
+            "onsetTime": 116.606,
+            "dir": -1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 212,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 213,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 247,
+            "row": 213,
+            "onsetTime": 116.606,
+            "dir": -1,
+            "speed": 4.39,
+            "headRadius": 0.38,
+            "trailLength": 1.5,
+            "isBig": false,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 214,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 215,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 216,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": [
+          {
+            "id": 243,
+            "row": 216,
+            "onsetTime": 115.446,
+            "dir": 1,
+            "speed": 6,
+            "headRadius": 0.46,
+            "trailLength": 1.5,
+            "isBig": true,
+            "preFlareBeats": [
+              104.42,
+              105.001
+            ]
+          }
+        ]
+      },
+      {
+        "index": 217,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 218,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 219,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 220,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 221,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 222,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 223,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 224,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 225,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 226,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 227,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 228,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 229,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 230,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 231,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 232,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 233,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 234,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 235,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 236,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 237,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 238,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 239,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 240,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 241,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 242,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 243,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 244,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 245,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 246,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 247,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 248,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 249,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 250,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 251,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 252,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 253,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 254,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 255,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 256,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 257,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 258,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 259,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 260,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 261,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 262,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 263,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 264,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 265,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 266,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 267,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 268,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 269,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 270,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 271,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 272,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 273,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 274,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 6,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 275,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 276,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 277,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 278,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 279,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 280,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 281,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 282,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 283,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 284,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 285,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 286,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 287,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 288,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 289,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 290,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 291,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 292,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 293,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 294,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 295,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 296,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 297,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 298,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 299,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 300,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 301,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 302,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 303,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 304,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 305,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 306,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 307,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 308,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 309,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 310,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 311,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 312,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 313,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 314,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 315,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 316,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 317,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 318,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 319,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 320,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 321,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 322,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 323,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 324,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 325,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 326,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 327,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 328,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 329,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 330,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 331,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 332,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 333,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 334,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 335,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 336,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 337,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 338,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 339,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 340,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 341,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 342,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 343,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 344,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          },
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 345,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 346,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          },
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 347,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 348,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 349,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 7,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 350,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 351,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 352,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 353,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 354,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 8,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 355,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 356,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "boulder"
+          },
+          {
+            "col": 6,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 357,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 358,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 359,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 360,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 361,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 362,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "fern"
+          },
+          {
+            "col": 2,
+            "kind": "fern"
+          },
+          {
+            "col": 6,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 363,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 364,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 365,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 0,
+            "kind": "fern"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 366,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 367,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 368,
+        "type": "grass",
+        "band": "low",
+        "dir": 1,
+        "blockers": [
+          {
+            "col": 1,
+            "kind": "boulder"
+          },
+          {
+            "col": 2,
+            "kind": "boulder"
+          },
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 369,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 370,
+        "type": "scorched_earth",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 371,
+        "type": "grass",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [
+          {
+            "col": 8,
+            "kind": "boulder"
+          }
+        ],
+        "comets": []
+      },
+      {
+        "index": 372,
+        "type": "deep_scorch",
+        "band": "low",
+        "dir": 1,
+        "blockers": [],
+        "comets": []
+      },
+      {
+        "index": 373,
+        "type": "scorched_earth",
+        "band": "mid",
+        "dir": -1,
+        "blockers": [],
+        "comets": []
+      }
+    ],
+    "rowsPerSec": 1.9818333333333333,
+    "seed": 139725698,
+    "p95LowStrength": 1,
+    "firstCometAllowedTime": 15.281,
+    "nextCometId": 248,
+    "lastScheduledRow": 211,
+    "beatTimeline": [
+      15.743,
+      16.3,
+      16.881,
+      17.438,
+      18.019,
+      18.669,
+      19.342,
+      19.9,
+      20.457,
+      21.014,
+      21.571,
+      22.129,
+      22.686,
+      23.336,
+      24.009,
+      24.66,
+      25.333,
+      26.006,
+      26.657,
+      27.353,
+      28.003,
+      28.677,
+      29.35,
+      30,
+      30.557,
+      31.115,
+      31.672,
+      32.229,
+      32.787,
+      33.367,
+      34.017,
+      34.691,
+      35.341,
+      36.014,
+      36.688,
+      37.361,
+      38.011,
+      38.661,
+      39.219,
+      39.776,
+      40.333,
+      40.914,
+      41.494,
+      42.075,
+      42.678,
+      43.259,
+      43.862,
+      44.466,
+      45.047,
+      45.604,
+      46.208,
+      46.811,
+      47.392,
+      47.972,
+      48.553,
+      49.157,
+      49.737,
+      50.318,
+      50.921,
+      51.502,
+      52.106,
+      52.663,
+      53.267,
+      53.87,
+      54.451,
+      55.031,
+      55.612,
+      56.216,
+      56.796,
+      57.377,
+      57.98,
+      58.561,
+      59.141,
+      59.722,
+      60.325,
+      60.906,
+      61.51,
+      62.09,
+      62.694,
+      63.274,
+      63.855,
+      64.435,
+      65.039,
+      65.62,
+      66.223,
+      66.781,
+      67.384,
+      67.988,
+      68.569,
+      69.149,
+      69.73,
+      70.333,
+      70.937,
+      71.494,
+      72.098,
+      72.702,
+      73.282,
+      73.839,
+      74.443,
+      75.047,
+      75.627,
+      76.208,
+      76.788,
+      77.392,
+      77.973,
+      78.553,
+      79.157,
+      79.761,
+      80.341,
+      80.922,
+      81.502,
+      82.106,
+      82.686,
+      83.267,
+      83.847,
+      84.451,
+      85.031,
+      85.612,
+      86.216,
+      86.796,
+      87.377,
+      87.957,
+      88.561,
+      89.165,
+      89.745,
+      90.326,
+      90.906,
+      91.51,
+      92.09,
+      92.671,
+      93.275,
+      93.855,
+      94.436,
+      95.016,
+      95.62,
+      96.2,
+      96.804,
+      97.361,
+      97.965,
+      98.569,
+      99.149,
+      99.73,
+      100.333,
+      100.914,
+      101.494,
+      102.075,
+      102.679,
+      103.259,
+      103.84,
+      104.42,
+      105.001,
+      105.581,
+      106.161,
+      106.742,
+      107.322,
+      107.902,
+      108.482,
+      109.063,
+      109.643,
+      110.223,
+      110.803,
+      111.384,
+      111.964,
+      112.544,
+      113.125,
+      113.705,
+      114.285,
+      114.865,
+      115.446,
+      116.026,
+      116.606,
+      117.186,
+      117.767
+    ]
+  }
+}

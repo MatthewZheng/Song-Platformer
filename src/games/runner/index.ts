@@ -142,6 +142,7 @@ export function createRunnerGame(): GameModule {
 
   // Held/buffered player inputs
   let jumpPressed = false;
+  let jumpReleased = false;
   let jumpHeld = false;
   let duckHeld = false;
   let pendingHopDir: Exclude<Phase2HopDir, 'wait'> | null = null;
@@ -233,6 +234,7 @@ export function createRunnerGame(): GameModule {
   function onKeyUp(e: KeyboardEvent): void {
     if (e.code === 'Space' || e.code === 'KeyW' || e.code === 'ArrowUp') {
       jumpHeld = false;
+      jumpReleased = true;
     }
     if (e.code === 'KeyS' || e.code === 'ArrowDown') {
       duckHeld = false;
@@ -269,7 +271,7 @@ export function createRunnerGame(): GameModule {
     scene.fog = new THREE.FogExp2('#131124', 0.024);
 
     const aspect = window.innerWidth / Math.max(1, window.innerHeight);
-    const orthoHalfH = 5.5;
+    const orthoHalfH = 4.2;
     orthoCam = new THREE.OrthographicCamera(
       -orthoHalfH * aspect,
       orthoHalfH * aspect,
@@ -278,8 +280,8 @@ export function createRunnerGame(): GameModule {
       0.1,
       100,
     );
-    orthoCam.position.set(4.0, 2.0, 18);
-    orthoCam.lookAt(4.0, 2.0, 0);
+    orthoCam.position.set(3.4, 1.55, 18);
+    orthoCam.lookAt(3.4, 1.55, 0);
 
     perspCam = new THREE.PerspectiveCamera(50, aspect, 0.1, 120);
     perspCam.position.set(0, 10.2, 8.2);
@@ -384,8 +386,8 @@ export function createRunnerGame(): GameModule {
       map: scoreTex,
       transparent: true,
     });
-    scorePlaneMesh = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 0.33), scoreMat);
-    scorePlaneMesh.position.set(9.8, 4.15, 0.2);
+    scorePlaneMesh = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 0.29), scoreMat);
+    scorePlaneMesh.position.set(7.4, 3.15, 0.2);
     phase1Group.add(scorePlaneMesh);
 
     // Shared InstancedMesh with smooth-edged rounded box geometry for Transition & Phase 2
@@ -489,51 +491,20 @@ export function createRunnerGame(): GameModule {
     }
     heroPlaneMat.needsUpdate = true;
 
-    // Smooth squash-and-stretch + pitch tilt on takeoff, apex, landing, and running stride
-    if (simState.isJumping && !wasJumping2D) {
-      // Takeoff stretch
-      heroSquashX = 0.85;
-      heroSquashY = 1.18;
-    } else if (!simState.isJumping && wasJumping2D) {
-      // Landing squash
-      heroSquashX = 1.18;
-      heroSquashY = 0.84;
-    }
     wasJumping2D = simState.isJumping;
+    heroSquashX = 1.0;
+    heroSquashY = 1.0;
+    heroTiltZ = 0.0;
 
-    const targetSquashX = simState.isDucking ? 1.14 : 1.0;
-    const targetSquashY = simState.isDucking ? 0.86 : 1.0;
-    heroSquashX = THREE.MathUtils.damp(heroSquashX, targetSquashX, 18, frameDt);
-    heroSquashY = THREE.MathUtils.damp(heroSquashY, targetSquashY, 18, frameDt);
-
-    // Continuous smooth stride bounce when grounded, smooth vertical tracking when airborne
-    const strideBounce =
-      !simState.isJumping && !simState.isDucking
-        ? Math.abs(Math.sin(songTime * strideHz * Math.PI * 0.5)) * 0.036
-        : 0;
-    dampedHeroY2D = THREE.MathUtils.damp(
-      dampedHeroY2D,
-      simState.heroY + strideBounce,
-      simState.isJumping ? 38 : 28,
-      frameDt,
-    );
-
-    const jumpProgress = simState.isJumping
-      ? simState.jumpElapsed / Math.max(0.1, params.airtime)
-      : 0;
-    const targetTilt = simState.isJumping
-      ? (0.5 - jumpProgress) * 0.22
-      : simState.isDucking
-        ? -0.06
-        : Math.sin(songTime * strideHz * Math.PI * 0.5) * 0.035;
-    heroTiltZ = THREE.MathUtils.damp(heroTiltZ, targetTilt, 22, frameDt);
+    // Direct 1:1 vertical tracking from Chromium offline.js Trex.updateJump
+    dampedHeroY2D = simState.heroY;
 
     // Blink when invulnerable after taking a hit
     const isInvuln = songTime > simState.session.safeUntil && songTime < simState.invulnUntil;
     heroPlane.visible = !isInvuln || Math.floor(songTime * 16) % 2 === 0;
-    heroPlane.scale.set(heroSquashX, heroSquashY, 1);
-    heroPlane.rotation.z = heroTiltZ;
-    heroPlane.position.set(0, HERO_2D_BASE_Y * heroSquashY + dampedHeroY2D, 0.2);
+    heroPlane.scale.set(1, 1, 1);
+    heroPlane.rotation.z = 0;
+    heroPlane.position.set(0, HERO_2D_BASE_Y + dampedHeroY2D, 0.2);
 
     // Scroll pebbles, dunes, & clouds smoothly
     const scrollDist = songTime * params.scrollSpeed2D;
@@ -649,12 +620,15 @@ export function createRunnerGame(): GameModule {
     if (isTransition) {
       dampedCamRow = 0;
     } else {
-      dampedCamRow = THREE.MathUtils.damp(dampedCamRow, simState.cameraRow, 14, frameDt);
+      dampedCamRow = THREE.MathUtils.damp(dampedCamRow, simState.cameraRow, 18, frameDt);
     }
 
-    // 1. Render Lane Grid Rows around dampedCamRow
+    // 1. Render Lane Grid Rows around dampedCamRow and ahead of the dinosaur
     const startRow = Math.max(0, Math.floor(dampedCamRow - 3));
-    const endRow = Math.min(simState.session.rows.length - 1, Math.ceil(dampedCamRow + 13));
+    const endRow = Math.min(
+      simState.session.rows.length - 1,
+      Math.ceil(Math.max(dampedCamRow, simState.visualRow) + 14),
+    );
 
     for (let r = startRow; r <= endRow; r++) {
       const rowData = simState.session.rows[r];
@@ -1013,6 +987,7 @@ export function createRunnerGame(): GameModule {
     enter(songTime: number): void {
       active = true;
       jumpPressed = false;
+      jumpReleased = false;
       jumpHeld = false;
       duckHeld = false;
       pendingHopDir = null;
@@ -1039,11 +1014,12 @@ export function createRunnerGame(): GameModule {
       params = { ...defaultParams, ...(baseLevel.params || {}) };
 
       // The game restarts in 2D phase every time it is entered
+      const normalizedEntry = songTime < 0.2 ? 0 : songTime;
       const session = resolveRunnerSession(
         ctx.map,
         params,
         baseLevel.seed,
-        songTime,
+        normalizedEntry,
         ctx.safeUntil,
         baseLevel.p95LowStrength,
       );
@@ -1080,42 +1056,60 @@ export function createRunnerGame(): GameModule {
 
       simState.session.safeUntil = ctx.safeUntil;
 
-      const input: RunnerSimInput = {};
-      if (ctx.bot) {
-        if (songTime < simState.session.transitionTime) {
-          const act = decidePhase1BotAction(
-            simState.session,
-            params,
-            songTime,
-            simState.isJumping,
-          );
-          if (act === 'jump') input.jump = true;
-          else if (act === 'duck') input.duck = true;
-        } else if (songTime >= simState.session.transitionEndTime && !simState.hopping) {
-          const hop = decidePhase2BotHop(
-            ctx.map,
-            simState.session,
-            simState.gridRow,
-            simState.gridCol,
-            songTime,
-          );
-          if (hop !== 'wait') {
-            input.hopDir = hop;
-          }
-        }
-      } else {
-        if (jumpPressed || (jumpHeld && !simState.isJumping)) {
-          input.jump = true;
-          jumpPressed = false;
-        }
-        input.duck = duckHeld;
-        if (pendingHopDir) {
-          input.hopDir = pendingHopDir;
-          pendingHopDir = null;
-        }
-      }
+      const clampedDt = Math.max(0.001, Math.min(0.06, dt));
+      const fixedStep = 1 / 120;
+      const numSteps = Math.max(1, Math.ceil(clampedDt / fixedStep));
+      const subDt = clampedDt / numSteps;
+      const startStepTime = songTime - clampedDt + subDt;
 
-      stepRunnerSim(simState, Math.min(0.05, dt), songTime, input, (ev) => ctx.emit(ev));
+      for (let s = 0; s < numSteps; s++) {
+        const stepTime = s === numSteps - 1 ? songTime : startStepTime + s * subDt;
+        const input: RunnerSimInput = {};
+
+        if (ctx.bot) {
+          if (stepTime < simState.session.transitionTime) {
+            const act = decidePhase1BotAction(
+              simState.session,
+              params,
+              stepTime,
+              simState.isJumping,
+            );
+            if (act === 'jump') input.jump = true;
+            else if (act === 'duck') input.duck = true;
+          } else if (stepTime >= simState.session.transitionEndTime && !simState.hopping) {
+            const hop = decidePhase2BotHop(
+              ctx.map,
+              simState.session,
+              simState.gridRow,
+              simState.gridCol,
+              stepTime,
+              simState.cameraRow,
+            );
+            if (hop !== 'wait') {
+              input.hopDir = hop;
+            }
+          }
+        } else if (s === 0) {
+          if (jumpPressed || (jumpHeld && !simState.isJumping)) {
+            input.jump = true;
+            jumpPressed = false;
+            jumpReleased = false;
+          }
+          if (jumpReleased) {
+            input.jumpReleased = true;
+            jumpReleased = false;
+          }
+          input.duck = duckHeld;
+          if (pendingHopDir) {
+            input.hopDir = pendingHopDir;
+            pendingHopDir = null;
+          }
+        } else {
+          input.duck = duckHeld;
+        }
+
+        stepRunnerSim(simState, subDt, stepTime, input, (ev) => ctx.emit(ev));
+      }
     },
 
     render(): void {
@@ -1125,7 +1119,7 @@ export function createRunnerGame(): GameModule {
       const H = Math.max(1, window.innerHeight);
       if (renderer.domElement.width !== W || renderer.domElement.height !== H) {
         const aspect = W / H;
-        const orthoHalfH = 5.5;
+        const orthoHalfH = 4.2;
         orthoCam.left = -orthoHalfH * aspect;
         orthoCam.right = orthoHalfH * aspect;
         orthoCam.top = orthoHalfH;
