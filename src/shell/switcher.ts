@@ -188,6 +188,25 @@ export function createShellApp(root: HTMLElement): void {
   const hyperspace = createHyperspaceOverlay(root);
   const results = createResultsScreen(root);
 
+  // Persistent Exit Game button visible across all screens (exits straight to splash screen)
+  const exitGameBtn = document.createElement('button');
+  exitGameBtn.id = 'exit-game-btn';
+  exitGameBtn.dataset.testid = 'exit-game-btn';
+  exitGameBtn.type = 'button';
+  exitGameBtn.tabIndex = -1;
+  exitGameBtn.setAttribute('aria-label', 'Exit Game');
+  exitGameBtn.className =
+    'pointer-events-auto absolute top-5 left-1/2 -translate-x-1/2 z-40 flex cursor-pointer items-center gap-2 rounded-lg border border-slate-700/90 bg-slate-950/88 px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider text-slate-200 shadow-lg transition hover:border-rose-400 hover:bg-rose-950/80 hover:text-rose-200';
+  exitGameBtn.innerHTML = `
+    <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 fill-none stroke-current" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <polyline points="16 17 21 12 16 7" />
+      <line x1="21" y1="12" x2="9" y2="12" />
+    </svg>
+    <span>Exit Game</span>
+  `;
+  root.appendChild(exitGameBtn);
+
   // State variables
   let screen: ScreenState = 'title';
   let songsList: SongIndexEntry[] = [];
@@ -262,8 +281,30 @@ export function createShellApp(root: HTMLElement): void {
     };
   }
 
+  function exitToSplashScreen(): void {
+    try {
+      gameModules[activeGameId]?.exit();
+    } catch {
+      // ignore
+    }
+    ORDER.forEach((gid) => {
+      gameContainers[gid]?.classList.add('hidden');
+    });
+    audio.stop();
+    audio.fx.reset();
+    document.exitPointerLock?.();
+    playPhase = { kind: 'active' };
+    exitGameBtn.blur();
+    setScreen('title');
+  }
+
+  exitGameBtn.addEventListener('click', () => {
+    exitToSplashScreen();
+  });
+
   function setScreen(next: ScreenState): void {
     screen = next;
+    document.body.dataset.state = next === 'play' ? 'playing' : next;
     titleScreen.classList.toggle('hidden', next !== 'title');
     selectScreen.classList.toggle('hidden', next !== 'select');
     loadingScreen.classList.toggle('hidden', next !== 'loading');
@@ -582,7 +623,8 @@ export function createShellApp(root: HTMLElement): void {
         hud.spawnScorePopup(e.points, e.label, pal);
       }
     } else if (e.type === 'lifeLost') {
-      hud.setLives(e.livesLeft, 3);
+      const maxLives = gameId === 'runner' ? 2 : 3;
+      hud.setLives(e.livesLeft, maxLives);
     } else if (e.type === 'metric') {
       playtest.metrics[`${gameId}.${e.key}`] = e.value;
     } else if (e.type === 'death') {
@@ -637,8 +679,9 @@ export function createShellApp(root: HTMLElement): void {
     const ctx = gameContexts[gameId];
     ctx.safeUntil = songTime + RUNWAY;
 
+    const maxLives = gameId === 'runner' ? 2 : 3;
     hud.show();
-    hud.setGameInfo(mod.title, mod.listensTo, 3, 3);
+    hud.setGameInfo(mod.title, mod.listensTo, maxLives, maxLives);
     runway.enter(mod.title, mod.listensTo, mod.controls, songTime);
     mod.enter(songTime);
   }
