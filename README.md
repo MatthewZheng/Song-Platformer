@@ -1,4 +1,4 @@
-# Song Arcade
+# Argon Arcade
 
 **Song Arcade** turns any song into three synchronized music-driven games (`RUNNER`, `HORROR`, `TILES`) that were designed, playtested, critiqued on video, and verified by **Gemini 4 Argon** (`gemini-4-argon`).
 
