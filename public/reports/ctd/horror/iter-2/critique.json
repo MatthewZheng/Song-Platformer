@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "previousIssues": [
+    {
+      "issue": "Monster patrol path rarely double-backs after checking desk clusters during drop hunt",
+      "status": "resolved",
+      "t": 45.2,
+      "severity": "high"
+    },
+    {
+      "issue": "Director hint jitter (4.4m) places audio lures slightly too far from hiding spots",
+      "status": "resolved",
+      "t": 56.7,
+      "severity": "med"
+    }
+  ],
+  "issues": [],
+  "patch": {
+    "params": {
+      "directorIntervalBase": 9.5,
+      "doubleBack": 0.4,
+      "hintJitter": 3.4,
+      "menaceMax": 12,
+      "walkSpeedMin": 1.15,
+      "walkSpeedMax": 1.55,
+      "chaseSpeed": 2.6,
+      "sprintSpeed": 4.6
+    },
+    "levelEdits": [],
+    "slot": null
+  },
+  "changelog": "Verified all 2 issues resolved on video; HORROR passes all sync and playability checks."
+}

@@ -1,0 +1,32 @@
+{
+  "pass": false,
+  "previousIssues": [],
+  "issues": [
+    {
+      "t": 39.6,
+      "severity": "high",
+      "what": "Back-to-back Phase-1 cacti near build climax leave <160ms landing recovery window",
+      "why": "airtime=0.60s and minObstacleGapBuffer=0.16s cause tight consecutive jumps during build"
+    },
+    {
+      "t": 49.2,
+      "severity": "med",
+      "what": "Phase-2 comet pairs cross center lane at 7.0 cols/s during drop transition",
+      "why": "cometSpeedMax=7.0 and scrollRowsPerBeat=1.30 compress safe crossing window on downbeat"
+    }
+  ],
+  "patch": {
+    "params": {
+      "airtime": 0.55,
+      "scrollSpeed2D": 9,
+      "scrollRowsPerBeat": 1.15,
+      "cometSpeedMin": 2.5,
+      "cometSpeedMax": 6,
+      "minObstacleGapBuffer": 0.18,
+      "lavaStreamEnabled": 0
+    },
+    "levelEdits": [],
+    "slot": null
+  },
+  "changelog": "Tightened jump airtime (0.60s -> 0.55s), widened obstacle gap buffer (+20ms), and tuned Phase-2 comet crossing speed to match downbeats."
+}

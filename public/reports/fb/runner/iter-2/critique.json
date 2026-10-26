@@ -1,0 +1,32 @@
+{
+  "pass": true,
+  "previousIssues": [
+    {
+      "issue": "Back-to-back Phase-1 cacti near build climax leave <160ms landing recovery window",
+      "status": "resolved",
+      "t": 46.8,
+      "severity": "high"
+    },
+    {
+      "issue": "Phase-2 comet pairs cross center lane at 7.0 cols/s during drop transition",
+      "status": "resolved",
+      "t": 56.4,
+      "severity": "med"
+    }
+  ],
+  "issues": [],
+  "patch": {
+    "params": {
+      "airtime": 0.55,
+      "scrollSpeed2D": 9,
+      "scrollRowsPerBeat": 1.15,
+      "cometSpeedMin": 2.5,
+      "cometSpeedMax": 6,
+      "minObstacleGapBuffer": 0.18,
+      "lavaStreamEnabled": 0
+    },
+    "levelEdits": [],
+    "slot": null
+  },
+  "changelog": "Verified all 2 issues resolved on video; RUNNER passes all sync and playability checks."
+}

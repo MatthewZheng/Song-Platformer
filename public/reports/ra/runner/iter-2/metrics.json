@@ -1,0 +1,109 @@
+{
+  "iteration": 2,
+  "stage": "final",
+  "score": 0.99,
+  "botSimRuns": 4,
+  "playwrightBotRun": 1,
+  "startedAtSongTime": 0,
+  "endSongTime": 1.767546485260771,
+  "params": {
+    "airtime": 0.56,
+    "scrollSpeed2D": 9,
+    "scrollRowsPerBeat": 1.15,
+    "cometSpeedMin": 2.5,
+    "cometSpeedMax": 6,
+    "minObstacleGapBuffer": 0.18,
+    "lavaStreamEnabled": 0
+  },
+  "metrics": {
+    "clearRate": 1,
+    "livesLost": 0,
+    "alignMsMean": 0,
+    "alignMsMax": 0,
+    "gapViolations": 0,
+    "runwayHazards": 0,
+    "transitionAfterEntry": 15.37,
+    "transitionOnPhrase": 1,
+    "unsafeRows": 0,
+    "trailDamage": 0,
+    "onBeatHopPct": 87
+  },
+  "liveMetrics": {
+    "clearRate": 1,
+    "runner.clearRate": 1,
+    "livesLost": 0,
+    "runner.livesLost": 0,
+    "alignMsMean": 0,
+    "runner.alignMsMean": 0,
+    "alignMsMax": 0,
+    "runner.alignMsMax": 0,
+    "gapViolations": 0,
+    "runner.gapViolations": 0,
+    "runwayHazards": 0,
+    "runner.runwayHazards": 0,
+    "transitionAfterEntry": 15.372,
+    "runner.transitionAfterEntry": 15.372,
+    "transitionOnPhrase": 1,
+    "runner.transitionOnPhrase": 1,
+    "unsafeRows": 0,
+    "runner.unsafeRows": 0,
+    "trailDamage": 0,
+    "runner.trailDamage": 0,
+    "onBeatHopPct": 100,
+    "runner.onBeatHopPct": 100,
+    "avgFps": 51.1,
+    "runner.avgFps": 51.1,
+    "totalScore": 22,
+    "deaths": 0
+  },
+  "criteria": [
+    {
+      "id": "runwayHazards",
+      "label": "No hazards before safeUntil runway",
+      "passed": true,
+      "actual": 0,
+      "target": "=== 0",
+      "marginBonus": 0.02
+    },
+    {
+      "id": "alignMsMean",
+      "label": "Mean obstacle onset alignment <= 25ms",
+      "passed": true,
+      "actual": 0,
+      "target": "<= 25ms",
+      "marginBonus": 0.1
+    },
+    {
+      "id": "gapViolations",
+      "label": "Zero unjumpable obstacle gap violations",
+      "passed": true,
+      "actual": 0,
+      "target": "=== 0",
+      "marginBonus": 0.02
+    },
+    {
+      "id": "clearRate",
+      "label": "Bot survival clear rate >= 0.85",
+      "passed": true,
+      "actual": 1,
+      "target": ">= 0.85",
+      "marginBonus": 0.030000000000000006
+    },
+    {
+      "id": "unsafeRows",
+      "label": "Every Phase-2 row has a safe crossing window",
+      "passed": true,
+      "actual": 0,
+      "target": "=== 0",
+      "marginBonus": 0.02
+    },
+    {
+      "id": "onBeatHopPct",
+      "label": "On-beat hop timing percentage >= 75%",
+      "passed": true,
+      "actual": 87,
+      "target": ">= 75%",
+      "marginBonus": 0.024
+    }
+  ]
+}

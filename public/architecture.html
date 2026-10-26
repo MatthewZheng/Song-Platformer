@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Song Arcade — Render → Watch → Critique → Patch Architecture</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #070910;
+        --panel: rgba(15, 20, 32, 0.92);
+        --border: rgba(148, 163, 184, 0.2);
+        --accent: #38bdf8;
+        --emerald: #34d399;
+        --amber: #f59e0b;
+        --rose: #f43f5e;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 28px 36px;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: radial-gradient(circle at 50% 0%, #111827 0%, #070910 70%);
+        color: #f8fafc;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .subtitle {
+        color: #94a3b8;
+        font-size: 13px;
+        margin-top: 6px;
+      }
+      .nav-links a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 8px 14px;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        border-radius: 6px;
+        margin-left: 8px;
+      }
+      .pipeline-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .stage-card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 18px;
+        cursor: pointer;
+        transition: border-color 0.15s ease, transform 0.15s ease;
+      }
+      .stage-card:hover,
+      .stage-card.active {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+      .stage-num {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .stage-title {
+        font-size: 17px;
+        font-weight: 800;
+        margin: 6px 0 8px;
+      }
+      .stage-desc {
+        font-size: 12.5px;
+        color: #cbd5e1;
+        line-height: 1.5;
+      }
+      .stage-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 12px;
+      }
+      .badge {
+        font-size: 10px;
+        font-family: monospace;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #e2e8f0;
+      }
+      .inspector {
+        margin-top: 24px;
+        background: rgba(9, 13, 22, 0.95);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+      }
+      .inspector-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      pre {
+        margin: 0;
+        padding: 14px;
+        background: #04060b;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        font-size: 12px;
+        line-height: 1.45;
+        color: #a5f3fc;
+        overflow-x: auto;
+        max-height: 360px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Song Arcade — Autonomous Verification Loop Architecture</h1>
+        <div class="subtitle">
+          Gemini 4 Argon SF Hackathon · Render → Watch → Critique → Patch Closed-Loop System
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="/">Play Song Arcade</a>
+        <a href="/loop.html">Live Loop Monitor</a>
+      </div>
+    </header>
+
+    <div class="pipeline-grid" id="pipeline-grid">
+      <div class="stage-card active" data-stage="dsp">
+        <div class="stage-num">Stage 1 · Offline Audio DSP + Argon Semantics</div>
+        <div class="stage-title">Librosa Beat/Onset Grid + gemini-4-argon</div>
+        <div class="stage-desc">
+          Extracts exact beat/downbeat grids, multi-band onset strengths, pitch-class melody direction, and section/drop candidates. Argon labels sections, palettes, and selects the 95-110s demo cut without ever inventing timestamps.
+        </div>
+        <div class="stage-badges">
+          <span class="badge">analysis/analyze.py</span>
+          <span class="badge">scripts/semantic.ts</span>
+          <span class="badge">public/songs/ctd/demo.json</span>
+        </div>
+      </div>
+
+      <div class="stage-card" data-stage="step0">
+        <div class="stage-num">Stage 2 · Step 0 Whole-Song Design</div>
+        <div class="stage-title">gemini-4-argon (1M Context + High Thinking)</div>
+        <div class="stage-desc">
+          Receives the song map, game goals, defaultParams, paramRanges, and GLSL shader slot signature. Produces Draft (Iter 1) parameters and per-song GLSL shader code for RUNNER, HORROR, and TILES.
+        </div>
+        <div class="stage-badges">
+          <span class="badge">thinking_level: "high"</span>
+          <span class="badge">tiles.backgroundShader.glsl</span>
+          <span class="badge">Step 0 Draft</span>
+        </div>
+      </div>
+
+      <div class="stage-card" data-stage="fastcheck">
+        <div class="stage-num">Stage 3 · Deterministic Multi-Entry Fast Check</div>
+        <div class="stage-title">120 Hz Headless Bot Simulation</div>
+        <div class="stage-desc">
+          Runs deterministic 1/120s bot simulations across 4 entry timestamps per iteration (t=0, firstDrop, and 2 seeded offsets). Measures onset alignment, runway safety, gap violations, survival rate, and grid snap %.
+        </div>
+        <div class="stage-badges">
+          <span class="badge">simulate() × 4 entries</span>
+          <span class="badge">14 Bot Runs / Game</span>
+          <span class="badge">metrics.json</span>
+        </div>
+      </div>
+
+      <div class="stage-card" data-stage="playwright">
+        <div class="stage-num">Stage 4 · Render, Record & Synced Audio Mux</div>
+        <div class="stage-title">Playwright WebGL + &amp;overlay=1 + ffmpeg</div>
+        <div class="stage-desc">
+          Drives headless Chromium with <code>?bot=1&amp;overlay=1</code> (song time to 0.01s, beat strobe, hit/miss/life counters). Reads <code>window.__playtest.startedAtSongTime</code> and muxes the exact MP3 slice onto <code>video.mp4</code>.
+        </div>
+        <div class="stage-badges">
+          <span class="badge">1280×720 @ 30fps</span>
+          <span class="badge">&amp;overlay=1 HUD</span>
+          <span class="badge">draft.mp4 / final.mp4</span>
+        </div>
+      </div>
+
+      <div class="stage-card" data-stage="critique">
+        <div class="stage-num">Stage 5 · Multimodal Video Critique</div>
+        <div class="stage-title">gemini-4-argon Chained Interaction Loop</div>
+        <div class="stage-desc">
+          Watches the muxed gameplay video with audio, inspects failing fast-check metrics, chains context via <code>previous_interaction_id</code>, and outputs timestamped issues plus a constrained parameter/level patch.
+        </div>
+        <div class="stage-badges">
+          <span class="badge">previous_interaction_id</span>
+          <span class="badge">critique.json</span>
+          <span class="badge">[✓] Verified Fixes</span>
+        </div>
+      </div>
+
+      <div class="stage-card" data-stage="report">
+        <div class="stage-num">Stage 6 · Patch Validation &amp; Live Proof</div>
+        <div class="stage-title">Side-by-Side Draft vs Final Evidence</div>
+        <div class="stage-desc">
+          Validates parameter bounds, compiles GLSL shaders in headless WebGL, re-runs bot playtests + Argon verification review, and embeds Draft vs Final videos and <code>[✓]</code> verified fixes into the Results screen.
+        </div>
+        <div class="stage-badges">
+          <span class="badge">public/reports/ctd/report.json</span>
+          <span class="badge">42 Bot Runs / Song</span>
+          <span class="badge">7 Argon Reviews / Song</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="inspector">
+      <div class="inspector-header">
+        <strong id="inspector-title">Stage Artifact Inspector — Loading real JSON output...</strong>
+        <span style="font-size: 12px; color: #94a3b8">Click any stage card above to inspect real repo artifacts</span>
+      </div>
+      <pre id="inspector-code">Loading...</pre>
+    </div>
+
+    <script>
+      const stageEndpoints = {
+        dsp: {
+          title: 'Stage 1 Output — /songs/ctd/demo.json (Excerpt)',
+          url: '/songs/ctd/demo.json',
+          transform: (d) => ({
+            id: d.id,
+            title: d.title,
+            bpm: d.bpm,
+            duration: d.duration,
+            demoWindow: d.demoWindow,
+            drops: d.drops,
+            sections: d.sections,
+            beatsCount: (d.beats || []).length,
+          }),
+        },
+        step0: {
+          title: 'Stage 2 Output — /songs/ctd/levels/tiles.json (Params & Level Summary)',
+          url: '/songs/ctd/levels/tiles.json',
+          transform: (d) => ({
+            params: d.params,
+            eighthNoteSec: d.eighthNoteSec,
+            totalNotesGenerated: (d.notes || []).length,
+            firstFiveNotes: (d.notes || []).slice(0, 5),
+          }),
+        },
+        fastcheck: {
+          title: 'Stage 3 Output — /reports/ctd/runner/iter-1/metrics.json',
+          url: '/reports/ctd/runner/iter-1/metrics.json',
+          transform: (d) => d,
+        },
+        playwright: {
+          title: 'Stage 4 Output — /reports/ctd/runner/iter-2/metrics.json (Verified Run)',
+          url: '/reports/ctd/runner/iter-2/metrics.json',
+          transform: (d) => d,
+        },
+        critique: {
+          title: 'Stage 5 Output — /reports/ctd/runner/iter-1/critique.json & iter-2/critique.json',
+          url: '/reports/ctd/runner/iter-2/critique.json',
+          transform: (d) => d,
+        },
+        report: {
+          title: 'Stage 6 Output — /reports/ctd/report.json (Full Song Verification Report)',
+          url: '/reports/ctd/report.json',
+          transform: (d) => d,
+        },
+      };
+
+      async function loadStage(key) {
+        const cfg = stageEndpoints[key];
+        document.getElementById('inspector-title').textContent = cfg.title;
+        try {
+          const res = await fetch(cfg.url);
+          const json = await res.json();
+          document.getElementById('inspector-code').textContent = JSON.stringify(
+            cfg.transform(json),
+            null,
+            2,
+          );
+        } catch (err) {
+          document.getElementById('inspector-code').textContent =
+            'Artifact loading: ' + String(err);
+        }
+      }
+
+      document.querySelectorAll('.stage-card').forEach((card) => {
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.stage-card').forEach((c) => c.classList.remove('active'));
+          card.classList.add('active');
+          loadStage(card.getAttribute('data-stage'));
+        });
+      });
+
+      loadStage('report');
+    </script>
+  </body>
+</html>

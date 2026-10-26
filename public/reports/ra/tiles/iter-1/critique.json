@@ -1,0 +1,29 @@
+{
+  "pass": false,
+  "previousIssues": [],
+  "issues": [
+    {
+      "t": 44.6,
+      "severity": "high",
+      "what": "Rapid 16th-note bursts in high-energy drop reach 7.5 NPS and crowd adjacent lanes",
+      "why": "minStrength=0.20 and npsEnergy=6.0 admit weak transient onsets during drop peak"
+    },
+    {
+      "t": 52,
+      "severity": "med",
+      "what": "Syncopated melody onsets between 30ms and 40ms from 1/16 grid remain unsnapped",
+      "why": "snapWindowMs=30ms misses slightly swung vocal/synth melody attacks"
+    }
+  ],
+  "patch": {
+    "params": {
+      "minStrength": 0.25,
+      "npsBase": 2,
+      "npsEnergy": 5,
+      "snapWindowMs": 40
+    },
+    "levelEdits": [],
+    "slot": null
+  },
+  "changelog": "Widened 1/16-note grid snap window (30ms -> 40ms) and tuned minStrength (0.20 -> 0.25) + NPS cap for clean melody lane flow at 60 FPS."
+}

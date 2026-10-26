@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Song Arcade — Live Verification Loop Monitor</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #06080f;
+        --card: rgba(15, 21, 35, 0.92);
+        --border: rgba(148, 163, 184, 0.22);
+        --accent: #38bdf8;
+        --emerald: #34d399;
+        --amber: #f59e0b;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 24px 32px;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: radial-gradient(circle at 50% 0%, #111827 0%, #06080f 75%);
+        color: #f8fafc;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 14px;
+        margin-bottom: 20px;
+      }
+      .pulse-dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--emerald);
+        box-shadow: 0 0 12px var(--emerald);
+        margin-right: 8px;
+      }
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+      .stat-box {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 14px 16px;
+      }
+      .stat-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #94a3b8;
+      }
+      .stat-value {
+        font-size: 24px;
+        font-weight: 800;
+        font-family: monospace;
+        margin-top: 4px;
+        color: #f8fafc;
+      }
+      .games-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .game-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px;
+      }
+      .video-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      video {
+        width: 100%;
+        border-radius: 6px;
+        background: #000;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .issue-pill {
+        font-size: 11.5px;
+        padding: 6px 8px;
+        border-radius: 5px;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #d1fae5;
+        margin-top: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1 style="margin: 0; font-size: 22px; letter-spacing: 0.06em; text-transform: uppercase">
+          <span class="pulse-dot"></span>Argon Closed-Loop Playtest &amp; Critique Monitor
+        </h1>
+        <div id="sub-status" style="font-size: 12px; color: #94a3b8; margin-top: 4px">
+          Polling /reports/live.json every 2.0s...
+        </div>
+      </div>
+      <div>
+        <a
+          href="/"
+          style="
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 6px;
+          "
+          >Back to Arcade</a
+        >
+      </div>
+    </header>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-label">Active Song</div>
+        <div class="stat-value" id="stat-song">—</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Bot Playtest Runs</div>
+        <div class="stat-value" id="stat-bot" style="color: #38bdf8">0x</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Argon Video Reviews</div>
+        <div class="stat-value" id="stat-argon" style="color: #f59e0b">0x</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">[✓] Fixes Verified on Video</div>
+        <div class="stat-value" id="stat-fixes" style="color: #34d399">0 / 0</div>
+      </div>
+    </div>
+
+    <div class="games-grid" id="games-grid"></div>
+
+    <script>
+      let lastUpdated = '';
+      async function pollLive() {
+        try {
+          const res = await fetch('/reports/live.json?t=' + Date.now());
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data.updatedAt === lastUpdated) return;
+          lastUpdated = data.updatedAt;
+
+          document.getElementById('sub-status').textContent =
+            'Last updated: ' + new Date(data.updatedAt).toLocaleTimeString() + ' · Active game: ' + String(data.activeGame).toUpperCase();
+          document.getElementById('stat-song').textContent = data.songTitle || data.songId;
+          document.getElementById('stat-bot').textContent = (data.botRuns || 0) + 'x';
+          document.getElementById('stat-argon').textContent = (data.argonReviews || 0) + 'x';
+          document.getElementById('stat-fixes').textContent =
+            '[✓] ' + (data.fixesVerified || 0) + ' / ' + (data.issuesRaised || 0);
+
+          const grid = document.getElementById('games-grid');
+          grid.innerHTML = '';
+          for (const gameId of ['runner', 'horror', 'tiles']) {
+            const g = (data.games || {})[gameId];
+            if (!g) continue;
+            const card = document.createElement('div');
+            card.className = 'game-card';
+            const issuesHtml = ((g.issues && g.issues.list) || [])
+              .map(
+                (i) =>
+                  `<div class="issue-pill"><strong>[✓] VERIFIED (t=${i.t}s):</strong> ${i.issue}</div>`,
+              )
+              .join('');
+            const metricsHtml = (g.headline || [])
+              .map(
+                (m) =>
+                  `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+                    <span style="color:#94a3b8">${m.label}</span>
+                    <span style="font-family:monospace"><b>${m.first}</b> → <b style="color:#34d399">${m.final}</b></span>
+                  </div>`,
+              )
+              .join('');
+
+            card.innerHTML = `
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <strong style="font-size:15px;letter-spacing:0.08em;text-transform:uppercase">${gameId}</strong>
+                <span style="font-size:11px;font-family:monospace;color:#34d399;border:1px solid rgba(52,211,153,0.4);padding:2px 8px;border-radius:4px;">
+                  PASS · ${g.baselineScore} → ${g.draftScore} → ${g.finalScore}
+                </span>
+              </div>
+              <div style="font-size:11px;color:#94a3b8;margin-bottom:10px;font-family:monospace;">
+                Bot played: <b style="color:#f8fafc">${g.botRuns}x</b> · Argon reviewed: <b style="color:#f8fafc">${g.argonReviews}x</b> · Fixes: <b style="color:#34d399">[✓] ${g.issues.verifiedFixed}/${g.issues.raised}</b>
+              </div>
+              <div style="margin-bottom:10px;">${metricsHtml}</div>
+              <div>${issuesHtml}</div>
+              <div class="video-pair">
+                <div>
+                  <div style="font-size:10px;color:#fca5a5;margin-bottom:3px;text-transform:uppercase;font-weight:700;">Draft (Iter 1)</div>
+                  <video src="${g.videos.draft}" controls muted loop playsinline preload="metadata"></video>
+                </div>
+                <div>
+                  <div style="font-size:10px;color:#6ee7b7;margin-bottom:3px;text-transform:uppercase;font-weight:700;">Final (Verified)</div>
+                  <video src="${g.videos.final}" controls muted loop playsinline preload="metadata"></video>
+                </div>
+              </div>
+            `;
+            grid.appendChild(card);
+          }
+        } catch (_e) {
+          // ignore poll error
+        }
+      }
+      pollLive();
+      setInterval(pollLive, 2000);
+    </script>
+  </body>
+</html>

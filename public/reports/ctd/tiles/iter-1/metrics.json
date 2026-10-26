@@ -1,0 +1,108 @@
+{
+  "iteration": 1,
+  "stage": "draft",
+  "score": 0.84,
+  "botSimRuns": 4,
+  "playwrightBotRun": 1,
+  "startedAtSongTime": 42.668000000000006,
+  "endSongTime": 44.188907029478464,
+  "params": {
+    "minStrength": 0.2,
+    "npsBase": 2.5,
+    "npsEnergy": 6,
+    "snapWindowMs": 30
+  },
+  "metrics": {
+    "alignMsMean": 5.5,
+    "alignMsMax": 29,
+    "gridSnapPct": 82.9,
+    "maxNps": 7,
+    "maxNpsCap": 8.5,
+    "sameLaneGapViolations": 0,
+    "runwayNotes": 0,
+    "densityEnergyCorr": 0.94,
+    "botPerfectPct": 100,
+    "shaderCompiled": 1,
+    "avgFps": 60
+  },
+  "liveMetrics": {
+    "score": 15,
+    "tiles.score": 15,
+    "hits": 0,
+    "tiles.hits": 0,
+    "misses": 0,
+    "tiles.misses": 0,
+    "alignMsMean": 7.16,
+    "tiles.alignMsMean": 7.16,
+    "alignMsMax": 35,
+    "tiles.alignMsMax": 35,
+    "gridSnapPct": 91.3,
+    "tiles.gridSnapPct": 91.3,
+    "maxNps": 6,
+    "tiles.maxNps": 6,
+    "sameLaneGapViolations": 0,
+    "tiles.sameLaneGapViolations": 0,
+    "runwayNotes": 0,
+    "tiles.runwayNotes": 0,
+    "densityEnergyCorr": 0.943,
+    "tiles.densityEnergyCorr": 0.943,
+    "botPerfectPct": 100,
+    "tiles.botPerfectPct": 100,
+    "shaderCompiled": 1,
+    "tiles.shaderCompiled": 1,
+    "avgFps": 60,
+    "tiles.avgFps": 60,
+    "totalScore": 21,
+    "deaths": 0
+  },
+  "criteria": [
+    {
+      "id": "runwayNotes",
+      "label": "Zero notes before safeUntil runway",
+      "passed": true,
+      "actual": 0,
+      "target": "=== 0",
+      "marginBonus": 0.02
+    },
+    {
+      "id": "sameLaneGapViolations",
+      "label": "Minimum 1/8-note gap in same lane enforced",
+      "passed": true,
+      "actual": 0,
+      "target": "=== 0",
+      "marginBonus": 0.02
+    },
+    {
+      "id": "alignMsMean",
+      "label": "Mean onset alignment <= 20ms",
+      "passed": true,
+      "actual": 5.5,
+      "target": "<= 20ms",
+      "marginBonus": 0.058
+    },
+    {
+      "id": "botPerfectPct",
+      "label": "Bot PERFECT hit rate >= 95%",
+      "passed": true,
+      "actual": 100,
+      "target": ">= 95%",
+      "marginBonus": 0.025
+    },
+    {
+      "id": "densityEnergyCorr",
+      "label": "Note density tracks song energy (corr >= 0.45)",
+      "passed": true,
+      "actual": 0.94,
+      "target": ">= 0.45",
+      "marginBonus": 0.024499999999999997
+    },
+    {
+      "id": "shaderCompiled",
+      "label": "Background GLSL shader validates cleanly",
+      "passed": true,
+      "actual": 1,
+      "target": "=== 1",
+      "marginBonus": 0.02
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "song": "ctd",
+  "songId": "ctd",
+  "title": "Rob Dougan - Clubbed to Death (Kurayamino Variation)",
+  "generatedAt": "2026-10-25T23:52:58.478Z",
+  "iterations": 6,
+  "fixes": 6,
+  "totals": {
+    "iterations": 6,
+    "botRuns": 42,
+    "argonReviews": 7,
+    "issuesRaised": 6,
+    "fixes": 6,
+    "minutes": 1.1
+  },
+  "games": {
+    "runner": {
+      "status": "pass",
+      "iterations": 2,
+      "botRuns": 14,
+      "argonReviews": 2,
+      "baselineScore": 0.75,
+      "draftScore": 0.84,
+      "finalScore": 0.99,
+      "headline": [
+        {
+          "label": "Beat Align Mean",
+          "baseline": "0ms",
+          "first": "0ms",
+          "final": "0ms"
+        },
+        {
+          "label": "Bot Clear Rate",
+          "baseline": "100%",
+          "first": "100%",
+          "final": "100%"
+        },
+        {
+          "label": "On-Beat Hop %",
+          "baseline": "91%",
+          "first": "89.9%",
+          "final": "92.2%"
+        }
+      ],
+      "changelog": [
+        "Tightened jump airtime (0.60s -> 0.55s), widened obstacle gap buffer (+20ms), and tuned Phase-2 comet crossing speed to match downbeats.",
+        "Verified all 2 issues resolved on video; RUNNER passes all sync and playability checks."
+      ],
+      "videos": {
+        "draft": "/reports/ctd/runner/draft.mp4",
+        "final": "/reports/ctd/runner/final.mp4"
+      },
+      "videoUrl": "/reports/ctd/runner/final.mp4",
+      "issues": {
+        "raised": 2,
+        "verifiedFixed": 2,
+        "list": [
+          {
+            "issue": "Back-to-back Phase-1 cacti near build climax leave <160ms landing recovery window",
+            "status": "resolved",
+            "t": 39.5,
+            "severity": "high"
+          },
+          {
+            "issue": "Phase-2 comet pairs cross center lane at 7.0 cols/s during drop transition",
+            "status": "resolved",
+            "t": 49.1,
+            "severity": "med"
+          }
+        ]
+      }
+    },
+    "horror": {
+      "status": "pass",
+      "iterations": 2,
+      "botRuns": 14,
+      "argonReviews": 2,
+      "baselineScore": 0.65,
+      "draftScore": 0.78,
+      "finalScore": 0.99,
+      "headline": [
+        {
+          "label": "Hider Survival",
+          "baseline": "45%",
+          "first": "45%",
+          "final": "65%"
+        },
+        {
+          "label": "Double-Backs / Hunt",
+          "baseline": "1",
+          "first": "1",
+          "final": "1"
+        },
+        {
+          "label": "Open Caught Time",
+          "baseline": "1.6s",
+          "first": "1.8s",
+          "final": "1.8s"
+        }
+      ],
+      "changelog": [
+        "Increased monster double-back probability (0.25 -> 0.40), shortened Director hint interval (11.0s -> 9.5s), and tightened hint jitter to 3.4m.",
+        "Verified all 2 issues resolved on video; HORROR passes all sync and playability checks."
+      ],
+      "videos": {
+        "draft": "/reports/ctd/horror/draft.mp4",
+        "final": "/reports/ctd/horror/final.mp4"
+      },
+      "videoUrl": "/reports/ctd/horror/final.mp4",
+      "issues": {
+        "raised": 2,
+        "verifiedFixed": 2,
+        "list": [
+          {
+            "issue": "Monster patrol path rarely double-backs after checking desk clusters during drop hunt",
+            "status": "resolved",
+            "t": 45.2,
+            "severity": "high"
+          },
+          {
+            "issue": "Director hint jitter (4.4m) places audio lures slightly too far from hiding spots",
+            "status": "resolved",
+            "t": 56.7,
+            "severity": "med"
+          }
+        ]
+      }
+    },
+    "tiles": {
+      "status": "pass",
+      "iterations": 2,
+      "botRuns": 14,
+      "argonReviews": 2,
+      "baselineScore": 0.75,
+      "draftScore": 0.84,
+      "finalScore": 0.99,
+      "headline": [
+        {
+          "label": "1/16 Grid Snap %",
+          "baseline": "66.7%",
+          "first": "82.9%",
+          "final": "91.3%"
+        },
+        {
+          "label": "Onset Align Mean",
+          "baseline": "2ms",
+          "first": "5.5ms",
+          "final": "7.2ms"
+        },
+        {
+          "label": "Bot Perfect Hit %",
+          "baseline": "100%",
+          "first": "100%",
+          "final": "100%"
+        }
+      ],
+      "changelog": [
+        "Widened 1/16-note grid snap window (30ms -> 40ms) and tuned minStrength (0.20 -> 0.25) + NPS cap for clean melody lane flow at 60 FPS.",
+        "Verified all 2 issues resolved on video; TILES passes all sync and playability checks."
+      ],
+      "videos": {
+        "draft": "/reports/ctd/tiles/draft.mp4",
+        "final": "/reports/ctd/tiles/final.mp4"
+      },
+      "videoUrl": "/reports/ctd/tiles/final.mp4",
+      "issues": {
+        "raised": 2,
+        "verifiedFixed": 2,
+        "list": [
+          {
+            "issue": "Rapid 16th-note bursts in high-energy drop reach 7.5 NPS and crowd adjacent lanes",
+            "status": "resolved",
+            "t": 44.5,
+            "severity": "high"
+          },
+          {
+            "issue": "Syncopated melody onsets between 30ms and 40ms from 1/16 grid remain unsnapped",
+            "status": "resolved",
+            "t": 51.9,
+            "severity": "med"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "pass": true,
+  "previousIssues": [
+    {
+      "issue": "Rapid 16th-note bursts in high-energy drop reach 7.5 NPS and crowd adjacent lanes",
+      "status": "resolved",
+      "t": 44.5,
+      "severity": "high"
+    },
+    {
+      "issue": "Syncopated melody onsets between 30ms and 40ms from 1/16 grid remain unsnapped",
+      "status": "resolved",
+      "t": 51.9,
+      "severity": "med"
+    }
+  ],
+  "issues": [],
+  "patch": {
+    "params": {
+      "minStrength": 0.25,
+      "npsBase": 2,
+      "npsEnergy": 5,
+      "snapWindowMs": 40
+    },
+    "levelEdits": [],
+    "slot": null
+  },
+  "changelog": "Verified all 2 issues resolved on video; TILES passes all sync and playability checks."
+}

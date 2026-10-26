@@ -1,0 +1,94 @@
+{
+  "iteration": 1,
+  "stage": "draft",
+  "score": 0.84,
+  "botSimRuns": 4,
+  "playwrightBotRun": 1,
+  "startedAtSongTime": 41.968,
+  "endSongTime": 43.84881632653062,
+  "params": {
+    "directorIntervalBase": 11,
+    "doubleBack": 0.25,
+    "hintJitter": 4.4,
+    "menaceMax": 13,
+    "walkSpeedMin": 1.2,
+    "walkSpeedMax": 1.55,
+    "chaseSpeed": 2.7,
+    "sprintSpeed": 4.4
+  },
+  "metrics": {
+    "reachableSpots": 12,
+    "hiderSurvivalRate": 0.6,
+    "openCaughtTimeMean": 1.8,
+    "doubleBacksPerHunt": 1,
+    "fakeOutsPerHunt": 2.6,
+    "directorHintsPerHunt": 1.6,
+    "maxSilentGap": 3.4,
+    "freeRestartOk": 1,
+    "lightsOffOnTime": 1
+  },
+  "liveMetrics": {
+    "score": 17,
+    "horror.score": 17,
+    "huntsSurvived": 0,
+    "horror.huntsSurvived": 0,
+    "closeCalls": 0,
+    "horror.closeCalls": 0,
+    "doubleBacksPerHunt": 1,
+    "horror.doubleBacksPerHunt": 1,
+    "fakeOutsPerHunt": 1,
+    "horror.fakeOutsPerHunt": 1,
+    "directorHintsPerHunt": 1,
+    "horror.directorHintsPerHunt": 1,
+    "maxSilentGap": 0.96,
+    "horror.maxSilentGap": 0.96,
+    "lightsOffOnTime": 1,
+    "horror.lightsOffOnTime": 1,
+    "avgFps": 60,
+    "horror.avgFps": 60,
+    "totalScore": 22,
+    "deaths": 0
+  },
+  "criteria": [
+    {
+      "id": "reachableSpots",
+      "label": "At least 4 hiding spots reachable before countdown ends",
+      "passed": true,
+      "actual": 12,
+      "target": ">= 4",
+      "marginBonus": 0.03
+    },
+    {
+      "id": "hiderSurvivalRate",
+      "label": "Hider survival rate in [0.55, 0.92]",
+      "passed": true,
+      "actual": 0.6,
+      "target": "0.55..0.92",
+      "marginBonus": 0.02
+    },
+    {
+      "id": "openCaughtTimeMean",
+      "label": "Standing in the open caught within <= 9.5s",
+      "passed": true,
+      "actual": 1.8,
+      "target": "<= 9.5s",
+      "marginBonus": 0.0385
+    },
+    {
+      "id": "doubleBacksPerHunt",
+      "label": "Monster double-backs per hunt >= 0.8",
+      "passed": true,
+      "actual": 1,
+      "target": ">= 0.8",
+      "marginBonus": 0.0019999999999999996
+    },
+    {
+      "id": "lightsOffOnTime",
+      "label": "Lights cut on section/drop cue smoothly",
+      "passed": true,
+      "actual": 1,
+      "target": "=== 1",
+      "marginBonus": 0.02
+    }
+  ]
+}

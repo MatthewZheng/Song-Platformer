@@ -1,0 +1,33 @@
+{
+  "pass": false,
+  "previousIssues": [],
+  "issues": [
+    {
+      "t": 45.3,
+      "severity": "high",
+      "what": "Monster patrol path rarely double-backs after checking desk clusters during drop hunt",
+      "why": "doubleBack=0.25 and directorIntervalBase=11.0s allow predictable single-pass sweeps"
+    },
+    {
+      "t": 56.8,
+      "severity": "med",
+      "what": "Director hint jitter (4.4m) places audio lures slightly too far from hiding spots",
+      "why": "hintJitter=4.4m reduces near-miss tension while hiding under desks"
+    }
+  ],
+  "patch": {
+    "params": {
+      "directorIntervalBase": 9.5,
+      "doubleBack": 0.4,
+      "hintJitter": 3.4,
+      "menaceMax": 12,
+      "walkSpeedMin": 1.15,
+      "walkSpeedMax": 1.55,
+      "chaseSpeed": 2.6,
+      "sprintSpeed": 4.6
+    },
+    "levelEdits": [],
+    "slot": null
+  },
+  "changelog": "Increased monster double-back probability (0.25 -> 0.40), shortened Director hint interval (11.0s -> 9.5s), and tightened hint jitter to 3.4m."
+}

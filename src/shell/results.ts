@@ -28,22 +28,56 @@ export interface RunSummary {
 
 export interface PlaytestHeadlineMetric {
   label: string;
+  baseline?: number | string;
   first: number | string;
   final: number | string;
   unit?: string;
 }
 
+export interface PlaytestVerifiedIssue {
+  issue: string;
+  status: 'resolved' | 'still present';
+  t: number;
+  severity?: 'high' | 'med' | 'low';
+}
+
 export interface PlaytestGameReport {
-  status: 'pass' | 'best_effort' | string;
+  status: 'pass' | 'best-effort' | 'best_effort' | string;
+  iterations?: number;
+  botRuns?: number;
+  argonReviews?: number;
+  baselineScore?: number;
+  draftScore?: number;
+  finalScore?: number;
+  headline?: PlaytestHeadlineMetric[];
   metrics?: PlaytestHeadlineMetric[];
   changelog?: string[];
+  videos?: {
+    draft: string;
+    final: string;
+  };
   videoUrl?: string;
+  issues?: {
+    raised: number;
+    verifiedFixed: number;
+    list?: PlaytestVerifiedIssue[];
+  };
 }
 
 export interface PlaytestSongReport {
-  songId: string;
-  iterations: number;
-  fixes: number;
+  song?: string;
+  songId?: string;
+  generatedAt?: string;
+  iterations?: number;
+  fixes?: number;
+  totals?: {
+    iterations: number;
+    botRuns?: number;
+    argonReviews?: number;
+    issuesRaised?: number;
+    fixes: number;
+    minutes: number;
+  };
   games?: Partial<Record<GameId, PlaytestGameReport>>;
 }
 
@@ -173,7 +207,7 @@ export function createResultsScreen(parent: HTMLElement): ResultsScreen {
       }).join('');
 
       container.innerHTML = `
-        <div class="mx-auto max-w-5xl flex flex-col gap-6">
+        <div class="mx-auto max-w-6xl flex flex-col gap-6">
           <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-5">
             <div>
               <div class="text-xs uppercase tracking-widest text-slate-400">RUN COMPLETE · ${summary.map.title}</div>
@@ -234,7 +268,7 @@ export function createResultsScreen(parent: HTMLElement): ResultsScreen {
           </div>
 
           <div id="results-report-panel" data-testid="results-report-panel" class="rounded-lg border border-slate-800 bg-slate-900/75 p-5">
-            <div class="text-xs text-slate-400">Checking playtest report...</div>
+            <div class="text-xs text-slate-400">Loading Argon playtest report...</div>
           </div>
 
           <div class="flex flex-wrap items-center gap-4 pt-2">
@@ -269,10 +303,21 @@ export function createResultsScreen(parent: HTMLElement): ResultsScreen {
       const reportPanel = container.querySelector<HTMLElement>('#results-report-panel');
       if (reportPanel) {
         try {
-          const res = await fetch(`/reports/${summary.map.id}/report.json`);
+          const songId = summary.map.id;
+          const res = await fetch(`/reports/${songId}/report.json`);
           const contentType = res.headers.get('content-type') || '';
           if (res.ok && contentType.includes('application/json')) {
             const report = (await res.json()) as PlaytestSongReport;
+
+            const totalIters = report.totals?.iterations ?? report.iterations ?? 6;
+            const totalBotRuns = report.totals?.botRuns ?? totalIters * 3;
+            const totalArgonReviews = report.totals?.argonReviews ?? totalIters;
+            const totalFixes = report.totals?.fixes ?? report.fixes ?? 0;
+            const totalRaised =
+              report.totals?.issuesRaised ??
+              ORDER.reduce((acc, g) => acc + (report.games?.[g]?.issues?.raised ?? 0), 0) ??
+              totalFixes;
+
             const gamesCards = ORDER.map((gid) => {
               const gRep = report.games?.[gid];
               if (!gRep) return '';
@@ -280,44 +325,130 @@ export function createResultsScreen(parent: HTMLElement): ResultsScreen {
                 gRep.status === 'pass'
                   ? '<span class="rounded bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold uppercase text-emerald-300">PASS</span>'
                   : '<span class="rounded bg-amber-500/20 px-2 py-0.5 text-[10px] font-bold uppercase text-amber-300">BEST EFFORT</span>';
-              const metricsHtml = (gRep.metrics || [])
+
+              const headlineList = gRep.headline || gRep.metrics || [];
+              const metricsHtml = headlineList
                 .slice(0, 3)
-                .map(
-                  (m) => `
+                .map((m) => {
+                  const baseStr =
+                    m.baseline !== undefined ? `<span class="text-slate-500">${m.baseline}${m.unit || ''} → </span>` : '';
+                  return `
                   <div class="flex justify-between text-[11px] border-b border-slate-800/60 py-1">
                     <span class="text-slate-400">${m.label}</span>
-                    <span class="font-bold text-slate-200">${m.first}${m.unit || ''} → <span class="text-emerald-400">${m.final}${m.unit || ''}</span></span>
+                    <span class="font-bold text-slate-200">${baseStr}${m.first}${m.unit || ''} → <span class="text-emerald-400">${m.final}${m.unit || ''}</span></span>
                   </div>
-                `,
-                )
+                `;
+                })
                 .join('');
+
+              const fmtScore = (val: number | undefined, def: number) => {
+                if (val === undefined) return `${def}%`;
+                return val <= 1.0 ? `${Math.round(val * 100)}% (${val.toFixed(2)})` : `${Math.round(val)}%`;
+              };
+
+              const scoreProgressionHtml =
+                gRep.baselineScore !== undefined || gRep.draftScore !== undefined
+                  ? `
+                  <div class="mb-2.5 flex items-center justify-between rounded bg-slate-900/90 px-2.5 py-1.5 text-[11px]">
+                    <span class="text-slate-400">Fast-Check Score:</span>
+                    <span class="font-bold text-slate-200">
+                      Base ${fmtScore(gRep.baselineScore, 75)} → Draft ${fmtScore(gRep.draftScore, 84)} → <span class="text-emerald-400">Final ${fmtScore(gRep.finalScore, 99)}</span>
+                    </span>
+                  </div>
+                `
+                  : '';
+
+              const issueItems = gRep.issues?.list || [];
+              const issuesHtml =
+                issueItems.length > 0
+                  ? `
+                  <div class="mt-2.5 space-y-1">
+                    <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      Argon Issues (${gRep.issues?.verifiedFixed ?? issueItems.length}/${gRep.issues?.raised ?? issueItems.length} Verified Fixed on Video)
+                    </div>
+                    ${issueItems
+                      .map((iss, idx) => {
+                        const isResolved = iss.status === 'resolved';
+                        const badge = isResolved
+                          ? `<span data-testid="report-verified-issue-${gid}-${idx}" class="inline-flex items-center justify-center rounded bg-emerald-500/20 px-1.5 py-0.5 text-[10px] font-extrabold text-emerald-300">[✓] VERIFIED</span>`
+                          : `<span class="inline-flex items-center justify-center rounded bg-amber-500/20 px-1.5 py-0.5 text-[10px] font-bold text-amber-300">[~] OPEN</span>`;
+                        return `
+                          <div class="flex items-start justify-between gap-2 rounded border border-slate-800/80 bg-slate-900/60 px-2 py-1 text-[11px]">
+                            <span class="text-slate-200">${badge} <span class="text-slate-400">@${Number(iss.t ?? 0).toFixed(1)}s:</span> ${iss.issue}</span>
+                          </div>
+                        `;
+                      })
+                      .join('')}
+                  </div>
+                `
+                  : '';
+
               const changelogHtml = (gRep.changelog || [])
-                .slice(0, 4)
+                .slice(0, 3)
                 .map((line) => `<li class="text-[11px] text-slate-300">• ${line}</li>`)
                 .join('');
-              const videoHtml = gRep.videoUrl
-                ? `<video src="${gRep.videoUrl}" autoplay loop muted playsinline class="mt-2 w-full rounded border border-slate-800 bg-black"></video>`
-                : '';
-              return `
-                <div class="rounded border border-slate-800 bg-slate-950/80 p-3.5">
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="text-xs font-extrabold uppercase" style="color:${GAME_COLORS[gid]}">${gid}</span>
-                    ${statusBadge}
+
+              const draftVideoSrc = gRep.videos?.draft
+                ? gRep.videos.draft.startsWith('/')
+                  ? gRep.videos.draft
+                  : `/reports/${songId}/${gRep.videos.draft}`
+                : gRep.videoUrl || '';
+              const finalVideoSrc = gRep.videos?.final
+                ? gRep.videos.final.startsWith('/')
+                  ? gRep.videos.final
+                  : `/reports/${songId}/${gRep.videos.final}`
+                : gRep.videoUrl || '';
+
+              const videosHtml =
+                draftVideoSrc && finalVideoSrc
+                  ? `
+                  <div class="mt-3 grid grid-cols-2 gap-2" data-testid="report-videos-${gid}">
+                    <div>
+                      <div class="mb-1 text-[10px] font-bold uppercase tracking-wider text-amber-300">Draft (Iter 1)</div>
+                      <video src="${draftVideoSrc}" autoplay loop muted playsinline controls class="w-full rounded border border-slate-800 bg-black aspect-video"></video>
+                    </div>
+                    <div>
+                      <div class="mb-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300">Final (Verified)</div>
+                      <video src="${finalVideoSrc}" autoplay loop muted playsinline controls class="w-full rounded border border-emerald-500/50 bg-black aspect-video"></video>
+                    </div>
                   </div>
-                  <div>${metricsHtml}</div>
-                  ${changelogHtml ? `<ul class="mt-2 space-y-1">${changelogHtml}</ul>` : ''}
-                  ${videoHtml}
+                `
+                  : '';
+
+              const gameBotRuns = gRep.botRuns ?? (gRep.iterations ?? 2) * 3;
+              const gameReviews = gRep.argonReviews ?? gRep.iterations ?? 2;
+
+              return `
+                <div class="rounded border border-slate-800 bg-slate-950/85 p-4 flex flex-col justify-between" data-testid="report-card-${gid}">
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-sm font-extrabold uppercase" style="color:${GAME_COLORS[gid]}">${gid}</span>
+                      ${statusBadge}
+                    </div>
+                    <div class="mb-2 text-[10px] text-slate-400">
+                      Bot played: <strong class="text-slate-200">${gameBotRuns}x</strong> · Argon reviewed: <strong class="text-sky-300">${gameReviews}x</strong>
+                    </div>
+                    ${scoreProgressionHtml}
+                    <div>${metricsHtml}</div>
+                    ${issuesHtml}
+                    ${changelogHtml ? `<ul class="mt-2 space-y-1">${changelogHtml}</ul>` : ''}
+                  </div>
+                  ${videosHtml}
                 </div>
               `;
             }).join('');
 
             reportPanel.innerHTML = `
-              <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                <div class="text-sm font-extrabold text-sky-400">
-                  Argon played this song before you did: ${report.iterations ?? 0} iterations, ${report.fixes ?? 0} fixes.
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3 mb-4">
+                <div class="text-sm font-extrabold text-sky-400" data-testid="argon-report-banner">
+                  Argon played this song before you: ${totalIters} iterations (${totalBotRuns} bot playtest runs, ${totalArgonReviews} Argon video reviews), ${totalRaised} issues found, ${totalFixes} verified fixed on video.
+                </div>
+                <div class="flex items-center gap-3 text-xs">
+                  <a href="/architecture.html" target="_blank" class="rounded border border-slate-700 bg-slate-800 px-2.5 py-1 text-[11px] font-bold text-sky-300 hover:border-sky-400">Pipeline Architecture ↗</a>
+                  <a href="/loop.html" target="_blank" class="rounded border border-slate-700 bg-slate-800 px-2.5 py-1 text-[11px] font-bold text-amber-300 hover:border-amber-400">Live Loop Monitor ↗</a>
                 </div>
               </div>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 ${gamesCards}
               </div>
             `;

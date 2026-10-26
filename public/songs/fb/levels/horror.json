@@ -1,0 +1,69 @@
+{
+  "params": {
+    "directorIntervalBase": 9.5,
+    "doubleBack": 0.4,
+    "hintJitter": 3.4,
+    "menaceMax": 12,
+    "walkSpeedMin": 1.15,
+    "walkSpeedMax": 1.55,
+    "chaseSpeed": 2.6,
+    "sprintSpeed": 4.6
+  },
+  "countdownTargets": [
+    40.24,
+    49.993,
+    73.63,
+    89.35
+  ],
+  "sectionConfigs": [
+    {
+      "sectionIndex": 0,
+      "directorInterval": 8.932,
+      "walkSpeed": 1.407
+    },
+    {
+      "sectionIndex": 1,
+      "directorInterval": 9.648,
+      "walkSpeed": 1.335
+    },
+    {
+      "sectionIndex": 2,
+      "directorInterval": 9.064,
+      "walkSpeed": 1.394
+    },
+    {
+      "sectionIndex": 3,
+      "directorInterval": 9.664,
+      "walkSpeed": 1.334
+    },
+    {
+      "sectionIndex": 4,
+      "directorInterval": 8.972,
+      "walkSpeed": 1.403
+    }
+  ],
+  "enabledSpotIds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "doubleBack": 0.4,
+  "hintJitter": 3.4,
+  "menaceMax": 12
+}

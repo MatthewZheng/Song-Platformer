@@ -160,3 +160,7 @@ buttons to jump to any game or time, audio latency offset slider.
 Commit after each working step.
 Lessons
 When you hit a non-obvious setup or build quirk, add one line here: the quirk and the fix.
+- Headless Chromium WebGL + AudioContext: launch Playwright with `--autoplay-policy=no-user-gesture-required --use-gl=angle --use-angle=swiftshader` and mux audio via `ffmpeg -ss <startedAtSongTime>` so video critiques have synced audio.
+- Three.js 60 FPS in software/laptop WebGL: precompute static level metrics once at `preload()`, use `THREE.InstancedMesh` for falling notes, and write `depthWrite: true` on the tilted highway before the full-screen shader quad (`depthTest: true`) for hardware Early-Z culling.
+- PointerLock in headless/iframe environments: wrap `requestPointerLock()` in try/catch and listen for `pointerlockerror` so horror game entry never blocks or crashes the render loop.
+

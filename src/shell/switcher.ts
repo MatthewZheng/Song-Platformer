@@ -29,6 +29,7 @@ import { DEFAULT_FIXTURE_SONG_MAP } from '../shared/fixtures/defaultSongMap';
 import { createPaletteSource } from '../shared/palette';
 import { drawPixelText } from '../shared/pixel';
 import { createRng, hashString } from '../shared/rng';
+import { beatPhase, nearestDownbeat, sectionAt } from '../shared/songmap';
 import { createRunnerGame } from '../games/runner';
 import { createHorrorGame } from '../games/horror';
 import { createTilesGame } from '../games/tiles';
@@ -49,8 +50,12 @@ export interface PlaytestState {
   ready: boolean;
   startedAtSongTime: number;
   songTime: number;
+  activeGame?: GameId;
+  phase?: string;
   metrics: Record<string, number>;
   events: Array<GameEvent & { t: number; game: GameId }>;
+  forceDeath?: () => void;
+  finishRun?: () => void;
 }
 
 declare global {
@@ -92,6 +97,8 @@ export function createShellApp(root: HTMLElement): void {
   const paramGame = urlParams.get('game') as GameId | null;
   const paramEntrySec = Number(urlParams.get('t') ?? '0') || 0;
   const paramBot = urlParams.get('bot') === '1' || urlParams.get('bot') === 'true';
+  const paramOverlay = urlParams.get('overlay') === '1' || urlParams.get('overlay') === 'true';
+  const paramDev = urlParams.get('dev') === '1' || !import.meta.env.PROD;
   const paramSeed = urlParams.get('seed') ? Number(urlParams.get('seed')) : null;
   const hasAutoStartParams = Boolean(paramGame || paramBot || urlParams.get('autostart') === '1');
 
@@ -225,7 +232,39 @@ export function createShellApp(root: HTMLElement): void {
     <span class="rounded bg-amber-400/20 px-1 py-0.5 text-[10px] text-amber-300">DEV</span>
     <span>Next Game →</span>
   `;
+  if (!paramDev) {
+    skipGameBtn.classList.add('hidden');
+  }
   topBarWrap.appendChild(skipGameBtn);
+
+  // Debug Overlay for ?overlay=1 (Playtest video verification HUD)
+  const debugOverlayEl = document.createElement('div');
+  debugOverlayEl.id = 'debug-overlay';
+  debugOverlayEl.dataset.testid = 'debug-overlay';
+  debugOverlayEl.className =
+    'pointer-events-none absolute bottom-5 right-5 z-40 hidden rounded-lg border-2 border-sky-400/80 bg-slate-950/92 px-4 py-2.5 font-mono text-xs text-slate-100 shadow-2xl';
+  debugOverlayEl.innerHTML = `
+    <div class="flex items-center gap-3">
+      <div id="debug-beat-light" data-testid="debug-beat-light" class="h-4 w-4 rounded-full border border-amber-300 bg-slate-800 transition-transform duration-75"></div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span id="debug-overlay-time" data-testid="debug-overlay-time" class="text-sm font-black text-amber-300 tabular-nums">0.00s</span>
+          <span id="debug-overlay-section" data-testid="debug-overlay-section" class="rounded bg-sky-500/20 px-1.5 py-0.5 text-[10px] font-bold uppercase text-sky-300">INTRO</span>
+        </div>
+        <div id="debug-overlay-stats" data-testid="debug-overlay-stats" class="mt-1 text-[11px] text-slate-300 tabular-nums">
+          HITS: 0 · MISS: 0 · LOST LIVES: 0
+        </div>
+      </div>
+    </div>
+  `;
+  root.appendChild(debugOverlayEl);
+  const debugBeatLightEl = debugOverlayEl.querySelector<HTMLElement>('#debug-beat-light')!;
+  const debugTimeEl = debugOverlayEl.querySelector<HTMLElement>('#debug-overlay-time')!;
+  const debugSectionEl = debugOverlayEl.querySelector<HTMLElement>('#debug-overlay-section')!;
+  const debugStatsEl = debugOverlayEl.querySelector<HTMLElement>('#debug-overlay-stats')!;
+  let overlayHits = 0;
+  let overlayMisses = 0;
+  let overlayLivesLost = 0;
 
   // State variables
   let screen: ScreenState = 'title';
@@ -355,6 +394,10 @@ export function createShellApp(root: HTMLElement): void {
       hud.hide();
       runway.hide();
       hyperspace.hide();
+      debugOverlayEl.classList.add('hidden');
+      document.exitPointerLock?.();
+    } else if (paramOverlay) {
+      debugOverlayEl.classList.remove('hidden');
     }
     if (next !== 'results') {
       results.hide();
@@ -657,13 +700,19 @@ export function createShellApp(root: HTMLElement): void {
         perGameStats[gameId].totalTimedActions += 1;
         if (e.onBeat) {
           perGameStats[gameId].onBeatActions += 1;
+          overlayHits += 1;
+        } else {
+          overlayMisses += 1;
         }
+      } else if (e.points > 0) {
+        overlayHits += 1;
       }
       if (currentMap) {
         const pal = (currentPaletteSource ?? createPaletteSource(currentMap)).at(now);
         hud.spawnScorePopup(e.points, e.label, pal);
       }
     } else if (e.type === 'lifeLost') {
+      overlayLivesLost += 1;
       const maxLives = gameId === 'runner' ? 2 : gameId === 'tiles' ? 5 : 3;
       hud.setLives(e.livesLeft, maxLives);
     } else if (e.type === 'metric') {
@@ -791,11 +840,23 @@ export function createShellApp(root: HTMLElement): void {
     await audio.loadAndStart(map, entrySec);
     const startSongTime = audio.clock.now();
 
+    overlayHits = 0;
+    overlayMisses = 0;
+    overlayLivesLost = 0;
     playtest.ready = true;
     playtest.startedAtSongTime = startSongTime;
     playtest.songTime = startSongTime;
     playtest.metrics = {};
     playtest.events = [];
+    playtest.forceDeath = () => {
+      if (playPhase.kind === 'active') {
+        audio.fx.reset();
+        triggerDeathAndJump(activeGameId, audio.clock.now());
+      }
+    };
+    playtest.finishRun = () => {
+      finishRunAndShowResults();
+    };
 
     playPhase = { kind: 'active' };
     setScreen('play');
@@ -890,13 +951,13 @@ export function createShellApp(root: HTMLElement): void {
 
   // Global keyboard & pointer listeners
   window.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.code === 'Backquote' || e.key === '`') {
+    if ((e.code === 'Backquote' || e.key === '`') && paramDev) {
       e.preventDefault();
       devPanel.toggle();
       return;
     }
 
-    if (e.code === 'KeyN' && screen === 'play') {
+    if (e.code === 'KeyN' && screen === 'play' && paramDev) {
       e.preventDefault();
       skipToNextGame();
       return;
@@ -983,6 +1044,8 @@ export function createShellApp(root: HTMLElement): void {
 
           // Update playtest state every frame
           playtest.songTime = songTime;
+          playtest.activeGame = activeGameId;
+          playtest.phase = playPhase.kind;
           const activeMetrics = gameModules[activeGameId].getMetrics();
           Object.entries(activeMetrics).forEach(([k, v]) => {
             playtest.metrics[k] = v;
@@ -990,6 +1053,32 @@ export function createShellApp(root: HTMLElement): void {
           });
           playtest.metrics.totalScore = Math.round(totalScore);
           playtest.metrics.deaths = totalDeaths;
+
+          if (paramOverlay) {
+            debugTimeEl.textContent = `${songTime.toFixed(2)}s`;
+            const sec = sectionAt(currentMap, songTime);
+            debugSectionEl.textContent = sec.label.toUpperCase();
+            const bPh = beatPhase(currentMap, songTime);
+            const isBeatFlash = bPh < 0.22;
+            const isDownbeatFlash =
+              isBeatFlash && Math.abs(songTime - nearestDownbeat(currentMap, songTime)) < 0.09;
+            if (isDownbeatFlash) {
+              debugBeatLightEl.style.backgroundColor = '#f59e0b';
+              debugBeatLightEl.style.transform = 'scale(1.55)';
+              debugBeatLightEl.style.boxShadow = '0 0 12px #f59e0b';
+            } else if (isBeatFlash) {
+              debugBeatLightEl.style.backgroundColor = '#38bdf8';
+              debugBeatLightEl.style.transform = 'scale(1.2)';
+              debugBeatLightEl.style.boxShadow = '0 0 8px #38bdf8';
+            } else {
+              debugBeatLightEl.style.backgroundColor = '#1e293b';
+              debugBeatLightEl.style.transform = 'scale(1)';
+              debugBeatLightEl.style.boxShadow = 'none';
+            }
+            const mHits = Number(activeMetrics.hits ?? overlayHits);
+            const mMiss = Number(activeMetrics.misses ?? overlayMisses);
+            debugStatsEl.textContent = `HITS: ${mHits} · MISS: ${mMiss} · LOST LIVES: ${overlayLivesLost}`;
+          }
 
           if (playPhase.kind === 'active') {
             // Survival points: 10 points per second
